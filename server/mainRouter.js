@@ -27,6 +27,10 @@ app.get('/', (req, res) => {
 // 로그인 라우터 설정
  const loginRouter = require('./loginRouter');
  app.use('/user/login', loginRouter);
+ 
+// 검색  라우터
+ const searchFoodsByIngredient = require('./searchFoodsByIngredient');
+ app.use('/ingredients/searchFoodsByIngredient', searchFoodsByIngredient);
 
 // 서버 시작
 app.listen(port, () => {

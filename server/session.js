@@ -1,11 +1,7 @@
-// 초기 설정
-const express = require("express")// 익스프레스 사용할거야!
-const session = require("express-session")
-const routes = express.Router()
+const session = require('express-session');
 
-//세션 설정하기
-routes.get("/setSession",(req,res)=>{
-    req.session.name = "kws";
-    res.redirect("/")
-})
-module.exports=routes;
+module.exports = session({
+  secret: 'Hexacore6!!', // 세션을 암호화하는 데 사용할 키
+  resave: false,             // 세션을 강제로 저장할지 여부
+  saveUninitialized: false   // 초기화되지 않은 세션을 저장소에 저장할지 여부
+});
