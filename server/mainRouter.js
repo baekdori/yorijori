@@ -21,15 +21,15 @@ app.get('/', (req, res) => {
 
 
 // 회원가입 라우터 설정
- const joinRouter = require('./joinRouter'); 
+ const joinRouter = require('./routes/joinRouter'); 
  app.use('/user/join', joinRouter);   // /user/join 경로의 모든 요청은 joinRouter 라우터로 전달됨
 
 // 로그인 라우터 설정
- const loginRouter = require('./loginRouter');
- app.use('/user/login', loginRouter);
+//  const loginRouter = require('./routes/loginRouter');
+//  app.use('/user/login', loginRouter);
  
 // 검색  라우터
- const searchFoodsByIngredient = require('./searchFoodsByIngredient');
+ const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
  app.use('/ingredients/searchFoodsByIngredient', searchFoodsByIngredient);
 
 // 서버 시작

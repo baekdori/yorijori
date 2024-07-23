@@ -1,5 +1,5 @@
-// DB와 연결정보 관리하는 공간
-const mysql = require("mysql2");
+/** DB 연결 코드 */
+const mysql = require('mysql2');
 
 // DB 연결정보를 설정
 const conn = mysql.createConnection({
@@ -7,11 +7,15 @@ const conn = mysql.createConnection({
     port : 3307,
     user : "Insa5_JSB_hacksim_1",
     password : "aischool1",
-    datebase : "Insa5_JSB_hacksim_1"
+    database : "Insa5_JSB_hacksim_1"
 });
 
-// 연결 진행
-conn.connect();
-console.log("DB연결");
-
+conn.connect((err) => {
+  if (err) {
+    console.error('연결 실패: ', err.stack);
+    return;
+  }
+  // 연결 진행
+  console.log('연결 성공');
+});
 module.exports = conn;

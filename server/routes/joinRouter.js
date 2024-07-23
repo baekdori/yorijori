@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const user = require('../model/users');
+const user = require('../model/user');
 
 // 회원가입 페이지 렌더링
 router.get('/', (req, res) => {
