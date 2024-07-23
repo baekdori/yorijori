@@ -5,7 +5,7 @@ const conn = require("./db");
 const user = {
     // 모든 사용자 정보 조회
     getAll: (callback) =>{
-    conn.query("SELECT * FROM user", callback);   // 쿼리 실행 후, callback 함수를 실행하여 sql문 결과 불러옴
+    conn.query("SELECT * FROM Users", callback);   // 쿼리 실행 후, callback 함수를 실행하여 sql문 결과 불러옴
     },
 
     // 특정 사용자 정보 조회 (예시 : ID로 조회)
