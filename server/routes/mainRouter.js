@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require('path'); 
 const session = require('../session');
 const port = 4000;  // 4000포트 오픈
 const cors = require("cors");

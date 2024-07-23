@@ -7,7 +7,7 @@ const conn = mysql.createConnection({
     port : 3307,
     user : "Insa5_JSB_hacksim_1",
     password : "aischool1",
-    datebase : "Insa5_JSB_hacksim_1"
+    database : "Insa5_JSB_hacksim_1"
 });
 
 // 연결 진행
