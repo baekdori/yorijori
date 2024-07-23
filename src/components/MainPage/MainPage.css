@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'BM JUA_TTF', sans-serif;
+  }
+  
+  .main-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  .food-pic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 410px;
+    background-color: #EFEFEF;
+    transform: translate(-50%, -50%);
+  }
+  
+  .recipe-text {
+    position: absolute;
+    top: 136px;
+    left: 855px;
+    font-size: 40px;
+    color: #434343;
+    letter-spacing: -0.05em;
+    font-family: 'BM JUA_TTF', sans-serif;
+  }
+  
+  .select-btn-container {
+    position: absolute;
+    top: 191px;
+    left: 706px;
+    width: 520px;
+    height: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transform: translate(-50%, -50%);
+  }
+  
+  .left-container, .right-container {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .searching-input {
+    width: 200px;
+    height: 80px;
+    border-radius: 40px;
+    border: 4px solid #434343;
+  }
+  
+  .tiktok {
+    width: 2px;
+    height: 100px;
+    background-color: #434343;
+  }
+  
+  .recom-container {
+    position: absolute;
+    top: 454px;
+    left: 50%;
+    width: 500px;
+    height: 100px;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  
+  .recom-text {
+    font-size: 36px;
+    color: #434343;
+    letter-spacing: -0.05em;
+    font-family: 'BM JUA_TTF', sans-serif;
+  }
+  
+  .recom-subtext {
+    font-size: 16px;
+    color: #434343;
+    letter-spacing: -0.05em;
+    font-family: 'Pretendard', sans-serif;
+  }
+  
+  .food-result-top-container, .food-result-bottom-container {
+    position: absolute;
+    width: 800px;
+    height: 270px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .food-result-top-container {
+    top: 604px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .food-result-bottom-container {
+    top: 914px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .fr {
+    width: 270px;
+    height: 270px;
+    border-radius: 50px;
+    background-color: #EFEFEF;
+    cursor: pointer;
+  }
