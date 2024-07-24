@@ -45,6 +45,10 @@ app.use('/user/login', LoginRouter);   // login이라는 db에 router 연결
 const pcRouter = require('./routes/pcRouter')
 app.use('/foods/postcreat',pcRouter);
 
+// 게시글 보기 라우터
+const psRouter = require('./routes/psRouter')
+app.use('foods/postsee',psRouter);
+
 // 서버 시작
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

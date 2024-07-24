@@ -18,7 +18,16 @@ const foods = {
         conn.query(sql, [food_name, food_desc, food_video, food_recipe, food_mood, ingre_img], callback);
     },
 
-    // 2. 게시글 보기 API
+     // 2. 게시글 보기 API
+     postsee: (food_idx, callback) => {
+        // SQL 쿼리 문자열: Foods 테이블에서 특정 food_idx의 행을 선택
+        const sql = `SELECT * FROM Foods WHERE food_idx = ?`;
+
+        // 데이터베이스에 쿼리를 실행하여 값을 조회
+        // 두 번째 매개변수는 쿼리의 ?에 대체될 값
+        // 콜백 함수는 쿼리 실행 결과를 처리
+        conn.query(sql, [food_idx], callback);
+    },
     // 3. 게시글 관리 API
     // 4. 게시글 삭제 API
 };
