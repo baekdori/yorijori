@@ -29,11 +29,13 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
-const SignupRouter = require('./routes/SignupRouter'); // 회원가입 라우터 모듈 로드
-app.use('/user/signup', SignupRouter);  // 회원가입 라우터 설정
+// 회원가입 라우터
+const SignupRouter = require('./routes/SignupRouter');
+app.use('/user/signup', SignupRouter);
 
-const LoginRouter = require('./routes/LoginRouter');  // 로그인 라우터 모듈 로드
-app.use('/user/login', LoginRouter);  // 로그인 라우터 설정
+// 로그인 라우터
+const LoginRouter = require('./routes/LoginRouter'); 
+app.use('/user/login', LoginRouter);
 
 // 검색  라우터
  const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
