@@ -78,7 +78,6 @@ body {
   box-shadow: none;
   outline: none;
   font-size: 36px;
-  
 }
 
 .searching-input-text {
@@ -93,16 +92,30 @@ body {
   font-family: 'Pretendard', sans-serif;
 }
 
-.search-tag {
+.search-tags-container {
   position: absolute;
-  bottom: -20px;
-  left: -160px;
-  width: 100%;
-  text-align: center;
-  font-size: 28px;
+  top:140px;
+  width : 520px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  gap : 10px;
+}
+
+.search-tag {
+  position: relative;
+
+  font-size: 18px;
   letter-spacing: -0.1em;
   color: #434343;
+  display:flex;
   font-family: 'Pretendard', sans-serif;
+  margin-right: 10px; /* 모든 태그의 오른쪽에 일정 간격 추가 */
+}
+
+.remove-tag {
+  margin-left: 5px; /* 삭제 버튼과 태그 텍스트 간의 간격 조정 */
+  cursor: pointer;
 }
 
 .searching-plate {

@@ -4,7 +4,7 @@ import './MainPage.css';
 const MainPage = () => {
   const [isKeywordSearch, setIsKeywordSearch] = useState(false);
   const leftContainerRef = useRef(null);
-  const [searchTag, setSearchTag] = useState('# 키워드'); // 새로운 상태 추가
+  const [searchTags, setSearchTags] = useState([]); // 검색 태그를 배열로 저장
   const searchingInputRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
 
@@ -37,17 +37,25 @@ const MainPage = () => {
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
-  }
+  };
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter'){
+    if (event.key === 'Enter') {
       event.preventDefault(); // 엔터 키를 눌렀을 때 실행할 동작
-      console.log(`엔터 키 입력됨 : ${inputValue}`); 
-      setSearchTag(`# ${inputValue}`); // 상태 업데이트 후 search-tag에 반영되게 함
+      if (inputValue.trim()) {
+        setSearchTags(prevTags => [...prevTags, { text: `# ${inputValue.trim()}` }]); // 태그 배열 업데이트
+        setInputValue('');
+      }
+      console.log(`엔터 키 입력됨 : ${inputValue}`);
       setIsKeywordSearch(true);
     }
   };
 
+  const removeTag = (index) => {
+    setSearchTags(tags => tags.filter((_, i) => i !== index)); // 특정 인덱스의 태그 제거
+  };
+
+ 
   return (
     <div className="main-page">
       <div className="recipe-text"
@@ -75,11 +83,24 @@ const MainPage = () => {
             <div className="searching-input-text">키워드 검색</div>
           )}
         </div>
-        <div className="search-tag" style={{
-            opacity: isKeywordSearch ? 1 : 0,
-            transition: 'opacity 0.3s ease'
+        <div className="search-tags-container" style={{
           }}>
-          {searchTag} {/* 동적으로 업데이트되는 검색 태그 */}
+          {searchTags.map((tag, index) => (
+            <div className="search-tag" key={index} style={{
+              display: 'inline-block',
+              }}>
+              {tag.text}
+              <span 
+                className="remove-tag"
+                style={{
+                  marginLeft: '10px', // 제거 버튼과 태그 사이에 간격 추가
+                }}
+                onClick={() => removeTag(index)}
+              >
+                ×
+              </span>
+            </div>
+          ))}
         </div>
       </div>
       
