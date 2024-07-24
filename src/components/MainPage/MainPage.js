@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './MainPage.css';
 
 const MainPage = () => {
   const [isKeywordSearch, setIsKeywordSearch] = useState(false);
+  const leftContainerRef = useRef(null);
+  const searchingInputRef = useRef(null);
+  const [inputValue, setInputValue] = useState('');
 
   const keywordSearching = () => {
     console.log("키워드 검색 실행!");
     setIsKeywordSearch(true);
-    // 키워드 검색 관련 로직을 여기에 추가
+    if (leftContainerRef.current && searchingInputRef.current) {
+      leftContainerRef.current.classList.add('expand');
+      searchingInputRef.current.classList.add('expand-width');
+    }
   };
 
   const visualSearching = () => {
     console.log("비주얼 검색 실행!");
-    // 비주얼 검색 관련 로직을 여기에 추가
+    setIsKeywordSearch(false);
+    if (leftContainerRef.current && searchingInputRef.current) {
+      leftContainerRef.current.classList.remove('expand');
+      searchingInputRef.current.classList.remove('expand-width');
+    }
   };
 
   const handleClick = () => {
@@ -24,26 +34,53 @@ const MainPage = () => {
     }
   };
 
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  }
+
   return (
     <div className="main-page">
-      <div className="recipe-text">레시피 찾아보기</div>
+      <div className="recipe-text"
+        style={{
+          textAlign: 'center',
+          position: 'absolute',
+          left: isKeywordSearch ? '50%' : 'auto',
+          transform: isKeywordSearch ? 'translateX(-50%)' : 'none',
+          width: '100%',
+        }}>{isKeywordSearch ? '키워드 검색' : '레시피 찾아보기'}</div>
       <div className="select-btn-container">
-        <div className="left-container" onClick={keywordSearching}>
-          <div className="searching-input">
+        <div className="left-container" onClick={keywordSearching} ref={leftContainerRef}>
+          <div 
+            className="searching-input"
+            ref={searchingInputRef}
+          >{isKeywordSearch ? (
+            <input
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder=""
+            />
+          ) : (
             <div className="searching-input-text">키워드 검색</div>
-          </div>
+          )}
         </div>
-        {!isKeywordSearch && (
-          <>
-            <div className="tiktok"></div>
-            <div className="right-container" onClick={visualSearching}>
-              <div className="searching-plate">
-                <div className="searching-plate-text">비주얼 검색</div>
-              </div>
-            </div>
-          </>
-        )}
+        <div className="search-tag"  style={{
+            opacity: isKeywordSearch ? 1 : 0,
+            transition: 'opacity 0.3s ease'
+          }}># 키워드</div>
       </div>
+      
+      {!isKeywordSearch && (
+        <>
+          <div className="tiktok"></div>
+          <div className="right-container" onClick={visualSearching}>
+            <div className="searching-plate">
+              <div className="searching-plate-text">비주얼 검색</div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
       <div className="food-pic"></div>
       {!isKeywordSearch && (
         <>
