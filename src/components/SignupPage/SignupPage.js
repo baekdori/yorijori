@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DivWrapper } from "../static/components/DivWrapper";
-import { XnixLineStar } from "../static/components/XnixLineStar";
-import { XnixLineSearch4 } from "../static/icons/XnixLineSearch4";
-import { XnixLineStar10 } from "../static/icons/XnixLineStar10";
-import './SignupPage.css';
+import { XnixLineSearch4 } from '../static/icons/XnixLineSearch4'; // 상대 경로가 올바른지 확인
+import './SignupPage.css'; // 기존 CSS 파일 가져오기
 import axios from 'axios';
 
 const SignupPage = () => {
@@ -56,8 +53,8 @@ const SignupPage = () => {
 
   return (
     <div className="screen">
-      <div className="overlap-wrapper">
 
+      <div className="overlap-wrapper">
         {/* 맨위에 올라가는 로고와 알림, 돋보기, 더보기칸 아이콘 */}
         <div className="group-wrapper">
           <div className="group-6">
@@ -65,10 +62,10 @@ const SignupPage = () => {
               <div className="component">
                 <XnixLineSearch4 className="xnix-line-search" color="#434343" />
                 <img
-                className="xnix-line"
-                alt="Xnix line"
-                src="/static/img/xnix-line-notification-12-1.png"
-              />
+                  className="xnix-line"
+                  alt="Xnix line"
+                  src="/static/img/xnix-line-notification-12-1.png"
+                />
                 <img
                   className="xnix-line-hamburger"
                   alt="Xnix line hamburger"
@@ -83,35 +80,88 @@ const SignupPage = () => {
 
 
 
-
-
         <h1>회 원 가 입</h1>
         <form onSubmit={handleSubmit}>
           <div className="group">
+
             <div className="view">
-              <label htmlFor="username" className="div">아이디 입력</label>
-              <input type="text" id="username" name="user_id" value={formData.username} onChange={handleChange} required />
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="아이디 입력"
+                value={formData.username}
+                onChange={handleChange}
+                required
+                className="input-field"
+              />
             </div>
+
             <div className="view-2">
-              <label htmlFor="password" className="text-wrapper-2">비밀번호 입력</label>
-              <input type="password" id="password" name="user_pw" value={formData.password} onChange={handleChange} required />
+              <input
+                type="password"
+                id="password"
+                name="user_pw"
+                placeholder="비밀번호 입력"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="input-field"
+              />
             </div>
+
             <div className="view-3">
-              <label htmlFor="confirmPassword" className="text-wrapper-2">비밀번호 입력 확인</label>
-              <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="비밀번호 입력 확인"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+                className="input-field"
+              />
             </div>
+
             <div className="view-4">
-              <label htmlFor="fullName" className="text-wrapper-2">회원 이름 입력</label>
-              <input type="text" id="fullName" name="user_name" value={formData.fullName} onChange={handleChange} required />
+              <input
+                type="text"
+                id="fullName"
+                name="user_name"
+                placeholder="회원 이름 입력"
+                value={formData.fullName}
+                onChange={handleChange}
+                required
+                className="input-field"
+              />
             </div>
+
             <div className="view-5">
-              <label htmlFor="nickname" className="text-wrapper-2">사용할 닉네임 입력</label>
-              <input type="text" id="nickname" name="user_nick" value={formData.nickname} onChange={handleChange} required />
+              <input
+                type="text"
+                id="nickname"
+                name="user_nick"
+                placeholder="사용할 닉네임 입력"
+                value={formData.nickname}
+                onChange={handleChange}
+                required
+                className="input-field"
+              />
             </div>
+
             <div className="view-6">
-              <label htmlFor="phone" className="text-wrapper-2">핸드폰 번호 입력</label>
-              <input type="text" id="phone" name="user_phone" value={formData.phone} onChange={handleChange} required />
+              <input
+                type="text"
+                id="phone"
+                name="user_phone"
+                placeholder="핸드폰 번호 입력"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                className="input-field"
+              />
             </div>
+
             <div className="view-7">
               <label className="text-wrapper-2">성별 선택</label>
               <label>
@@ -121,14 +171,24 @@ const SignupPage = () => {
                 <input type="radio" name="user_gender" value="female" checked={formData.gender === 'female'} onChange={handleChange} required /> 여성
               </label>
             </div>
+
             <div className="view-8">
-              <label htmlFor="email" className="text-wrapper-2">이메일 입력 (선택)</label>
-              <input type="email" id="email" name="user_email" value={formData.email} onChange={handleChange} />
+              <input
+                type="text"
+                id="phone"
+                name="user_email"
+                placeholder="이메일 입력(선택)"
+                value={formData.email}
+                onChange={handleChange}
+                className="input-field"
+              />
             </div>
+
             <div className="group-2">
-              <button type="button" onClick={handleCancel} className="view-7">취소</button>
-              <button type="submit" className="view-8">회원가입</button>
+              <button type="button" onClick={handleCancel} className="view-9">취소</button>
+              <button type="submit" className="view-10">회원가입</button>
             </div>
+
           </div>
         </form>
       </div>
