@@ -4,6 +4,7 @@ import './MainPage.css';
 const MainPage = () => {
   const [isKeywordSearch, setIsKeywordSearch] = useState(false);
   const leftContainerRef = useRef(null);
+  const [searchTag, setSearchTag] = useState('# 키워드'); // 새로운 상태 추가
   const searchingInputRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
 
@@ -38,6 +39,15 @@ const MainPage = () => {
     setInputValue(event.target.value);
   }
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter'){
+      event.preventDefault(); // 엔터 키를 눌렀을 때 실행할 동작
+      console.log(`엔터 키 입력됨 : ${inputValue}`); 
+      setSearchTag(`# ${inputValue}`); // 상태 업데이트 후 search-tag에 반영되게 함
+      setIsKeywordSearch(true);
+    }
+  };
+
   return (
     <div className="main-page">
       <div className="recipe-text"
@@ -58,16 +68,19 @@ const MainPage = () => {
               type="text"
               value={inputValue}
               onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
               placeholder=""
             />
           ) : (
             <div className="searching-input-text">키워드 검색</div>
           )}
         </div>
-        <div className="search-tag"  style={{
+        <div className="search-tag" style={{
             opacity: isKeywordSearch ? 1 : 0,
             transition: 'opacity 0.3s ease'
-          }}># 키워드</div>
+          }}>
+          {searchTag} {/* 동적으로 업데이트되는 검색 태그 */}
+        </div>
       </div>
       
       {!isKeywordSearch && (
