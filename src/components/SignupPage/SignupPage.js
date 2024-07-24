@@ -64,14 +64,18 @@ const SignupPage = () => {
             <div className="overlap-group-2">
               <div className="component">
                 <XnixLineSearch4 className="xnix-line-search" color="#434343" />
-                <img className="xnix-line" alt="Xnix line" src="/img/xnix-line-notification-12-1.svg" />
+                <img
+                className="xnix-line"
+                alt="Xnix line"
+                src="/static/img/xnix-line-notification-12-1.png"
+              />
                 <img
                   className="xnix-line-hamburger"
                   alt="Xnix line hamburger"
-                  src="/img/xnix-line-hamburger-4-1.svg"
+                  src="/static/img/xnix-line-hamburger-4-1.png"
                 />
               </div>
-              <img className="logo-s" alt="Logo s" src="/static/img/logo-s.png"/>
+              <img className="logo-s" alt="Logo s" src="/static/img/logo-s.png" />
             </div>
           </div>
         </div>
