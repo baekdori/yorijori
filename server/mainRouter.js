@@ -41,6 +41,10 @@ app.use('/user/login', LoginRouter);
  const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
  app.use('/ingredients/searchFoodsByIngredient', searchFoodsByIngredient);
 
+ // 게시글 작성 라우터
+const pcRouter = require('./routes/pcRouter')
+app.use('/foods/postcreat',pcRouter);
+
 // 서버 시작
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
