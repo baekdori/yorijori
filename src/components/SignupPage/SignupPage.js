@@ -71,7 +71,7 @@ const SignupPage = () => {
                   src="/img/xnix-line-hamburger-4-1.svg"
                 />
               </div>
-              <img className="logo-s" alt="Logo s" src="/static/img/logo-s.png" />
+              <img className="logo-s" alt="Logo s" src="/static/img/logo-s.png"/>
             </div>
           </div>
         </div>
