@@ -31,7 +31,7 @@ const SignupPage = () => {
   // };
   // 해당코드를 밑의 코드로 대체함 (DB에 정보를 저장하고 POST 요청 보내기 위함)
 
-  // 서버로 POST 요청 보내기
+  // 서버로 POST 요청 보내기 (React 컴포넌트 작성)
   const handleSubmit = async (e) => {   // 비동기 작업 사용(async, await)
     e.preventDefault();  // 폼이 제출될 때 페이지가 리로드 되는 기본동작 방지
 
