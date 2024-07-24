@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignupPage.css';
+import axios from 'axios';
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const SignupPage = () => {
     email: ''
   });
 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -31,38 +33,29 @@ const SignupPage = () => {
   // };
   // 해당코드를 밑의 코드로 대체함 (DB에 정보를 저장하고 POST 요청 보내기 위함)
 
+
   // 서버로 POST 요청 보내기 (React 컴포넌트 작성)
   const handleSubmit = async (e) => {   // 비동기 작업 사용(async, await)
     e.preventDefault();  // 폼이 제출될 때 페이지가 리로드 되는 기본동작 방지
 
     // 비밀번호 확인
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!');
+      alert('비밀번호 일치하지 않음');
       return;   // 일치하지 않을 경우 함수 실행 중단
     }  
 
     // 서버로 데이터 전송
     try {
-      const response = await fetch('/user/Signup', {  // fetch API를 사용하여 'Signup'에 Post요청 보내기
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      // 서버 응답 처리
-      const data = await response.json();  // 서버의 응답을 JSON 형태로 파싱
-      if (response.ok) {
-        alert('회원가입 완료');
-        navigate('/login');  // 응답이 성공적인 경우, 성공메세지를 보여주고 로그인페이지로 이동
-        // react-router-dom 사용하여 경로 수정 예정-(하은)
+      const response = await axios.post("http://localhost:4000/src/SignupPage", formData);  // axios를 사용하여 POST 요청을 보냅니다
+      if (response.status === 200) {
+        alert('Signup successful!');
+        navigate('/login'); // 응답이 성공적인 경우, 성공메세지를 보여주고 로그인페이지로 이동
       } else {
-        alert('회원가입 실패');  // 응답이 실패한 경우, 오류메세지 표시
+        alert('회원가입 실패');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('회원가입 도중 오류 발생');  // 네트워크 오류 등의 예외상황을 catch 블록에서 처리하여 오류메세지 표시
+      alert('회원가입 도중 오류 발생');   // 네트워크 오류 등의 예외상황을 catch 블록에서 처리하여 오류메세지 표시
     }
   };
 

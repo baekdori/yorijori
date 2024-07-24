@@ -7,11 +7,6 @@ const user = require('./model/user');
 router.post('/', (req, res) => {
     // 회원가입 창에서 입력받은 데이터를 추출
     const { user_id, user_pw, user_name, user_nick, user_gender, user_phone, user_email } = req.body;
-    
-    // 비밀번호 일치하는지 확인
-    if (user_pw !== check_pw) {
-        return res.status(400).json({ message: '비밀번호가 일치하지 않습니다.' });  // 오류 400번(클라이언트 요청 잘못됨)
-    }
 
     // 사용자 정보 객체 생성
     const userInfo = { user_id, user_pw, user_name, user_nick, user_gender, user_phone, user_email };

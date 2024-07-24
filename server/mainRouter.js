@@ -4,11 +4,6 @@ const session = require('./session');
 const port = 4000;  // 4000포트 오픈
 const cors = require("cors");
 
-// 회원가입 라우터 모듈 로드
-const SignupRouter = require('./routes/SignupRouter'); 
-// 로그인 라우터 모듈 로드
-const LoginRouter = require('./routes/LoginRouter');
-
 const app = express();
 
 // CORS(Cross-Origin Resource Sharing) 설정
@@ -26,10 +21,12 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// 회원가입 라우터 설정
-app.use('/api/signup', SignupRouter);   // API 엔드포인트 설정
-// 로그인 라우터 설정
-app.use('/api/login', LoginRouter);   // API 엔드포인트 설정
+
+const SignupRouter = require('./routes/SignupRouter'); // 회원가입 라우터 모듈 로드
+app.use('/user/signup', SignupRouter);  // 회원가입 라우터 설정
+
+const LoginRouter = require('./routes/LoginRouter');  // 로그인 라우터 모듈 로드
+app.use('/user/login', LoginRouter);  // 로그인 라우터 설정
 
 // 정적 파일 제공 설정
 app.use(express.static(path.join(__dirname, '../build')));
