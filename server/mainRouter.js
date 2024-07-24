@@ -21,13 +21,6 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-
-const SignupRouter = require('./routes/SignupRouter'); // 회원가입 라우터 모듈 로드
-app.use('/user/signup', SignupRouter);  // 회원가입 라우터 설정
-
-const LoginRouter = require('./routes/LoginRouter');  // 로그인 라우터 모듈 로드
-app.use('/user/login', LoginRouter);  // 로그인 라우터 설정
-
 // 정적 파일 제공 설정
 app.use(express.static(path.join(__dirname, '../build')));
 
@@ -36,10 +29,21 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
+// 회원가입 라우터
+const SignupRouter = require('./routes/SignupRouter');
+app.use('/user/signup', SignupRouter);  // signup이라는 db에 router 연결
+
+// 로그인 라우터
+const LoginRouter = require('./routes/LoginRouter'); 
+app.use('/user/login', LoginRouter);   // login이라는 db에 router 연결
 
 // 검색  라우터
- const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
- app.use('/ingredients/searchFoodsByIngredient', searchFoodsByIngredient);
+const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
+app.use('/ingredients/searchFoodsByIngredient', searchFoodsByIngredient);
+
+// 게시글 작성 라우터
+const pcRouter = require('./routes/pcRouter')
+app.use('/foods/postcreat',pcRouter);
 
 // 서버 시작
 app.listen(port, () => {
