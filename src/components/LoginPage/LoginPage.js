@@ -1,6 +1,7 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // npm install axios 필요
+import React, { useState } from 'react';
+
 
 
 
