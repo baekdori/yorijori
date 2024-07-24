@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const user = require('./model/user');
+const user = require('./model/user');  // 사용자 모델 불러오기
 
 const bcrypt = require('bcrypt');  // npm install bcrypt 설치 필요
 const saltRounds = 10; // 비밀번호 해싱을 위한 솔트 라운드 수 (해싱 알고리즘의 복잡성 결정)
@@ -8,7 +8,7 @@ const saltRounds = 10; // 비밀번호 해싱을 위한 솔트 라운드 수 (�
 
 
 // 회원가입 요청을 처리하고 사용자 정보를 DB에 저장
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     // 회원가입 창에서 입력받은 데이터를 추출
     const { user_id, user_pw, user_name, user_nick, user_gender, user_phone, user_email } = req.body;
 

@@ -23,8 +23,8 @@ const user = {
         conn.query(sql, [user_id, user_pw, user_name, user_nick, user_gender, user_phone, user_email], callback);
     },
 
-    // 사용자 이름으로 조회
-    // findByUsername 메서드 추가 : 회원가입,로그인 라우터에서 중복 체크할 때 사용
+     // 사용자 이름으로 조회
+     // findByUsername 메서드 추가 : 회원가입,로그인 라우터에서 중복 체크할 때 사용
     findByUsername: (username) => {
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM Users WHERE user_id = ?";
