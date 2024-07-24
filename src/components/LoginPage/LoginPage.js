@@ -1,15 +1,19 @@
 import React from 'react';
-import { DivWrapper } from '../../components/DivWrapper';
-import { XnixLineStar } from '../../components/XnixLineStar';
-import { XnixLineSearch4 } from '../../icons/XnixLineSearch4';
-import { XnixLineStar10 } from '../../icons/XnixLineStar10';
-import './LoginPage.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    // 로그인 로직을 추가하세요
+    navigate('/main'); // 로그인 성공 시 메인 페이지로 이동
+  };
+
   return (
     <div>
-      <h1>LoginPage</h1>
-      {/* 필요한 컴포넌트 사용 */}
+      <h1>Login Page</h1>
+      <button onClick={handleLogin}>로그인</button>
+      <Link to="/signup">회원가입</Link>
     </div>
   );
 };

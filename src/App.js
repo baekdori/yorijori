@@ -1,16 +1,21 @@
-import React from 'react'; // 일단 gpt가 넣어서 넣어놨는데 문제시 삭제예정
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import MainPage from './components/MainPage/MainPage';
-import SignupPage from './components/SignupPage/SignupPage';  // SignupPage 컴포넌트 import
+import SignupPage from './components/SignupPage/SignupPage';
 import LoginPage from './components/LoginPage/LoginPage';
 
 function App() {
   return (
-    <div className="App">
-      <MainPage />
-      <SignupPage />  {/* SignupPage 컴포넌트 사용 */}
-      <LoginPage /> {/* LoginPage 컴포넌트 사용 */}
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/main" element={<MainPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
