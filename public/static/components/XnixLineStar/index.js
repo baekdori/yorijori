@@ -1,1 +1,0 @@
-export { XnixLineStar } from "./XnixLineStar";
