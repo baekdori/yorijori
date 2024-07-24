@@ -41,11 +41,11 @@ app.use('/user/login', LoginRouter);   // login이라는 db에 router 연결
 const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
 app.use('/ingredients/searchFoodsByIngredient', searchFoodsByIngredient);
 
-// 게시글 작성 라우터
+// 게시글 작성 라우터(우석)
 const pcRouter = require('./routes/pcRouter')
 app.use('/foods/postcreat',pcRouter);
 
-// 게시글 보기 라우터
+// 게시글 보기 라우터(우석)
 const psRouter = require('./routes/psRouter')
 app.use('foods/postsee',psRouter);
 
