@@ -31,7 +31,7 @@ app.get('*', (req, res) => {
 
 // 회원가입 라우터
 const SignupRouter = require('./routes/SignupRouter');
-app.use('/user/signup', SignupRouter);
+app.use('/user/signup', SignupRouter);  // signup이라는 db에 router 연결
 
 // 로그인 라우터
 const LoginRouter = require('./routes/LoginRouter'); 

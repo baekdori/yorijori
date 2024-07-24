@@ -46,9 +46,9 @@ const SignupPage = () => {
 
     // 서버로 데이터 전송
     try {
-      const response = await axios.post("http://localhost:4000/user/login", formData);  // axios를 사용하여 POST요청을 보냅니다
+      const response = await axios.post("http://localhost:4000/user/signup", formData);  // axios를 사용하여 POST요청을 보냅니다
       if (response.status === 200) {
-        alert('Signup successful!');
+        alert('회원가입 성공');
         navigate('/login'); // 응답이 성공적인 경우, 성공메세지를 보여주고 로그인페이지로 이동
       } else {
         alert('회원가입 실패');
