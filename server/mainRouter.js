@@ -35,7 +35,7 @@ app.use('/user/signup', SignupRouter);  // signup이라는 db에 router 연결
 
 // 로그인 라우터
 const LoginRouter = require('./routes/LoginRouter'); 
-app.use('/user/login', LoginRouter);
+app.use('/user/login', LoginRouter);   // login이라는 db에 router 연결
 
 // 검색  라우터
  const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
