@@ -21,13 +21,6 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-
-const SignupRouter = require('./routes/SignupRouter'); // 회원가입 라우터 모듈 로드
-app.use('/user/signup', SignupRouter);  // 회원가입 라우터 설정
-
-const LoginRouter = require('./routes/LoginRouter');  // 로그인 라우터 모듈 로드
-app.use('/user/login', LoginRouter);  // 로그인 라우터 설정
-
 // 정적 파일 제공 설정
 app.use(express.static(path.join(__dirname, '../build')));
 
@@ -36,6 +29,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
+const SignupRouter = require('./routes/SignupRouter'); // 회원가입 라우터 모듈 로드
+app.use('/user/signup', SignupRouter);  // 회원가입 라우터 설정
+
+const LoginRouter = require('./routes/LoginRouter');  // 로그인 라우터 모듈 로드
+app.use('/user/login', LoginRouter);  // 로그인 라우터 설정
 
 // 검색  라우터
  const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
