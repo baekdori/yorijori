@@ -10,9 +10,10 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+          {/* 라우팅 설정 */}
           <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </div>
     </Router>

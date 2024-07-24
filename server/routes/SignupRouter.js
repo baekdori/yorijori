@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
-const user = require('../model/user');
+const user = require('./model/user');
 
 
 // 회원가입 요청을 처리하고 사용자 정보를 DB에 저장

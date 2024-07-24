@@ -43,7 +43,7 @@ const SignupPage = () => {
 
     // 서버로 데이터 전송
     try {
-      const response = await fetch('/user/join', {  // fetch API를 사용하여 'join'에 Post요청 보내기
+      const response = await fetch('/user/Signup', {  // fetch API를 사용하여 'Signup'에 Post요청 보내기
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
