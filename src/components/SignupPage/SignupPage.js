@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate 훅을 사용합니다.
+import { useNavigate } from 'react-router-dom';
 import './SignupPage.css';
 
 const SignupPage = () => {
-  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 객체를 가져옵니다.
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -27,7 +27,7 @@ const SignupPage = () => {
     e.preventDefault();
     // 서버로 POST 요청 보내기
     console.log('Form data submitted:', formData);
-    navigate('/'); // 회원가입 후 로그인 페이지로 이동
+    navigate('/login'); // 회원가입 후 로그인 페이지로 이동
   };
 
   const handleCancel = () => {
