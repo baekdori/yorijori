@@ -12,25 +12,30 @@ router.post('/', async (req, res) => {
     const { user_id, user_pw } = req.body;   // 사용자의 아이디, 비밀번호 추출
 
     try {
+        console.log('로그인 시도:', { user_id, user_pw });
+
         // 사용자 아이디 조회
         const foundUser = await user.findByUsername(user_id);
 
         if (!foundUser) {
+            console.log('사용자를 찾을 수 없습니다:', user_id);
             return res.status(400).json({ message: '사용자를 찾을 수 없습니다.' });
         } // 사용자가 db에 존재하지 않는 경우, 400 코드와 오류메세지 반환
 
         // 비밀번호 확인
         const isMatch = await bcrypt.compare(user_pw, foundUser.user_pw); // 입력된 비밀번호와 db에 저장된 해시된 비밀번호 비교
         if (!isMatch) {
+            console.log('비밀번호 불일치:', user_id);
             return res.status(400).json({ message: '비밀번호가 일치하지 않습니다.' });
         } // 일치하지 않는 경우, 오류메세지 반환
 
         // 인증 성공시
+        console.log('로그인 성공:', user_id);
         res.json({ message: '로그인 성공', user: foundUser });  // 성공 메세지와 함께 사용자 정보 반환
     
       // 서버 오류 처리
     } catch (err) {
-        console.error(err);
+        console.error('서버 오류 발생:', err);
         res.status(500).json({ message: '서버 오류가 발생했습니다.' });
     }
 });
