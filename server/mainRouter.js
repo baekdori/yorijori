@@ -47,15 +47,15 @@ app.use('/foods/postcreat',pcRouter);
 
 // 게시글 보기 라우터(우석)
 const psRouter = require('./routes/psRouter')
-app.use('foods/postsee',psRouter);
+app.use('/foods/postsee',psRouter);
 
 // 게시글 수정 라우터(우석)
 const pmRouter = require('./routes/pmRouter')
-app.use('foods/postmodify',pmRouter);
+app.use('/foods/postmodify',pmRouter);
 
 // 게시글 삭제 라우터(우석)
 const pdRouter = require('./routes/pmRouter')
-app.use('food/postdelete',pdRouter);
+app.use('/food/postdelete',pdRouter);
 
 // 서버 시작
 app.listen(port, () => {

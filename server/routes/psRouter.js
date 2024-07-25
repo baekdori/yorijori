@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const foods = require('../models/foods'); // foods 모델을 불러옴
+const foods = require('../model/foods'); // foods 모델을 불러옴
 
 // 게시글 상세 조회 API
 router.get('/', (req, res) => {
