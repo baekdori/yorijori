@@ -1,20 +1,22 @@
 import React, { useState, useRef } from 'react';
+import axios from 'axios'; // Make sure to install axios if not already
 import './MainPage.css';
 
 const MainPage = () => {
   const [isKeywordSearch, setIsKeywordSearch] = useState(false);
   const [showSearchResult, setShowSearchResult] = useState(false);
-  const leftContainerRef = useRef(null);
   const [searchTags, setSearchTags] = useState([]);
-  const searchingInputRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const leftContainerRef = useRef(null);
+  const searchingInputRef = useRef(null);
 
   const keywordSearching = () => {
     setIsKeywordSearch(true);
     if (leftContainerRef.current && searchingInputRef.current) {
       leftContainerRef.current.classList.add('expand');
       searchingInputRef.current.classList.add('expand-width');
-      console.log("키워드 검색 시작");
+      console.log("키워드 검색 시작")
     }
   };
 
@@ -24,7 +26,7 @@ const MainPage = () => {
     if (leftContainerRef.current && searchingInputRef.current) {
       leftContainerRef.current.classList.remove('expand');
       searchingInputRef.current.classList.remove('expand-width');
-      console.log("비주얼 검색 시작");
+      console.log("비주얼 검색 시작")
     }
     setSearchTags([]);
   };
@@ -41,7 +43,7 @@ const MainPage = () => {
     setInputValue(event.target.value);
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       if (inputValue.trim()) {
@@ -49,6 +51,16 @@ const MainPage = () => {
         setInputValue('');
       }
       setIsKeywordSearch(true);
+
+      // Fetch search results
+      const ingredients = searchTags.map(tag => tag.text);
+      try {
+        const response = await axios.post('/api/search', { ingredients });
+        setSearchResults(response.data);
+        setShowSearchResult(true);
+      } catch (error) {
+        console.error("검색 결과 가져오기 실패!", error);
+      }
     }
   };
 
@@ -68,6 +80,7 @@ const MainPage = () => {
     setSearchTags([]);
     setInputValue('');
     setShowSearchResult(false);
+    setSearchResults([]);
   };
 
   return (
@@ -152,9 +165,19 @@ const MainPage = () => {
 
       {showSearchResult && (
         <div className="search-result-container">
-          <div className="result-square-1">
-            <div className="result-square-text">음식 이름</div>
-          </div>
+          {searchResults.map((result, index) => (
+            <div
+              className="result-square"
+              key={index}
+              style={{
+                left: `${(index % 3) * 220}px`,
+                top: `${Math.floor(index / 3) * 80}px`,
+              }}
+            >
+              <div className="result-square-text">{result.food_name}</div>
+              <div className="result-square-idx">{result.food_idx}</div>
+            </div>
+          ))}
         </div>
       )}
     </div>
