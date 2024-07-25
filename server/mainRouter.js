@@ -36,7 +36,7 @@ const MypageRouter = require('./routes/MypageRouter');
 app.use('/user/mypage', MypageRouter);   // MypageRouter와 mypage 화면 연결
 console.log('마이페이지 라우터 연결됨: /user/mypage');
 
-// 검색  라우터
+// 검색  라우터(지훈)
 const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
 app.use('/foods/search', searchFoodsByIngredient);
 
@@ -63,6 +63,12 @@ app.use('/comts/comtsdelete',cdRouter);
 // 댓글 수정 라우터(우석)
 const cmRouter = require('./routes/cmRouter')
 app.use('/comts/comtsmodify',cmRouter);
+
+
+// 추천 라우터(지훈)
+const recommendRouter = require('./routes/recommend'); 
+app.use('/random-food-idx', recommendRouter);
+
 
 // 서버 시작
 app.listen(port, () => {
