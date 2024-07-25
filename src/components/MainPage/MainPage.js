@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios'; // Make sure to install axios if not already
 import './MainPage.css';
+import TopBar from '../TopBar/TopBar.js';
 
 const MainPage = () => {
   const [isKeywordSearch, setIsKeywordSearch] = useState(false);
@@ -84,8 +85,8 @@ const MainPage = () => {
   };
 
   return (
-    
     <div className="main-page">
+       <TopBar />
       <div className="recipe-text"
         style={{
           textAlign: 'center',
