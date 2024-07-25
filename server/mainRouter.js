@@ -62,7 +62,15 @@ app.use('/foods/postmodify',pmRouter);
 
 // 게시글 삭제 라우터(우석)
 const pdRouter = require('./routes/pmRouter')
-app.use('/food/postdelete',pdRouter);
+app.use('/foods/postdelete',pdRouter);
+
+// 댓글 삭제 라우터(우석)
+const cdRouter = require('./routes/cdRouter')
+app.use('/comments/commentsdelete',cdRouter);
+
+// 댓글 수정 라우터(우석)
+const cmRouter = require('./routes/cmRouter')
+app.use('/comments/commentsdelete',cmRouter);
 
 // 서버 시작
 app.listen(port, () => {
