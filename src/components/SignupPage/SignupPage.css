@@ -62,12 +62,51 @@
   gap: 10px;
 }
 
-.view-9, .view-10 {
-  background-color: #ff8000;
-  color: white;
-  border: none;
+.view-9 {
+  background-color: #BDBDBD;
   border-radius: 30px;
-  padding: 10px 20px;
+  height: 60px; /* 고정 높이 */
+  width: 80vw; /* 뷰포트 너비의 80% */
+  max-width: 550px; /* 최대 너비 */
+  display: flex;
+  align-items: center;
+  padding: 0 15px; /* 좌우 패딩 */
+  box-sizing: border-box;
+  margin-bottom: 15px; /* 각 요소 사이의 간격 */
   cursor: pointer;
-  font-size: 16px; /* 고정 폰트 크기 */
 }
+
+.view-10 {
+  background-color: #ff8000;
+  border-radius: 30px;
+  height: 60px; /* 고정 높이 */
+  width: 80vw; /* 뷰포트 너비의 80% */
+  max-width: 550px; /* 최대 너비 */
+  display: flex;
+  align-items: center;
+  padding: 0 15px; /* 좌우 패딩 */
+  box-sizing: border-box;
+  margin-bottom: 15px; /* 각 요소 사이의 간격 */
+  cursor: pointer;
+}
+
+.group-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.view-10,
+.view-9 {
+  margin: 5px 0; /* 위아래 간격 조절 */
+}
+
+.logo-s {
+  width: 120px;  /* 종모양 아이콘과 비슷한 크기 */
+  height: 100px; /* 종모양 아이콘과 비슷한 크기 */
+}
+
+
+
+
+

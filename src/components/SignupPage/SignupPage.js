@@ -185,8 +185,8 @@ const SignupPage = () => {
             </div>
 
             <div className="group-2">
-              <button type="button" onClick={handleCancel} className="view-9">취소</button>
               <button type="submit" className="view-10">회원가입</button>
+              <button type="button" onClick={handleCancel} className="view-9">취소</button>
             </div>
 
           </div>
