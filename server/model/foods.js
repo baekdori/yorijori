@@ -3,7 +3,7 @@ const conn = require("./db"); // 데이터베이스 연결 모듈을 불러옴
 // 게시글 관련 모델 설정
 const foods = {
     // 1. 게시글 등록 API
-    postcreat: (postcreat, callback) => {
+    postcreat: (postcreat, collback) => {
         // SQL 쿼리 문자열: Foods 테이블에 새로운 행을 삽입
         // food_idx는 AUTO_INCREMENT 컬럼이므로 명시하지 않음
         const sql = `INSERT INTO Foods(food_name, food_desc, food_video, food_recipe, food_mood, ingre_img, foods_time)
@@ -15,26 +15,32 @@ const foods = {
         // 데이터베이스에 쿼리를 실행하여 값을 삽입
         // 두 번째 매개변수는 쿼리의 ?에 대체될 값들의 배열
         // 콜백 함수는 쿼리 실행 결과를 처리
-        conn.query(sql, [food_name, food_desc, food_video, food_recipe, food_mood, ingre_img], callback);
+        conn.query(sql, [food_name, food_desc, food_video, food_recipe, food_mood, ingre_img], collback);
     },
 
      // 2. 게시글 보기 API
-    postsee: (food_idx, callback) => {
+    postsee: (food_idx, collback) => {
         // SQL 쿼리 문자열: Foods 테이블에서 특정 food_idx의 행을 선택
         const sql = `SELECT * FROM Foods WHERE food_idx = ?`;
 
         // 데이터베이스에 쿼리를 실행하여 값을 조회
         // 두 번째 매개변수는 쿼리의 ?에 대체될 값
         // 콜백 함수는 쿼리 실행 결과를 처리
-        conn.query(sql, [food_idx], callback);
+        conn.query(sql, [food_idx], collback);
     },
+    
     // 3. 게시글 수정 API
-    postmodify:(food_idx,callback)=>{
-
+    postmodify: (food_idx, updatedPost, collback) => {
+        const sql = `UPDATE Foods SET food_name = ?, food_desc = ?, food_video = ?, food_recipe = ?, food_mood = ?, ingre_img = ?
+                     WHERE food_idx = ?`;
+        const { food_name, food_desc, food_video, food_recipe, food_mood, ingre_img } = updatedPost;
+        conn.query(sql, [food_name, food_desc, food_video, food_recipe, food_mood, ingre_img, food_idx], collback);
     },
-    // 4. 게시글 삭제 API
-    postdelete:(food_idx,callback)=>{
 
+    // 4. 게시글 삭제 API
+    postdelete: (food_idx, collback) => {
+        const sql = `DELETE FROM Foods WHERE food_idx = ?`;
+        conn.query(sql, [food_idx], collback);
     },
 
     findMatchingFoods: (ingredients, callback) => {
