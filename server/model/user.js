@@ -72,7 +72,28 @@ const user = {
                 }
             });
         });
+    },
+
+    // 사용자 정보를 DB에서 업데이트
+    // update 메서드 추가 : 사용자 정보 수정에 사용
+    update: (userId, updateInfo, callback) => {
+        // sql 쿼리 문자열 정의 : 사용자 아이디를 기준으로 닉네임, 핸드폰 번호, 이메일을 업데이트
+        const sql = `UPDATE Users SET user_nick = ?, user_phone = ?, user_email = ? WHERE user_id = ?`;
+        const { user_nick, user_phone, user_email } = updateInfo;
+        console.log(`SQL 실행: ${sql}, 파라미터:`, updateInfo);
+        
+        // 데이터베이스에 쿼리 실행
+        conn.query(sql, [user_nick, user_phone, user_email, userId], (err, results) => {
+            if (err) {
+                console.error('update 에러:', err); 
+            } else {
+                console.log('update 결과:', results);
+            }
+            // 쿼리 실행 후, 콜백 함수 호출하여 에러와 결과 전달
+            callback(err, results);
+        });
     }
+
 };
 
 
