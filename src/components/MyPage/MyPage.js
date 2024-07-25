@@ -3,6 +3,7 @@ import axios from 'axios';
 import './MyPage.css';
 
 const MyPage = () => {
+  // 사용자 데이터 상태와 수정가능여부 관리하는 상태를 정의
   const [userData, setUserData] = useState({
     user_nick: '',
     user_phone: '',
@@ -10,37 +11,47 @@ const MyPage = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
 
+  // 컴포넌트가 처음 렌더링 될 때 사용자 정보 불러오기
   useEffect(() => {
-    // Fetch user data when the component mounts
-    axios.get('/api/user/profile') // Adjust the endpoint as necessary
+    axios.get('/api/user/profile')  // 백엔드 서버에서 사용자의 프로필 데이터 가져오는 요청
       .then(response => {
         setUserData(response.data);
+        console.log('사용자 정보 불러오기 성공:', response.data);
       })
       .catch(error => {
-        console.error('There was an error fetching the user data!', error);
+        console.error('사용자 정보 불러오기 오류:', error);
       });
-  }, []);
+  }, []);    // 빈 배열([])을 두 번째 인수로 전달하여 컴포넌트가 처음 렌더링될 때만 이 효과를 실행
 
+  // 입력값 변경
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
+    setUserData({ ...userData, [name]: value });  // 입력된 값에 따라 userData 상태를 업데이트
   };
 
+  // 수정 버튼 클릭
   const handleCorrectionClick = () => {
-    setIsEditing(true);
+    setIsEditing(true);   // 수정모드 활성화
   };
 
-  const handleSubmitClick = () => {
-    axios.put('/api/user/profile', userData) // Adjust the endpoint as necessary
-      .then(response => {
-        setIsEditing(false);
-        alert('User data updated successfully!');
-      })
-      .catch(error => {
-        console.error('There was an error updating the user data!', error);
-        alert('Failed to update user data.');
-      });
+  // 확인 버튼 클릭
+  const handleSubmitClick = async () => {
+    try {
+      // 백엔드 서버(4000)로 POST 요청보내서 수정된 사용자 데이터 전송
+      const response = await axios.put("http://localhost:4000/user/mypage", userData); 
+      if (response.status === 200) {
+        setIsEditing(false);  // 서버로부터 성공 응답 받으면, 수정모드를 비활성화
+        alert('회원정보가 성공적으로 수정되었습니다.');
+        console.log('회원정보 수정 응답:', response.data);
+      } else {
+        alert('회원정보 수정 실패');
+      }
+    } catch (error) {
+      console.error('회원정보 수정 중 오류 발생:', error);
+      alert('회원정보 수정 도중 오류 발생');
+    }
   };
+
 
   return (
     <div className="mypage">
