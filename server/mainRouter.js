@@ -13,7 +13,7 @@ app.use(cors({
 }));
 
 // 미들웨어 설정
-app.use(express.urlencoded({ extended: false }));  // 바디파서 설정하고싶은데 이거 true로 바꿔도 될까요?(하은)->  네 이상 없을 듯 합니다(우석)
+app.use(express.urlencoded({ extended: false })); 
 app.use(express.json());
 app.use(session);
 
@@ -31,13 +31,18 @@ app.get('/', (req, res) => {
 
 // 회원가입 라우터(하은)
 const SignupRouter = require('./routes/SignupRouter');
-app.use('/user/signup', SignupRouter);  // signup이라는 db에 router 연결
+app.use('/user/signup', SignupRouter);  // SignupRouter와 signup 화면 연결
 console.log('회원가입 라우터 연결됨: /user/signup');
 
 // 로그인 라우터(하은)
 const LoginRouter = require('./routes/LoginRouter'); 
-app.use('/user/login', LoginRouter);   // login이라는 db에 router 연결
+app.use('/user/login', LoginRouter);   // LoginRouter와 login 화면 연결
 console.log('로그인 라우터 연결됨: /user/login');
+
+// 회원정보수정 라우터(하은)
+const UpdateRouter = require('./routes/UpdateRouter'); 
+app.use('/user/mypage', UpdateRouter);   // UpdateRouter와 mypage 화면 연결
+console.log('회원정보수정 라우터 연결됨: /user/login');
 
 // 검색  라우터
 const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
