@@ -49,6 +49,10 @@ app.use('/foods/postcreat',pcRouter);
 const psRouter = require('./routes/psRouter')
 app.use('foods/postsee',psRouter);
 
+// 게시글 수정 라우터(우석)
+const pmRouter = require('./routes/pmRouter')
+app.use('foods/postmodify',pmRouter);
+
 // 서버 시작
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

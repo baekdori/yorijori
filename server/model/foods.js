@@ -28,8 +28,12 @@ const foods = {
         // 콜백 함수는 쿼리 실행 결과를 처리
         conn.query(sql, [food_idx], callback);
     },
-    // 3. 게시글 관리 API
+    // 3. 게시글 수정 API
+    postmodify:(food_idx,callback)=>{
+        
+    }
     // 4. 게시글 삭제 API
+    
 };
 
 module.exports = foods; // foods 객체를 외부에서 사용할 수 있도록 내보냄
