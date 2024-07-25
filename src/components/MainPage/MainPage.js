@@ -3,13 +3,13 @@ import './MainPage.css';
 
 const MainPage = () => {
   const [isKeywordSearch, setIsKeywordSearch] = useState(false);
+  const [showSearchResult, setShowSearchResult] = useState(false);
   const leftContainerRef = useRef(null);
-  const [searchTags, setSearchTags] = useState([]); // 검색 태그를 배열로 저장
+  const [searchTags, setSearchTags] = useState([]);
   const searchingInputRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
 
   const keywordSearching = () => {
-    console.log("키워드 검색 실행!");
     setIsKeywordSearch(true);
     if (leftContainerRef.current && searchingInputRef.current) {
       leftContainerRef.current.classList.add('expand');
@@ -18,19 +18,18 @@ const MainPage = () => {
   };
 
   const visualSearching = () => {
-    console.log("비주얼 검색 실행!");
     setIsKeywordSearch(false);
+    setShowSearchResult(false);
     if (leftContainerRef.current && searchingInputRef.current) {
       leftContainerRef.current.classList.remove('expand');
       searchingInputRef.current.classList.remove('expand-width');
     }
-    setSearchTags([]); // 태그 초기화
+    setSearchTags([]);
   };
 
   const handleClick = () => {
     try {
       window.location.href = '/ResultPage';
-      console.log("레시피 결과 보기 성공!");
     } catch {
       console.log("레시피 결과 보기 실패!");
     }
@@ -42,32 +41,31 @@ const MainPage = () => {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault(); // 엔터 키를 눌렀을 때 실행할 동작
+      event.preventDefault();
       if (inputValue.trim()) {
-        setSearchTags(prevTags => [...prevTags, { text: inputValue.trim() }]); // 태그 배열 업데이트
+        setSearchTags(prevTags => [...prevTags, { text: inputValue.trim() }]);
         setInputValue('');
       }
-      console.log(`엔터 키 입력됨 : ${inputValue}`);
       setIsKeywordSearch(true);
     }
   };
 
   const removeTag = (index) => {
-    setSearchTags(tags => tags.filter((_, i) => i !== index)); // 특정 인덱스의 태그 제거
+    setSearchTags(tags => tags.filter((_, i) => i !== index));
   };
 
   const handleStartClick = () => {
     if (searchTags.length === 0) {
       alert('반드시 하나 이상의 재료를 입력하세요');
     } else {
-      // Proceed with the start action
-      console.log('Start button clicked with tags:', searchTags);
+      setShowSearchResult(true);
     }
   };
 
   const handleCancelClick = () => {
     setSearchTags([]);
     setInputValue('');
+    setShowSearchResult(false);
   };
 
   return (
@@ -81,37 +79,31 @@ const MainPage = () => {
           width: '100%',
         }}>
         {isKeywordSearch && (
-          <span className="back-arrow" onClick={visualSearching}>&larr;</span>
+          <span className="back-arrow" onClick={visualSearching}>←</span>
         )}
         {isKeywordSearch ? '키워드 검색' : '레시피 찾아보기'}
       </div>
       <div className="select-btn-container">
         <div className="left-container" onClick={keywordSearching} ref={leftContainerRef}>
-          <div 
-            className="searching-input"
-            ref={searchingInputRef}
-          >{isKeywordSearch ? (
-            <input
-              type="text"
-              value={inputValue}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              placeholder=""
-            />
-          ) : (
-            <div className="searching-input-text">키워드 검색</div>
-          )}
+          <div className="searching-input" ref={searchingInputRef}>
+            {isKeywordSearch ? (
+              <input
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                placeholder=""
+              />
+            ) : (
+              <div className="searching-input-text">키워드 검색</div>
+            )}
+          </div>
         </div>
         <div className="search-tags-container">
           {searchTags.map((tag, index) => (
             <div className="search-tag" key={index}>
               {tag.text}
-              <span 
-                className="remove-tag"
-                onClick={() => removeTag(index)}
-              >
-                ×
-              </span>
+              <span className="remove-tag" onClick={() => removeTag(index)}>×</span>
             </div>
           ))}
         </div>
@@ -127,7 +119,7 @@ const MainPage = () => {
           </div>
         </>
       )}
-    </div>
+
       <div className="food-pic"></div>
       {!isKeywordSearch && (
         <>
@@ -153,6 +145,14 @@ const MainPage = () => {
           <div className="search-result-text">검색 결과</div>
           <button className="cancel-btn" onClick={handleCancelClick}>전체 취소</button>
           <button className="start-btn" onClick={handleStartClick}>시작</button>
+        </div>
+      )}
+
+      {showSearchResult && (
+        <div className="search-result-container">
+          <div className="result-square-1">
+            <div className="result-square-text">음식 이름</div>
+          </div>
         </div>
       )}
     </div>

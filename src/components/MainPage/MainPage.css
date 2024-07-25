@@ -38,6 +38,13 @@ body {
   cursor: pointer;
   margin-right: 10px;
   font-size: 40px; /* 화살표 크기 조정 */
+  z-index: 8; /* Ensure it is above other content */
+  color: #434343; /* 화살표 색상 */
+  position: absolute; /* 위치를 명확히 하기 위해 절대 위치 사용 */
+  top: -16px; /* 상단 위치 조정 */
+  left: 180px; /* 왼쪽 위치 조정 */
+  padding: 10px; /* 클릭 영역을 키우기 위해 패딩 추가 */
+  font-family: 'Pretendard', sans-serif
 }
 
 .select-btn-container {
@@ -45,9 +52,6 @@ body {
   top: 211px;
   width: 520px;
   height: 200px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   z-index: 2;
 }
 
@@ -124,9 +128,23 @@ body {
   cursor: pointer;
 }
 
+.right-container {
+  width: 200px; /* 초기 너비 */
+  height: 200px;
+  left :488px;
+  top: 212px;
+  position:absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 1s ease; /* 너비 애니메이션 */
+  z-index: 4;
+}
+
 .searching-plate {
   width: 135px;
   height: 135px;
+  top:0px;
   left: 100px;
   border-radius: 50%;
   border: 3px solid #434343;
@@ -135,7 +153,7 @@ body {
 .searching-plate-text {
   position: absolute;
   bottom: -20px;
-  left: 150px;
+  left: 0px;
   width: 100%;
   text-align: center;
   font-size: 28px;
@@ -145,9 +163,12 @@ body {
 }
 
 .tiktok {
+  position: absolute;
   width: 2px;
+  top:260px;
   height: 100px;
   background-color: #434343;
+  z-index: 5;
 }
 
 .food-pic {
@@ -270,4 +291,46 @@ body {
 .food-result-top-container .fr:last-child,
 .food-result-bottom-container .fr:last-child {
   margin-right: 0;
+}
+
+.search-result-container {
+  position: absolute;
+  top: 610px;
+  left: 118px;
+  width: 580px;
+  height: 270px;
+  background-color: transparent;
+  border: none;
+  z-index: 3;
+}
+
+.result-square-1 {
+  width: 270px;
+  height: 270px;
+  background-color: #D6D6D6;
+  border-radius: 50px;
+  position: absolute;
+  margin: 0 auto;
+  z-index: 3;
+  transition: background 0.3s ease-in-out;
+}
+
+.result-square-1:hover {
+  background: linear-gradient(to top, #FF8000 30%, #D6D6D6 30%);
+  z-index: 3;
+}
+
+.result-square-text {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'BM JUA_TTF', sans-serif;
+  font-weight: regular;
+  font-size: 40px;
+  letter-spacing: -0.05em;
+  color: #FFFFFF;
+  user-select: none;
+  text-align: center;
+  z-index: 3;
 }
