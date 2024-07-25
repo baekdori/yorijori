@@ -41,7 +41,7 @@ console.log('로그인 라우터 연결됨: /user/login');
 
 // 검색  라우터
 const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
-app.use('/ingredients/searchFoodsByIngredient', searchFoodsByIngredient);
+app.use('/ingredients/search', searchFoodsByIngredient);
 
 // 게시글 작성 라우터(우석)
 const pcRouter = require('./routes/pcRouter')
