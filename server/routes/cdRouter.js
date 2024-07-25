@@ -3,7 +3,7 @@ const router = express.Router();
 const comts = require("../model/comts");
 
 // 댓글 삭제
-router.get('/', (req, res) => {
+router.delete('/:comments_idx', (req, res) => {
     const { comments_idx } = req.params;
 
     comts.comtsdelete(comments_idx, (err, results) => {
@@ -16,4 +16,4 @@ router.get('/', (req, res) => {
     });
 });
 
-module.express=router;
+module.exports = router;

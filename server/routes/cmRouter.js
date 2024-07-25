@@ -3,7 +3,7 @@ const router = express.Router();
 const comts = require("../model/comts");
 
 // 댓글 수정
-router.get('/', (req, res) => {
+router.put('/:comments_idx', (req, res) => {
     const { comments_idx } = req.params;
     const { comment_text, food_emotion } = req.body;
     const updatedComment = { comment_text, food_emotion };
@@ -17,4 +17,5 @@ router.get('/', (req, res) => {
         }
     });
 });
-module.express=router;
+
+module.exports = router;
