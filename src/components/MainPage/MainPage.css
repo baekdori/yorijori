@@ -7,8 +7,23 @@
 
 body {
   margin: 0;
-  overflow: hidden;
+  overflow-y: scroll; /* 상하 스크롤을 허용 */
+  overflow-x: hidden; /* 수평 스크롤바를 숨김 */
   font-family: 'BM JUA_TTF', sans-serif;
+}
+
+/* 웹킷 기반 브라우저에서 스크롤바 숨기기 */
+body::-webkit-scrollbar {
+  width: 0; /* 스크롤바의 너비를 0으로 설정 */
+  height: 0; /* 스크롤바의 높이를 0으로 설정 */
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent; /* 스크롤바 트랙을 투명하게 설정 */
+}
+
+body::-webkit-scrollbar-thumb {
+  background: transparent; /* 스크롤바 thumb를 투명하게 설정 */
 }
 
 .main-page {
@@ -32,6 +47,7 @@ body {
   letter-spacing: -0.05em;
   font-family: 'BM JUA_TTF', sans-serif;
   z-index: 2;
+  user-select: none;
 }
 
 .back-arrow {
@@ -101,6 +117,7 @@ body {
   letter-spacing: -0.1em;
   color: #434343;
   font-family: 'Pretendard', sans-serif;
+  user-select: none;
 }
 
 .search-tags-container {
@@ -153,13 +170,14 @@ body {
 .searching-plate-text {
   position: absolute;
   bottom: -20px;
-  left: 0px;
+  left: -26px;
   width: 100%;
   text-align: center;
   font-size: 28px;
   letter-spacing: -0.1em;
   color: #434343;
   font-family: 'Pretendard', sans-serif;
+  user-select: none;
 }
 
 .tiktok {
@@ -210,6 +228,7 @@ body {
   font-weight: regular;
   font-size: 36px;
   letter-spacing: -0.1em;
+  user-select: none;
 }
 
 .cancel-btn {

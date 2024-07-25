@@ -14,6 +14,7 @@ const MainPage = () => {
     if (leftContainerRef.current && searchingInputRef.current) {
       leftContainerRef.current.classList.add('expand');
       searchingInputRef.current.classList.add('expand-width');
+      console.log("키워드 검색 시작");
     }
   };
 
@@ -23,6 +24,7 @@ const MainPage = () => {
     if (leftContainerRef.current && searchingInputRef.current) {
       leftContainerRef.current.classList.remove('expand');
       searchingInputRef.current.classList.remove('expand-width');
+      console.log("비주얼 검색 시작");
     }
     setSearchTags([]);
   };

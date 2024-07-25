@@ -33,7 +33,7 @@ const foods = {
 
     },
     // 4. 게시글 삭제 API
-    postdelete:(food_idx,collback)=>{
+    postdelete:(food_idx,callback)=>{
 
     },
 
