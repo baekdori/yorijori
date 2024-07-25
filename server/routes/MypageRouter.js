@@ -26,4 +26,4 @@ router.put('/mypage', async (req, res) => {
     }
 });
 
-model.exports = router;
+module.exports = router;

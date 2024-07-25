@@ -53,7 +53,7 @@ const pmRouter = require('./routes/pmRouter')
 app.use('/foods/postmodify',pmRouter);
 
 // 게시글 삭제 라우터(우석)
-const pdRouter = require('./routes/pmRouter')
+const pdRouter = require('./routes/pdRouter')
 app.use('/foods/postdelete',pdRouter);
 
 // 댓글 삭제 라우터(우석)
