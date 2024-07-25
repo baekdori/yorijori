@@ -50,7 +50,7 @@ const LoginPage = () => {
   return (
     <div>
       <div className="screen">
-        <img className="logo-s" alt="Logo s" src="/static/img/logo-s.png" />
+        <img className="logo-b" alt="Logo s" src="/static/img/logo-s.png" />
 
       
       <form>
