@@ -61,6 +61,7 @@ const SignupPage = () => {
             <div className="overlap-group-2">
               <div className="component">
                 <XnixLineSearch4 className="xnix-line-search" color="#434343" />
+                <img className="logo-s" alt="Logo s" src="/static/img/logo-s.png" />
                 <img
                   className="xnix-line"
                   alt="Xnix line"
@@ -72,7 +73,7 @@ const SignupPage = () => {
                   src="/static/img/xnix-line-hamburger-4-1.png"
                 />
               </div>
-              <img className="logo-s" alt="Logo s" src="/static/img/logo-s.png" />
+              
             </div>
           </div>
         </div>
@@ -88,7 +89,7 @@ const SignupPage = () => {
               <input
                 type="text"
                 id="username"
-                name="username"
+                name="user_name"
                 placeholder="아이디 입력"
                 value={formData.username}
                 onChange={handleChange}

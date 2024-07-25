@@ -1,0 +1,96 @@
+/* index.css 또는 LoginPage의 스타일 */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .login-container {
+    width: 360px;
+    padding: 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .screen {
+    margin-bottom: 20px;
+  }
+  
+  .logo-s {
+    width: 375px;
+    height: auto;
+  }
+  
+  .login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .group {
+    width: 100%;
+  }
+  
+  .input-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px 40px 10px 40px;
+    border-radius: 30px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #ff6600;
+  }
+  
+  .login-button, .signup-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .options .remember {
+    display: flex;
+    align-items: center;
+    margin-right: 200px; /* 아이디 저장과 링크 사이의 여백을 설정 */
+
+  }
+  
+  .options .links {
+    display: flex;
+    align-items: center;
+  }
+  
+  .options .link {
+    color: #6c757d;
+    text-decoration: none;
+    margin: 0 5px; /* 링크 사이의 여백을 설정 */
+  }
+  
+  .options .divider {
+    margin: 0 5px; /* 구분자 사이의 여백을 설정 */
+  }
+  

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // npm install axios 필요
 import React, { useState } from 'react';
+import './LoginPage.css';
 
 
 
@@ -41,11 +42,62 @@ const LoginPage = () => {
     }
   };
 
+  // 회원가입 페이지로 이동하는 함수
+  const handleSignup = () => {
+    navigate('/signup');
+  };
+
   return (
     <div>
-      <h1>Login Page</h1>
-      <button onClick={handleLogin}>로그인</button>
-      <Link to="/signup">회원가입</Link>
+      <div className="screen">
+        <img className="logo-s" alt="Logo s" src="/static/img/logo-s.png" />
+
+      
+      <form>
+        <div className="group">
+          <div className="view">
+            <input
+              type="text"
+              id="username"
+              name="user_name"
+              placeholder="아이디 입력"
+              value={formData.username}
+              onChange={handleChange}
+              required
+              className="input-field"
+            />
+          </div>
+
+          <div className="view-2">
+            <input
+              type="password"
+              id="password"
+              name="user_pw"
+              placeholder="비밀번호 입력"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="input-field"
+            />
+          </div>
+
+          <div className="options">
+            <label>
+              <input type="checkbox" name="remember" />
+              아이디 저장
+            </label>
+            <a href="/find-id" className="link">아이디 찾기</a>
+            <span className="divider">|</span>
+            <a href="/find-password" className="link">비밀번호 찾기</a>
+          </div>
+           
+          <button type="submit" onClick={handleLogin} className="view-9">로그인</button>
+          <button type="button" onClick={handleSignup} className="view-10">회원가입</button>
+        </div>
+      </form>
+
+
+    </div>
     </div>
   );
 };
