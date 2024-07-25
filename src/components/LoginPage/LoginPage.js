@@ -62,7 +62,7 @@ const LoginPage = () => {
               value={formData.username}
               onChange={handleChange}
               required
-              className="input-field"
+              className="input-field-l"
             />
           </div>
 
@@ -75,7 +75,7 @@ const LoginPage = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="input-field"
+              className="input-field-l"
             />
           </div>
 

@@ -93,7 +93,7 @@ h1{
 .input-field {
   border: none;
   outline: none;
-  font-size: 25px; /* 고정 폰트 크기 */
+  font-size: 20px; /* 고정 폰트 크기 */
   width: 100%;
   height: calc(100% - 30px); /* 위아래 패딩을 고려한 높이 조정 */
   padding: 0 10px;
