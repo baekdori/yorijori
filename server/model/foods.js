@@ -35,6 +35,19 @@ const foods = {
     // 4. 게시글 삭제 API
     postdelete:(food_idx,collback)=>{
 
+    },
+
+    findMatchingFoods: (ingredients, callback) => {
+        if (ingredients.length === 0) {
+            return callback(null, []);
+        }
+
+        // 각 재료를 '%재료%' 형태로 변환하여 LIKE 쿼리에 포함
+        const conditions = ingredients.map(() => 'food_mood LIKE ?').join(' AND ');
+        const values = ingredients.map(ingredient => `%${ingredient}%`);
+        const query = `SELECT food_idx, food_name, food_mood FROM Foods WHERE ${conditions}`;
+
+        conn.query(query, values, callback);
     }
     
 };
