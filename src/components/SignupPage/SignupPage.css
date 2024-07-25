@@ -78,7 +78,7 @@ h1{
 /* 성별구분 */
 .view-7 {
   background-color: #ffffff;
-  height: 60px; /* 고정 높이 */
+  height: 50px; /* 고정 높이 */
   width: 80vw; /* 뷰포트 너비의 80% */
   max-width: 550px; /* 최대 너비 */
   display: flex;
@@ -95,10 +95,15 @@ h1{
   outline: none;
   font-size: 20px; /* 고정 폰트 크기 */
   width: 100%;
-  height: calc(100% - 30px); /* 위아래 패딩을 고려한 높이 조정 */
+  height: calc(100% - 30px); /*  위아래 패딩을 고려한 높이 조정 */
   padding: 0 10px;
   box-sizing: border-box;
 }
+
+.gender-label {
+  padding-left: 10px; /* 왼쪽 패딩을 10px로 설정 */
+}
+
 
 
 

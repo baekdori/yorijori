@@ -181,11 +181,13 @@ const SignupPage = () => {
 
             <div className="view-7">
             <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
-              <label>
-                <input type="radio" name="user_gender" value="male" checked={formData.gender === 'male'} onChange={handleChange} required /> 남성
+              <label className="gender-label">
+                <input type="radio" name="user_gender" value="male" checked={formData.gender === 'male'} onChange={handleChange} required />
+                <img className="male" alt="male" src="/static/img/xnix-line-male.png" />남성
               </label>
-              <label>
-                <input type="radio" name="user_gender" value="female" checked={formData.gender === 'female'} onChange={handleChange} required /> 여성
+              <label className="gender-label">
+                <input type="radio" name="user_gender" value="female" checked={formData.gender === 'female'} onChange={handleChange} required /> 
+                <img className="female" alt="female" src="/static/img/xnix-line-female.png" />여성
               </label>
             </div>
 
