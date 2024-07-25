@@ -56,6 +56,20 @@ const MainPage = () => {
     setSearchTags(tags => tags.filter((_, i) => i !== index)); // 특정 인덱스의 태그 제거
   };
 
+  const handleStartClick = () => {
+    if (searchTags.length === 0) {
+      alert('반드시 하나 이상의 재료를 입력하세요');
+    } else {
+      // Proceed with the start action
+      console.log('Start button clicked with tags:', searchTags);
+    }
+  };
+
+  const handleCancelClick = () => {
+    setSearchTags([]);
+    setInputValue('');
+  };
+
   return (
     <div className="main-page">
       <div className="recipe-text"
@@ -88,18 +102,12 @@ const MainPage = () => {
             <div className="searching-input-text">키워드 검색</div>
           )}
         </div>
-        <div className="search-tags-container" style={{
-          }}>
+        <div className="search-tags-container">
           {searchTags.map((tag, index) => (
-            <div className="search-tag" key={index} style={{
-              display: 'inline-block',
-              }}>
+            <div className="search-tag" key={index}>
               {tag.text}
               <span 
                 className="remove-tag"
-                style={{
-                  marginLeft: '10px', // 제거 버튼과 태그 사이에 간격 추가
-                }}
                 onClick={() => removeTag(index)}
               >
                 ×
@@ -138,6 +146,14 @@ const MainPage = () => {
             <div className="fr" onClick={handleClick}></div>
           </div>
         </>
+      )}
+
+      {isKeywordSearch && (
+        <div className="recom-btn-container">
+          <div className="search-result-text">검색 결과</div>
+          <button className="cancel-btn" onClick={handleCancelClick}>전체 취소</button>
+          <button className="start-btn" onClick={handleStartClick}>시작</button>
+        </div>
       )}
     </div>
   );
