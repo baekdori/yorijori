@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const user = require('./model/user');
+const user = require('../model/user');
 
 const bcrypt = require('bcrypt');   // npm install bcrypt 설치 필요
 // bcrypt : 비밀번호를 안전하게 해싱하고 저장하는데 사용되는 라이브러리
