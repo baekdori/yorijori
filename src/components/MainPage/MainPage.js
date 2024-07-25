@@ -24,6 +24,7 @@ const MainPage = () => {
       leftContainerRef.current.classList.remove('expand');
       searchingInputRef.current.classList.remove('expand-width');
     }
+    setSearchTags([]); // 태그 초기화
   };
 
   const handleClick = () => {
@@ -43,7 +44,7 @@ const MainPage = () => {
     if (event.key === 'Enter') {
       event.preventDefault(); // 엔터 키를 눌렀을 때 실행할 동작
       if (inputValue.trim()) {
-        setSearchTags(prevTags => [...prevTags, { text: `# ${inputValue.trim()}` }]); // 태그 배열 업데이트
+        setSearchTags(prevTags => [...prevTags, { text: inputValue.trim() }]); // 태그 배열 업데이트
         setInputValue('');
       }
       console.log(`엔터 키 입력됨 : ${inputValue}`);
@@ -55,7 +56,6 @@ const MainPage = () => {
     setSearchTags(tags => tags.filter((_, i) => i !== index)); // 특정 인덱스의 태그 제거
   };
 
- 
   return (
     <div className="main-page">
       <div className="recipe-text"
@@ -65,7 +65,12 @@ const MainPage = () => {
           left: isKeywordSearch ? '50%' : 'auto',
           transform: isKeywordSearch ? 'translateX(-50%)' : 'none',
           width: '100%',
-        }}>{isKeywordSearch ? '키워드 검색' : '레시피 찾아보기'}</div>
+        }}>
+        {isKeywordSearch && (
+          <span className="back-arrow" onClick={visualSearching}>&larr;</span>
+        )}
+        {isKeywordSearch ? '키워드 검색' : '레시피 찾아보기'}
+      </div>
       <div className="select-btn-container">
         <div className="left-container" onClick={keywordSearching} ref={leftContainerRef}>
           <div 

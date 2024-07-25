@@ -33,6 +33,12 @@ body {
   z-index: 2;
 }
 
+.back-arrow {
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 40px; /* 화살표 크기 조정 */
+}
+
 .select-btn-container {
   position: absolute;
   top: 211px;
@@ -104,7 +110,6 @@ body {
 
 .search-tag {
   position: relative;
-
   font-size: 18px;
   letter-spacing: -0.1em;
   color: #434343;

@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'BM JUA_TTF', sans-serif;
+  }
+  
+  .main-page {
+    position: relative;
+    width: 800px;
+    height: 100%;
+    left : 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .recipe-text {
+    position: absolute;
+    top: 156px;
+    align-items: center;
+    font-size: 40px;
+    color: #434343;
+    letter-spacing: -0.05em;
+    font-family: 'BM JUA_TTF', sans-serif;
+    z-index: 2;
+  }
+  
+  .back-arrow {
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 40px; /* 화살표 크기 조정 */
+  }
