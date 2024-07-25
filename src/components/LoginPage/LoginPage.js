@@ -15,6 +15,7 @@ const LoginPage = () => {
   // 입력 값 변경을 처리하는 함수
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(`입력 값 변경 - ${name}: ${value}`); // 입력 값 변경 출력
     setFormData({
       ...formData,
       [name]: value
@@ -24,8 +25,10 @@ const LoginPage = () => {
   // 로그인 처리 함수
   const handleLogin = async (e) => {
     e.preventDefault(); // 폼 제출의 기본 동작인 페이지 리로드 방지
+    console.log('로그인 시도:', formData); // 로그인 시도 로그 출력
     try {
       const response = await axios.post("http://localhost:4000/user/login", formData);  // axios를 사용하여 백엔드 서버로 POST 요청 보냄
+      console.log('서버 응답:', response.data); // 서버 응답 출력
       if (response.status === 200) {
         alert('로그인 성공');
         navigate('/'); // 로그인 성공 시 메인 페이지로 이동
