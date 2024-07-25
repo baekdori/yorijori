@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import axios from 'axios'; // Make sure to install axios if not already
+import axios from 'axios';
 import './MainPage.css';
 import TopBar from '../TopBar/TopBar.js';
 
@@ -11,25 +11,49 @@ const MainPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const leftContainerRef = useRef(null);
   const searchingInputRef = useRef(null);
+  const tiktokRef = useRef(null);
+  const recomContainerRef = useRef(null);
+  const foodResultTopContainerRef = useRef(null);
+  const foodResultBottomContainerRef = useRef(null);
+  const recipeTextRef = useRef(null);
 
   const keywordSearching = () => {
     setIsKeywordSearch(true);
     if (leftContainerRef.current && searchingInputRef.current) {
       leftContainerRef.current.classList.add('expand');
       searchingInputRef.current.classList.add('expand-width');
-      console.log("키워드 검색 시작")
+      console.log("키워드 검색 시작");
     }
   };
 
   const visualSearching = () => {
     setIsKeywordSearch(false);
     setShowSearchResult(false);
-    if (leftContainerRef.current && searchingInputRef.current) {
-      leftContainerRef.current.classList.remove('expand');
-      searchingInputRef.current.classList.remove('expand-width');
-      console.log("비주얼 검색 시작")
+
+    // Hide elements
+    if (leftContainerRef.current) {
+      leftContainerRef.current.style.display = 'none';
     }
-    setSearchTags([]);
+    if (searchingInputRef.current) {
+      searchingInputRef.current.style.display = 'none';
+    }
+    if (tiktokRef.current) {
+      tiktokRef.current.style.display = 'none';
+    }
+    if (recomContainerRef.current) {
+      recomContainerRef.current.style.display = 'none';
+    }
+    if (foodResultTopContainerRef.current) {
+      foodResultTopContainerRef.current.style.display = 'none';
+    }
+    if (foodResultBottomContainerRef.current) {
+      foodResultBottomContainerRef.current.style.display = 'none';
+    }
+
+    // Update recipe-text
+    if (recipeTextRef.current) {
+      recipeTextRef.current.textContent = '비주얼 검색';
+    }
   };
 
   const handleClick = () => {
@@ -84,21 +108,45 @@ const MainPage = () => {
     setSearchResults([]);
   };
 
+  const renderRecipeText = () => {
+    if (isKeywordSearch) {
+      return (
+        <>
+          <span className="back-arrow" onClick={visualSearching}>←</span>
+          {'키워드 검색'}
+        </>
+      );
+    } else if (recipeTextRef.current && recipeTextRef.current.textContent === '비주얼 검색') {
+      return (
+        <>
+          <span className="back-arrow" onClick={keywordSearching}>←</span>
+          {'비주얼 검색'}
+        </>
+      );
+    } else {
+      return (
+        <>
+          {'레시피 찾아보기'}
+        </>
+      );
+    }
+  };
+
   return (
     <div className="main-page">
-       <TopBar />
-      <div className="recipe-text"
+      <TopBar />
+      <div
+        className="recipe-text"
+        ref={recipeTextRef}
         style={{
           textAlign: 'center',
           position: 'absolute',
           left: isKeywordSearch ? '50%' : 'auto',
           transform: isKeywordSearch ? 'translateX(-50%)' : 'none',
           width: '100%',
-        }}>
-        {isKeywordSearch && (
-          <span className="back-arrow" onClick={visualSearching}>←</span>
-        )}
-        {isKeywordSearch ? '키워드 검색' : '레시피 찾아보기'}
+        }}
+      >
+        {renderRecipeText()}
       </div>
       <div className="select-btn-container">
         <div className="left-container" onClick={keywordSearching} ref={leftContainerRef}>
@@ -125,10 +173,10 @@ const MainPage = () => {
           ))}
         </div>
       </div>
-      
+
       {!isKeywordSearch && (
         <>
-          <div className="tiktok"></div>
+          <div className="tiktok" ref={tiktokRef}></div>
           <div className="right-container" onClick={visualSearching}>
             <div className="searching-plate">
               <div className="searching-plate-text">비주얼 검색</div>
@@ -140,16 +188,16 @@ const MainPage = () => {
       <div className="food-pic"></div>
       {!isKeywordSearch && (
         <>
-          <div className="recom-container">
+          <div className="recom-container" ref={recomContainerRef}>
             <div className="recom-text">OO님이 좋아할 요리를 찾았어요!</div>
             <div className="recom-subtext">OO님의 기록을 분석하여 찾은 결과입니다</div>
           </div>
-          <div className="food-result-top-container">
+          <div className="food-result-top-container" ref={foodResultTopContainerRef}>
             <div className="fr" onClick={handleClick}></div>
             <div className="fr" onClick={handleClick}></div>
             <div className="fr" onClick={handleClick}></div>
           </div>
-          <div className="food-result-bottom-container">
+          <div className="food-result-bottom-container" ref={foodResultBottomContainerRef}>
             <div className="fr" onClick={handleClick}></div>
             <div className="fr" onClick={handleClick}></div>
             <div className="fr" onClick={handleClick}></div>

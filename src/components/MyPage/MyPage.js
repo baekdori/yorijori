@@ -56,7 +56,6 @@ const MyPage = () => {
     }
   };
 
-
   return (
     <div className="mypage">
       <div className="title">마이페이지</div>
@@ -103,6 +102,11 @@ const MyPage = () => {
       />
       <button className="correction-btn" onClick={handleCorrectionClick}>수정</button>
       <button className="submit-btn" onClick={handleSubmitClick} disabled={!isEditing}>확인</button>
+      
+      {/* 회원 탈퇴 버튼 */}
+      <button className="delete-account-btn">
+        회원 탈퇴
+      </button>
     </div>
   );
 };
