@@ -21,14 +21,6 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// // 정적 파일 제공 설정
-// app.use(express.static(path.join(__dirname, '../build')));
-
-// // 모든 경로에 대해 index.html 제공
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../build', 'index.html'));
-// });
-
 // 회원가입 라우터(하은)
 const SignupRouter = require('./routes/SignupRouter');
 app.use('/user/signup', SignupRouter);  // SignupRouter와 signup 화면 연결
@@ -39,10 +31,10 @@ const LoginRouter = require('./routes/LoginRouter');
 app.use('/user/login', LoginRouter);   // LoginRouter와 login 화면 연결
 console.log('로그인 라우터 연결됨: /user/login');
 
-// 회원정보수정 라우터(하은)
-//const UpdateRouter = require('./routes/UpdateRouter'); 
-//app.use('/user/mypage', UpdateRouter);   // UpdateRouter와 mypage 화면 연결
-//console.log('회원정보수정 라우터 연결됨: /user/login');
+// 마이페이지(회원정보수정) 라우터(하은)
+const MypageRouter = require('./routes/MypageRouter'); 
+app.use('/user/mypage', MypageRouter);   // MypageRouter와 mypage 화면 연결
+console.log('마이페이지 라우터 연결됨: /user/mypage');
 
 // 검색  라우터
 const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
