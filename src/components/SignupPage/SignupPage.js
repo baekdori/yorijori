@@ -34,7 +34,9 @@ const SignupPage = () => {
     }
 
     try {
+      console.log('회원가입 시도:', formData);
       const response = await axios.post("http://localhost:4000/user/signup", formData);
+      console.log('서버 응답:', response);
       if (response.status === 200) {
         alert('회원가입 성공');
         navigate('/login');
