@@ -40,9 +40,9 @@ app.use('/user/login', LoginRouter);   // LoginRouter와 login 화면 연결
 console.log('로그인 라우터 연결됨: /user/login');
 
 // 회원정보수정 라우터(하은)
-const UpdateRouter = require('./routes/UpdateRouter'); 
-app.use('/user/mypage', UpdateRouter);   // UpdateRouter와 mypage 화면 연결
-console.log('회원정보수정 라우터 연결됨: /user/login');
+//const UpdateRouter = require('./routes/UpdateRouter'); 
+//app.use('/user/mypage', UpdateRouter);   // UpdateRouter와 mypage 화면 연결
+//console.log('회원정보수정 라우터 연결됨: /user/login');
 
 // 검색  라우터
 const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
@@ -66,11 +66,11 @@ app.use('/foods/postdelete',pdRouter);
 
 // 댓글 삭제 라우터(우석)
 const cdRouter = require('./routes/cdRouter')
-app.use('/comments/commentsdelete',cdRouter);
+app.use('/comts/comtsdelete',cdRouter);
 
 // 댓글 수정 라우터(우석)
 const cmRouter = require('./routes/cmRouter')
-app.use('/comments/commentsdelete',cmRouter);
+app.use('/comts/comtsmodify',cmRouter);
 
 // 서버 시작
 app.listen(port, () => {
