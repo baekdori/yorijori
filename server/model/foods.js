@@ -28,13 +28,19 @@ const foods = {
         // 콜백 함수는 쿼리 실행 결과를 처리
         conn.query(sql, [food_idx], callback);
     },
+    
     // 3. 게시글 수정 API
-    postmodify:(food_idx,callback)=>{
-
+    postmodify: (food_idx, updatedPost, callback) => {
+        const sql = `UPDATE Foods SET food_name = ?, food_desc = ?, food_video = ?, food_recipe = ?, food_mood = ?, ingre_img = ?
+                     WHERE food_idx = ?`;
+        const { food_name, food_desc, food_video, food_recipe, food_mood, ingre_img } = updatedPost;
+        conn.query(sql, [food_name, food_desc, food_video, food_recipe, food_mood, ingre_img, food_idx], collback);
     },
-    // 4. 게시글 삭제 API
-    postdelete:(food_idx,callback)=>{
 
+    // 4. 게시글 삭제 API
+    postdelete: (food_idx, callback) => {
+        const sql = `DELETE FROM Foods WHERE food_idx = ?`;
+        conn.query(sql, [food_idx], callback);
     },
 
     findMatchingFoods: (ingredients, callback) => {

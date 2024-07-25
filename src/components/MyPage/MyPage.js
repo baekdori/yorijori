@@ -1,6 +1,8 @@
 import React from 'react';
 import './MyPage.css';
 
+// 하은 4000포트로 보내는 코드입력할예정
+
 const MyPage = () => {
   return (
     <div className="mypage">
