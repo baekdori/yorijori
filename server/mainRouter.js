@@ -13,7 +13,7 @@ app.use(cors({
 }));
 
 // 미들웨어 설정
-app.use(express.urlencoded({ extended: false }));  // 바디파서 설정하고싶은데 이거 true로 바꿔도 될까요?(하은)
+app.use(express.urlencoded({ extended: false }));  // 바디파서 설정하고싶은데 이거 true로 바꿔도 될까요?(하은)->  네 이상 없을 듯 합니다(우석)
 app.use(express.json());
 app.use(session);
 
@@ -52,6 +52,10 @@ app.use('foods/postsee',psRouter);
 // 게시글 수정 라우터(우석)
 const pmRouter = require('./routes/pmRouter')
 app.use('foods/postmodify',pmRouter);
+
+// 게시글 삭제 라우터(우석)
+const pdRouter = require('./routes/pmRouter')
+app.use('food/postdelete',pdRouter);
 
 // 서버 시작
 app.listen(port, () => {

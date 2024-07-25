@@ -19,7 +19,7 @@ const foods = {
     },
 
      // 2. 게시글 보기 API
-     postsee: (food_idx, callback) => {
+    postsee: (food_idx, callback) => {
         // SQL 쿼리 문자열: Foods 테이블에서 특정 food_idx의 행을 선택
         const sql = `SELECT * FROM Foods WHERE food_idx = ?`;
 
@@ -30,9 +30,12 @@ const foods = {
     },
     // 3. 게시글 수정 API
     postmodify:(food_idx,callback)=>{
-        
-    }
+
+    },
     // 4. 게시글 삭제 API
+    postdelete:(food_idx,collback)=>{
+
+    }
     
 };
 
