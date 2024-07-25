@@ -55,5 +55,5 @@ app.use('foods/postmodify',pmRouter);
 
 // 서버 시작
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`백앤드 서버 시작 포트:${port}`);// 실행하는 포트를 확인시켜줌
 });
