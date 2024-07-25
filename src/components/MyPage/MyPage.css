@@ -83,7 +83,7 @@
     top: 0;
   }
   
-  .id, .name, .nickname {
+  .id, .name{
     font-family: 'Pretendard', sans-serif;
     font-weight: medium;
     font-size: 28px;
@@ -117,68 +117,33 @@
     background-color: #434343;
   }
   
-  .join-date, .phone, .email, .recipe-list {
-    position: absolute;
-    left: 727px;
-    font-family: 'Pretendard', sans-serif;
-    font-weight: medium;
-    font-size: 22px;
-    letter-spacing: -5%;
-    color: #434343;
+  .nick-input,
+  .phone-input,
+  .email-input {
+    user-select: none;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin: 4px 0;
+    width: 100%;
+    box-sizing: border-box;
   }
   
-  .join-date {
-    top: 536px;
+  .nick-input:read-only,
+  .phone-input:read-only,
+  .email-input:read-only {
+    background-color: #e9ecef;
   }
   
-  .phone {
-    top: 598px;
+  .nick-input:not(:read-only),
+  .phone-input:not(:read-only),
+  .email-input:not(:read-only) {
+    background-color: #fff;
+    border-color: #007bff;
   }
   
-  .email {
-    top: 660px;
-  }
   
-  .recipe-list {
-    top: 776px;
-  }
-  
-  .recipe-table {
-    position: absolute;
-    left: 727px;
-    top: 820px;
-    width: 466px;
-    height: auto;
-    border-collapse: collapse;
-  }
-  
-  .recipe-table th, .recipe-table td {
-    border: 1px solid #434343;
-    text-align: center;
-    height: 38px;
-  }
-  
-  .recipe-table th {
-    width: 60px;
-  }
-  
-  .recipe-table th:nth-child(2) {
-    width: 200px;
-  }
-  
-  .recipe-table th:nth-child(3) {
-    width: 92px;
-  }
-  
-  .recipe-table th:nth-child(4) {
-    width: 38px;
-  }
-  
-  .recipe-table th:nth-child(5), .recipe-table th:nth-child(6) {
-    width: 38px;
-  }
-  
-  .cancel-btn, .correction-btn {
+  .correction-btn, .submit-btn {
     position: absolute;
     width: 300px;
     height: 80px;
@@ -192,25 +157,25 @@
     z-index: 1;
   }
   
-  .cancel-btn {
+  .correction-btn {
     left: 660px;
     top: 920px;
     background-color: #D9D9D9;
     color: #FF8000;
   }
   
-  .correction-btn {
+  .submit-btn {
     left: 960px;
     top: 920px;
     background-color: #FF8000;
     color: #FFFFFF;
   }
   
-  .cancel-btn span, .correction-btn span {
+  .correction-btn span, .submit-btn span {
     pointer-events: none;
   }
   
-  .mypage > *:not(.cancel-btn):not(.correction-btn) {
+  .mypage > *:not(.correction-btn):not(.submit-btn) {
     z-index: 0;
   }
   

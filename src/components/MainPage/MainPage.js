@@ -84,6 +84,7 @@ const MainPage = () => {
   };
 
   return (
+    
     <div className="main-page">
       <div className="recipe-text"
         style={{
