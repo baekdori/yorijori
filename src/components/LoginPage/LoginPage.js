@@ -56,7 +56,7 @@ const LoginPage = () => {
           <div className="view-l">
             <input
               type="text"
-              id="username-l"
+              id="user_id"
               name="user_id"
               placeholder="아이디 입력"
               value={formData.user_id}
@@ -69,7 +69,7 @@ const LoginPage = () => {
           <div className="view-2-l">
             <input
               type="password"
-              id="password-l"
+              id="user_pw"
               name="user_pw"
               placeholder="비밀번호 입력"
               value={formData.user_pw}
