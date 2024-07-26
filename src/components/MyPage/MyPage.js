@@ -36,7 +36,7 @@ const MyPage = () => {
     console.log('수정 모드 활성화');
   };
 
-  // 확인 버튼 클릭
+  // 확인 버튼 클릭 (회원 정보 수정)
   const handleSubmitClick = async () => {
     try {
       // 백엔드 서버(4000)로 POST 요청보내서 수정된 사용자 데이터 전송
@@ -55,6 +55,30 @@ const MyPage = () => {
       alert('회원정보 수정 도중 오류 발생');
     }
   };
+
+    // 회원 탈퇴 버튼 클릭
+    const handleDeleteClick = async () => {
+      const confirmDelete = window.confirm('정말로 회원 탈퇴를 하시겠습니까?');
+      if (!confirmDelete) return;
+
+      try {
+        // 백엔드 서버(4000)로 요청 보내서 사용자 데이터 삭제
+        // 프론트에서 탈퇴 요청을 보낼때, url경로에 사용자 ID를 포함시킴 (사용자ID를 명시적으로 전달하여, 경로를 통해 특정 사용자를 식별,삭제 가능) 
+      const response = await axios.delete(`http://localhost:4000/user/mypage/${userData.user_id}`);
+        console.log('서버 응답 데이터:', response.data);
+        if (response.status === 200) {
+          alert('회원 탈퇴가 성공적으로 완료되었습니다.');
+          console.log('회원 탈퇴 응답:', response.data);
+          navigate('/login'); // 탈퇴 후 로그인 페이지로 이동
+        } else {
+          alert('회원 탈퇴 실패');
+          console.error('회원 탈퇴 실패:', response);
+        }
+      } catch (error) {
+        console.error('회원 탈퇴 중 오류 발생:', error);
+        alert('회원 탈퇴 도중 오류 발생');
+      }
+    };
 
   return (
     <div className="mypage">

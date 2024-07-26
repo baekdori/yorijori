@@ -31,7 +31,7 @@ const LoginRouter = require('./routes/LoginRouter');
 app.use('/user/login', LoginRouter);   // LoginRouter와 login 화면 연결
 console.log('로그인 라우터 연결됨: /user/login');
 
-// 마이페이지(회원정보수정) 라우터(하은)
+// 마이페이지 (회원정보 수정 및 탈퇴) 라우터 (하은)
 const MypageRouter = require('./routes/MypageRouter'); 
 app.use('/user/mypage', MypageRouter);   // MypageRouter와 mypage 화면 연결
 console.log('마이페이지 라우터 연결됨: /user/mypage');
