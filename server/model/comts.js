@@ -13,49 +13,48 @@ const comts = {
         const { comment_text } = updatedComment;
         conn.query(sql, [comment_text, comments_idx], callback);
     },
-    // 3. 특정 유저의 food_emotion = 1이 5개 이상인 경우 food_idx 조회
+    // 3. 특정 유저의 food_emotion = 1인 경우 food_idx와 food_name 조회
     getUserFoodIdx: (userId, callback) => {
         const sql = `
-            SELECT food_idx
-            FROM comts
-            WHERE user_id = ? AND food_emotion = 1
-            GROUP BY food_idx
-            HAVING COUNT(*) >= 5
+            SELECT c.food_idx, f.food_name
+            FROM Comts c
+            JOIN Foods f ON c.food_idx = f.food_idx
+            WHERE c.user_id = ? AND c.food_emotion = 1
         `;
         conn.query(sql, [userId], callback);
-    },
+        },
 
-    // 4. 모든 사용자 기준으로 food_emotion = 1인 food_idx 조회
+        // 4. 모든 사용자 기준으로 food_emotion = 1인 food_idx와 food_name 조회
     getAllFoodIdx: (callback) => {
         const sql = `
-            SELECT food_idx
-            FROM comts
-            WHERE food_emotion = 1
-            GROUP BY food_idx
+            SELECT c.food_idx, f.food_name
+            FROM Comts c
+            JOIN Foods f ON c.food_idx = f.food_idx
+            WHERE c.food_emotion = 1
         `;
         conn.query(sql, callback);
     },
 
-    // 5. 특정 유저의 food_emotion = 1이 5개 이상인지 확인하고, 랜덤으로 food_idx 반환
+    // 5. 특정 유저의 food_emotion = 1이 6개 이상인지 확인하고, 랜덤으로 food_idx 6개 반환
     getRandomFoodIdx: (userId, callback) => {
-        // Step 1: 사용자의 food_emotion = 1이 5개 이상인지 확인
+        // Step 1: 사용자의 food_emotion = 1이 6개 이상인지 확인
         comts.getUserFoodIdx(userId, (err, rows) => {
             if (err) return callback(err);
 
-            if (rows.length >= 5) {
-                // 사용자 기준으로 food_emotion = 1이 5개 이상인 경우
-                const randomIndex = Math.floor(Math.random() * rows.length);
-                const randomFoodIdx = rows[randomIndex].food_idx;
-                return callback(null, { food_idx: randomFoodIdx });
+            if (rows.length >= 6) {
+                // 사용자 기준으로 food_emotion = 1이 6개 이상인 경우
+                const shuffledRows = rows.sort(() => 0.5 - Math.random());
+                const selectedRows = shuffledRows.slice(0, 6); // 6개 선택
+                return callback(null, { foods: selectedRows });
             } else {
                 // 모든 사용자 기준으로 food_emotion = 1인 food_idx 조회
                 comts.getAllFoodIdx((err, rows) => {
                     if (err) return callback(err);
 
                     if (rows.length > 0) {
-                        const randomIndex = Math.floor(Math.random() * rows.length);
-                        const randomFoodIdx = rows[randomIndex].food_idx;
-                        return callback(null, { food_idx: randomFoodIdx });
+                        const shuffledRows = rows.sort(() => 0.5 - Math.random());
+                        const selectedRows = shuffledRows.slice(0, 6); // 6개 선택
+                        return callback(null, { foods: selectedRows });
                     } else {
                         return callback(null, { message: '해당하는 food_idx가 없습니다.' });
                     }
@@ -63,7 +62,7 @@ const comts = {
             }
         });
     }
-
+    
 };
 
 module.exports = comts;
