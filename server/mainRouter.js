@@ -40,7 +40,7 @@ console.log('마이페이지 라우터 연결됨: /user/mypage');
 const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
 app.use('/foods/search', searchFoodsByIngredient);
 
-// 게시글 작성 라우터(우석)
+// 게시글 작성 라우터(우석) -> RecipeAddPage
 const pcRouter = require('./routes/pcRouter')
 app.use('/foods/postcreat',pcRouter);
 
