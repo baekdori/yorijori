@@ -72,6 +72,10 @@ app.use('/comts/comtsmodify',cmRouter);
 const recommendRouter = require('./routes/recommend'); 
 app.use('/random-food-idx', recommendRouter);
 
+// 즐겨찾기 라우터(지훈)
+const favoriteRouter = require('./routes/favoriteList');
+app.use('/favorites', favoriteRouter);
+
 
 // 서버 시작
 app.listen(port, () => {
