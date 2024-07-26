@@ -7,14 +7,14 @@ import axios from 'axios';
 const SignupPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    user_id: '',
+    user_pw: '',
     confirmPassword: '',
-    fullName: '',
-    nickname: '',
-    phone: '',
-    gender: '',
-    email: ''
+    user_name: '',
+    user_nick: '',
+    user_phone: '',
+    user_gender: '',
+    user_email: ''
   });
 
   const handleChange = (e) => {
