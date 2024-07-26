@@ -1,10 +1,13 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 const path = require('path'); 
 const session = require('./session');
 const port = 4000;  // 4000포트 오픈
 const cors = require("cors");
 
 const app = express();
+
+app.use(bodyParser.json());
 
 // CORS(Cross-Origin Resource Sharing) 설정
 // npm i CORS 설치 필요
@@ -31,12 +34,12 @@ const LoginRouter = require('./routes/LoginRouter');
 app.use('/user/login', LoginRouter);   // LoginRouter와 login 화면 연결
 console.log('로그인 라우터 연결됨: /user/login');
 
-// 마이페이지 (회원정보 수정 및 탈퇴) 라우터 (하은)
+// 마이페이지 (프로필, 회원정보 수정 및 탈퇴) 라우터 (하은)
 const MypageRouter = require('./routes/MypageRouter'); 
 app.use('/user/mypage', MypageRouter);   // MypageRouter와 mypage 화면 연결
 console.log('마이페이지 라우터 연결됨: /user/mypage');
 
-// 검색  라우터(지훈)
+// 검색 라우터(지훈)
 const searchFoodsByIngredient = require('./routes/searchFoodsByIngredient');
 app.use('/foods/search', searchFoodsByIngredient);
 

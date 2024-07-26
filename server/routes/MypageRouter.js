@@ -1,6 +1,33 @@
 const express = require('express');
 const router = express.Router();
 const user = require('../model/user');
+const connection = require('../model/db');
+
+// 프로필 라우터
+router.get('/profile', (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ message: '로그인이 필요합니다.' });
+    }
+
+    const userId = req.session.user.user_id;
+    console.log('프로필 정보 요청:', userId); 
+
+    const query = 'SELECT user_id, user_nick, user_phone, user_email FROM Users WHERE user_id = ?';
+    connection.query(query, [userId], (error, results) => {
+        if (error) {
+            console.error('프로필 정보 가져오기 오류:', error);
+            return res.status(500).json({ message: '프로필 정보를 가져오는 중 오류가 발생했습니다.' });
+        }
+
+        if (results.length > 0) {
+            console.log('프로필 정보 가져오기 성공:', results[0]); 
+            res.json(results[0]);
+        } else {
+            console.log('사용자 정보를 찾을 수 없음:', userId);
+            res.status(404).json({ message: '사용자 정보를 찾을 수 없습니다.' });
+        }
+    });
+});
 
 // 회원 정보 수정 라우터
 router.put('/mypage', async (req, res) => {
