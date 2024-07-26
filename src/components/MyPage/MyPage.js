@@ -69,7 +69,6 @@ const MyPage = () => {
         if (response.status === 200) {
           alert('회원 탈퇴가 성공적으로 완료되었습니다.');
           console.log('회원 탈퇴 응답:', response.data);
-          navigate('/login'); // 탈퇴 후 로그인 페이지로 이동
         } else {
           alert('회원 탈퇴 실패');
           console.error('회원 탈퇴 실패:', response);
