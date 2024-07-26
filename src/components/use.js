@@ -30,7 +30,7 @@ try {
     };
 
     const response = await fetch(`http://localhost:4000/foods/postmodify/${food_idx}`, {
-        method: 'GET',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },

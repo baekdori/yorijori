@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const foods = require('../model/foods'); // foods 모델을 불러옴
 
-// 게시글 수정 라우터 (GET 요청)
-router.get('/', (req, res) => {
-    const { food_idx, food_name, food_desc, food_video, food_recipe, food_mood, ingre_img, user_id } = req.query;
+// 게시글 수정 라우터 (PUT 요청)
+router.put('/:food_idx', (req, res) => {
+    const { food_idx } = req.params;
+    const { food_name, food_desc, food_video, food_recipe, food_mood, ingre_img, user_id } = req.body;
 
     const updatedPost = {
         food_name,
@@ -24,7 +25,7 @@ router.get('/', (req, res) => {
         }
         if (result.affectedRows === 0) {
             console.log('게시글을 찾을 수 없거나 권한이 없음:', food_idx);
-            return res.status(404).send('게시글을 찾을 수 없거나 권한이 없습니다..');
+            return res.status(404).send('게시글을 찾을 수 없거나 권한이 없습니다.');
         }
         console.log('게시글 수정 응답:', result);
         res.json({ message: '게시글이 수정되었습니다.', result });
