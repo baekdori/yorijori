@@ -19,7 +19,7 @@ const foods = {
     },
 
      // 2. 게시글 보기 API
-    postsee: (food_idx, callback) => {
+    postsee: (food_idx, callback,User_id) => {
         // SQL 쿼리 문자열: Foods 테이블에서 특정 food_idx의 행을 선택
         const sql = `SELECT * FROM Foods WHERE food_idx = ?`;
 
@@ -42,7 +42,7 @@ const foods = {
         const sql = `DELETE FROM Foods WHERE food_idx = ?`;
         conn.query(sql, [food_idx], callback);
     },
-
+    // 5. 키워드 검색 API
     findMatchingFoods: (ingredients, callback) => {
         if (ingredients.length === 0) {
             return callback(null, []);
