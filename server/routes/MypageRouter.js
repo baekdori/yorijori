@@ -30,7 +30,7 @@ router.get('/profile', (req, res) => {
 });
 
 // 회원 정보 수정 라우터
-router.put('/mypage', async (req, res) => {
+router.put('/', async (req, res) => {
     const { user_id, user_nick, user_phone, user_email } = req.body;  // 사용자 정보 추출
 
     try {
@@ -54,7 +54,7 @@ router.put('/mypage', async (req, res) => {
 });
 
 // 회원 탈퇴 라우터
-router.delete('/mypage/:userId', async (req, res) => { 
+router.delete('/:userId', async (req, res) => { 
  // mypage.js에서 /mypage/${userData.user_id}라고 경로 정의함 ->>  :userId는 URL의 일부로 전달되는 경로 매개변수
     const userId = req.params.userId;   // URL경로에서 userId 값을 추출하여 userId 변수에 저장
 
