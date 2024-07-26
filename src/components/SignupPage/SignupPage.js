@@ -59,41 +59,27 @@ const SignupPage = () => {
       <div className="overlap-wrapper-s">
         {/* 맨위에 올라가는 로고와 알림, 돋보기, 더보기칸 아이콘 */}
         <div className="group-wrapper-s">
-
           <div className="overlap-group-2-s">
-
             <div className="component-s">
-
               <img
                 className="xnix-line-s"
                 alt="Xnix line"
                 src="/static/img/xnix-line-notification-12-1.png"
               />
-
               <img className="logo-s-s" alt="Logo s" src="/static/img/logo-s.png" />
-
-
-
               <XnixLineSearch4 className="xnix-line-search-s" color="#434343" />
-
               <img
                 className="xnix-line-hamburger-s"
                 alt="Xnix line hamburger"
                 src="/static/img/xnix-line-hamburger-4-1.png"
               />
-
             </div>
-
           </div>
-
         </div>
-
-
-
 
         <h1>회 원 가 입</h1>
         <form onSubmit={handleSubmit}>
-          <div className="group">
+          <div className="group-1">
 
             <div className="view">
             <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
@@ -182,11 +168,11 @@ const SignupPage = () => {
             <div className="view-7">
             <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
               <label className="gender-label">
-                <input type="radio" name="user_gender" value="male" checked={formData.gender === 'male'} onChange={handleChange} required />
+                <input type="radio" name="user_gender" value="male" checked={formData.user_gender === 'male'} onChange={handleChange} required />
                 <img className="male" alt="male" src="/static/img/xnix-line-male.png" />남성
               </label>
               <label className="gender-label">
-                <input type="radio" name="user_gender" value="female" checked={formData.gender === 'female'} onChange={handleChange} required /> 
+                <input type="radio" name="user_gender" value="female" checked={formData.user_gender === 'female'} onChange={handleChange} required /> 
                 <img className="female" alt="female" src="/static/img/xnix-line-female.png" />여성
               </label>
             </div>

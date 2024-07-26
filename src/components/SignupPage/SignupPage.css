@@ -1,3 +1,5 @@
+/* SignupPage.css */
+
 @font-face {
   font-family: 'Pretendard-Regular';
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -5,6 +7,16 @@
   font-style: normal;
 }
 
+body.SignupPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow-y: scroll; /* 상하 스크롤을 허용 */
+  overflow-x: hidden; /* 수평 스크롤바를 숨김 */
+  font-family: 'BM JUA_TTF', sans-serif;
+}
 
 .screen {
   display: flex;
@@ -12,15 +24,12 @@
   align-items: center;
   gap: 15px; /* 각 요소 사이의 간격 */
   padding: 20px;
-  height: 100vh; /* 화면 전체 높이 */
+  height: auto; /* 화면 전체 높이 */
   box-sizing: border-box;
   justify-content: center; /* 수직 가운데 정렬 */
 }
 
-
-
 /* 맨위 상단 메뉴바 %회원가입 글자 */
-
 .component {
   display: flex;
   align-items: center;
@@ -32,25 +41,21 @@
   margin-bottom: 20px;
 }
 
-
-
 .logo-s-s {
   width: 100px; /* 너비를 100px로 설정 */
   height: auto; /* 높이는 자동으로 설정 */
   margin: 0 auto;
 }
 
-h1{
+h1 {
   color: #BDBDBD;
   font-size: 50px; /* 폰트 크기를 50px로 설정 */
 }
 
-.star{
-  width: 25px; /* 너비를 100px로 설정 */
+.star {
+  width: 25px; /* 너비를 25px로 설정 */
   height: auto; /* 높이는 자동으로 설정 */
 }
-
-
 
 /* 정보 입력칸 */
 .view,
@@ -59,7 +64,9 @@ h1{
 .view-4,
 .view-5,
 .view-6,
-.view-8 {
+.view-8,
+.view-9,
+.view-10 {
   background-color: #ffffff;
   border: 4px solid #ff8000;
   border-radius: 20px;
@@ -68,14 +75,13 @@ h1{
   max-width: 550px; /* 최대 너비 */
   display: flex;
   align-items: center;
+  justify-content: center; /* 수평 가운데 정렬 */
   padding: 0 15px; /* 좌우 패딩 */
   box-sizing: border-box;
   margin-bottom: 15px; /* 각 요소 사이의 간격 */
   font-family: 'Pretendard-Regular';
 }
 
-
-/* 성별구분 */
 .view-7 {
   background-color: #ffffff;
   height: 50px; /* 고정 높이 */
@@ -95,7 +101,7 @@ h1{
   outline: none;
   font-size: 20px; /* 고정 폰트 크기 */
   width: 100%;
-  height: calc(100% - 30px); /*  위아래 패딩을 고려한 높이 조정 */
+  height: calc(100% - 30px); /* 위아래 패딩을 고려한 높이 조정 */
   padding: 0 10px;
   box-sizing: border-box;
 }
@@ -104,10 +110,7 @@ h1{
   padding-left: 10px; /* 왼쪽 패딩을 10px로 설정 */
 }
 
-
-
-
-/* 버튼 css */
+.group-1,
 .group-2 {
   display: flex;
   flex-direction: column;
@@ -115,59 +118,32 @@ h1{
   gap: 10px;
 }
 
-.view-9 {
+.view-9,
+.view-10 {
   background-color: #BDBDBD;
-  border-radius: 20px;
-  height: 60px; /* 고정 높이 */
-  width: 80vw; /* 뷰포트 너비의 80% */
-  max-width: 550px; /* 최대 너비 */
-  display: flex;
-  justify-content: center; /* 수평 가운데 정렬 */
-  align-items: center; /* 수직 가운데 정렬 */
-  padding: 0 15px; /* 좌우 패딩 */
-  box-sizing: border-box;
-  margin-bottom: 15px; /* 각 요소 사이의 간격 */
-  cursor: pointer;
-  font-family: 'BMJUA';
   border: none; /* 테두리 제거 */
   box-shadow: none; /* 박스 쉐도우 제거 */
   font-size: 30px; /* 폰트 크기를 30px로 설정 */
   color: #ffffff; /* 폰트 색상을 흰색으로 설정 */
+  cursor: pointer;
+  font-family: 'BM JUA_TTF', sans-serif;
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
 }
 
 .view-10 {
   background-color: #ff8000;
-  border-radius: 20px;
-  height: 60px; /* 고정 높이 */
-  width: 80vw; /* 뷰포트 너비의 80% */
-  max-width: 550px; /* 최대 너비 */
-  display: flex;
-  justify-content: center; /* 수평 가운데 정렬 */
-  align-items: center; /* 수직 가운데 정렬 */
-  padding: 0 15px; /* 좌우 패딩 */
-  box-sizing: border-box;
-  margin-bottom: 15px; /* 각 요소 사이의 간격 */
-  cursor: pointer;
-  font-family: 'BMJUA';
-  border: none; /* 테두리 제거 */
-  box-shadow: none; /* 박스 쉐도우 제거 */
-  font-size: 30px; /* 폰트 크기를 30px로 설정 */
-  color: #ffffff; /* 폰트 색상을 흰색으로 설정 */
 }
 
-.view-10,
-.view-9 {
-  margin: 5px 0; /* 위아래 간격 조절 */
-}
-
-
+/* 오버랩 요소들 */
 .overlap-wrapper-s {
   position: relative;
   width: 100%;
   max-width: 550px;
   margin: 0 auto;
   padding: 0 15px;
-  top:-426px;
+  top: 0px; /* 상단 여백 조정 */
   box-sizing: border-box;
 }
 
@@ -182,7 +158,6 @@ h1{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  top:20px;
   width: 100%;
 }
 
@@ -190,14 +165,13 @@ h1{
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   width: 100%;
 }
 
 .xnix-line-s,
 .xnix-line-search-s,
 .xnix-line-hamburger-s {
-  margin-top: -36px; /* 16픽셀 위로 이동 */
+  margin-top: -36px; /* 36픽셀 위로 이동 */
 }
 
 .xnix-line {
@@ -205,14 +179,12 @@ h1{
   height: auto;
 }
 
-
 .xnix-line-search {
   width: 25px;
   height: auto;
 }
 
 .xnix-line-hamburger {
-
   width: 25px;
   height: auto;
 }
