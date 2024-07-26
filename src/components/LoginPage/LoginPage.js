@@ -53,26 +53,26 @@ const LoginPage = () => {
       
       <form>
         <div className="group">
-          <div className="view">
+          <div className="view-l">
             <input
               type="text"
-              id="username"
+              id="username-l"
               name="user_name"
               placeholder="아이디 입력"
-              value={formData.username}
+              value={formData.user_name}
               onChange={handleChange}
               required
               className="input-field-l"
             />
           </div>
 
-          <div className="view-2">
+          <div className="view-2-l">
             <input
               type="password"
-              id="password"
+              id="password-l"
               name="user_pw"
               placeholder="비밀번호 입력"
-              value={formData.password}
+              value={formData.user_pw}
               onChange={handleChange}
               required
               className="input-field-l"
@@ -89,8 +89,8 @@ const LoginPage = () => {
             <a href="/find-password" className="link">비밀번호 찾기</a>
           </div>
            
-          <button type="submit" onClick={handleLogin} className="view-9">로그인</button>
-          <button type="button" onClick={handleSignup} className="view-10">회원가입</button>
+          <button type="submit" onClick={handleLogin} className="view-10">로그인</button>
+          <button type="button" onClick={handleSignup} className="view-9">회원가입</button>
         </div>
       </form>
 

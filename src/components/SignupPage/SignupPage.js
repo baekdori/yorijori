@@ -102,7 +102,7 @@ const SignupPage = () => {
                 id="username"
                 name="user_name"
                 placeholder="아이디 입력"
-                value={formData.username}
+                value={formData.user_name}
                 onChange={handleChange}
                 required
                 className="input-field"
@@ -116,7 +116,7 @@ const SignupPage = () => {
                 id="password"
                 name="user_pw"
                 placeholder="비밀번호 입력"
-                value={formData.password}
+                value={formData.user_pw}
                 onChange={handleChange}
                 required
                 className="input-field"
@@ -144,7 +144,7 @@ const SignupPage = () => {
                 id="fullName"
                 name="user_name"
                 placeholder="회원 이름 입력"
-                value={formData.fullName}
+                value={formData.user_name}
                 onChange={handleChange}
                 required
                 className="input-field"
@@ -158,7 +158,7 @@ const SignupPage = () => {
                 id="nickname"
                 name="user_nick"
                 placeholder="사용할 닉네임 입력"
-                value={formData.nickname}
+                value={formData.user_nick}
                 onChange={handleChange}
                 required
                 className="input-field"
@@ -172,7 +172,7 @@ const SignupPage = () => {
                 id="phone"
                 name="user_phone"
                 placeholder="핸드폰 번호 입력"
-                value={formData.phone}
+                value={formData.user_phone}
                 onChange={handleChange}
                 required
                 className="input-field"
@@ -197,7 +197,7 @@ const SignupPage = () => {
                 id="phone"
                 name="user_email"
                 placeholder="이메일 입력(선택)"
-                value={formData.email}
+                value={formData.user_email}
                 onChange={handleChange}
                 className="input-field"
               />
