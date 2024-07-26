@@ -4,6 +4,8 @@ import './MyPage.css';
 import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
 
 const MyPage = () => {
+  const navigate = useNavigate(); // navigate 함수 정의
+
   // 사용자 데이터 상태와 수정가능여부 관리하는 상태를 정의
   const [userData, setUserData] = useState({
     user_nick: '',
@@ -129,7 +131,7 @@ const MyPage = () => {
       <button className="submit-btn" onClick={handleSubmitClick} disabled={!isEditing}>확인</button>
       
       {/* 회원 탈퇴 버튼 */}
-      <button className="delete-account-btn">
+      <button className="delete-account-btn" onClick={handleDeleteClick}>
         회원 탈퇴
       </button>
     </div>
