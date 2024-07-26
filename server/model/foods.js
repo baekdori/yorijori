@@ -26,16 +26,15 @@ const foods = {
     },
     
     // 3. 게시글 수정 API
-    postmodify: (food_idx, user_id, updatedPost, callback) => {
-        const sql = `
-            UPDATE Foods
-            SET food_name = ?, food_desc = ?, food_video = ?, food_recipe = ?, food_mood = ?, ingre_img = ?
-            WHERE food_idx = ? AND user_id = ?
-            `;
-        const { food_name, food_desc, food_video, food_recipe, food_mood, ingre_img } = updatedPost;
-        conn.query(sql, [food_name, food_desc, food_video, food_recipe, food_mood, ingre_img, food_idx, user_id], callback);
+postmodify: (food_idx, user_id, updatedPost, callback) => {
+    const sql = `
+        UPDATE Foods
+        SET food_name = ?, food_desc = ?, food_video = ?, food_recipe = ?, food_mood = ?, ingre_img = ?
+        WHERE food_idx = ? AND user_id = ?
+    `;
+    const { food_name, food_desc, food_video, food_recipe, food_mood, ingre_img } = updatedPost;
+    conn.query(sql, [food_name, food_desc, food_video, food_recipe, food_mood, ingre_img, food_idx, user_id], callback);
     },
-
     // 4. 게시글 삭제 API
     postdelete: (food_idx, user_id, callback) => {
         const sql = `DELETE FROM Foods WHERE food_idx = ? AND user_id = ?`;

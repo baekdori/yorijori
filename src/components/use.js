@@ -29,6 +29,8 @@ try {
         user_id: 'kws' // 실제 user_id 값을 여기에 설정
     };
 
+    console.log('수정하는 데이터:', udptmodify); // 프론트엔드 콘솔에 수정 데이터 출력
+
     const response = await fetch(`http://localhost:4000/foods/postmodify/${food_idx}`, {
         method: 'PUT',
         headers: {
@@ -48,3 +50,23 @@ try {
     alert('정보를 수정할 수 없습니다.');
 }
 // 게시글 삭제 api
+try {
+    const food_idx = 3; // 삭제할 게시글의 food_idx
+
+    const response = await fetch(`http://localhost:4000/foods/postdelete/${food_idx}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error('정보를 삭제할 수 없습니다.');
+    }
+
+    const data = await response.json();
+    console.log('게시글 삭제 응답:', data);
+} catch (error) {
+    console.error('에러 발생:', error);
+    alert('정보를 삭제할 수 없습니다.');
+}
