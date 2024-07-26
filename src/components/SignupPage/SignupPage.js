@@ -28,7 +28,7 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.user_pw !== formData.confirmPassword) {
       alert('비밀번호 일치하지 않음');
       return;
     }
@@ -86,9 +86,9 @@ const SignupPage = () => {
               <input
                 type="text"
                 id="username"
-                name="user_name"
+                name="user_id"
                 placeholder="아이디 입력"
-                value={formData.user_name}
+                value={formData.user_id}
                 onChange={handleChange}
                 required
                 className="input-field"
