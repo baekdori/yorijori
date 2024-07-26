@@ -54,7 +54,7 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="screen">
+    <div className="SignupPage">
 
       <div className="overlap-wrapper">
         {/* 맨위에 올라가는 로고와 알림, 돋보기, 더보기칸 아이콘 */}
