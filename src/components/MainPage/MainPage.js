@@ -10,12 +10,14 @@ const MainPage = () => {
   const [searchTags, setSearchTags] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [draggedItem, setDraggedItem] = useState(null);
+  const [droppedItems, setDroppedItems] = useState([]);
 
   const recipeTextRef = useRef(null);
 
   const keywordSearching = () => {
     setIsKeywordSearch(true);
-    setIsVisualSearch(false); // Ensure visual search is disabled
+    setIsVisualSearch(false);
     setShowSearchResult(false);
   };
 
@@ -46,7 +48,6 @@ const MainPage = () => {
       }
       setIsKeywordSearch(true);
 
-      // Fetch search results
       const ingredients = searchTags.map(tag => tag.text);
       try {
         const response = await axios.post('/api/search', { ingredients });
@@ -108,6 +109,25 @@ const MainPage = () => {
     setSearchResults([]);
   };
 
+  const handleDragStart = (event, index) => {
+    event.dataTransfer.setData("text/plain", index);
+    setDraggedItem(index);
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const draggedIndex = event.dataTransfer.getData("text/plain");
+    const itemText = itemTexts[draggedIndex];
+    if (!droppedItems.includes(itemText)) {
+      setDroppedItems([...droppedItems, itemText]);
+    }
+    setDraggedItem(null);
+  };
+
   const renderRecipeText = () => {
     if (isKeywordSearch && !isVisualSearch) {
       return (
@@ -127,6 +147,15 @@ const MainPage = () => {
       return '레시피 찾아보기';
     }
   };
+
+  const itemTexts = [
+    '돼지고기',
+    '닭고기',
+    '소고기',
+    '오리고기',
+    '꿩고기',
+    '콩고기'
+  ];
 
   return (
     <div className="main-page">
@@ -179,11 +208,14 @@ const MainPage = () => {
 
       {!isKeywordSearch && (
         <>
-          <div className="right-container" onClick={visualSearching}>
+          <div className="right-container" onClick={visualSearching} onDragOver={handleDragOver} onDrop={handleDrop}>
             <div className="searching-plate">
               {!isVisualSearch && (
                 <div className="searching-plate-text">비주얼 검색</div>
               )}
+              {droppedItems.map((item, index) => (
+                <div key={index} className="dropped-item">{item}</div>
+              ))}
             </div>
           </div>
         </>
@@ -219,11 +251,30 @@ const MainPage = () => {
       )}
 
       {isVisualSearch && (
-        <div className="vs-recom-btn-container">
-          <div className="ingre-list">재료</div>
-          <button className="vs-cancel-btn" onClick={vsHandleCancelClick}>전체 취소</button>
-          <button className="vs-start-btn" onClick={vsHandleStartClick}>시작</button>
-        </div>
+        <>
+          <div className="vs-recom-btn-container">
+            <div className="ingre-list">재료</div>
+            <button className="vs-cancel-btn" onClick={vsHandleCancelClick}>전체 취소</button>
+            <button className="vs-start-btn" onClick={vsHandleStartClick}>시작</button>
+          </div>
+          <div
+            className="item-list-container"
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          >
+            {itemTexts.map((text, index) => (
+              <div
+                key={index}
+                className={`item-box ${draggedItem === index ? 'dragging' : ''}`}
+                draggable
+                onDragStart={(event) => handleDragStart(event, index)}
+                onDragEnd={() => setDraggedItem(null)}
+              >
+                <span className="item-text">{text}</span>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {showSearchResult && (
