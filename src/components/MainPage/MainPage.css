@@ -60,9 +60,22 @@ body::-webkit-scrollbar-thumb {
   top: -16px; /* 상단 위치 조정 */
   left: 180px; /* 왼쪽 위치 조정 */
   padding: 10px; /* 클릭 영역을 키우기 위해 패딩 추가 */
-  font-family: 'Pretendard', sans-serif
+  font-family: 'Pretendard', sans-serif;
+  z-index: 15;
 }
-
+.visual-backarrow {
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 40px; /* 화살표 크기 조정 */
+  z-index: 8; /* Ensure it is above other content */
+  color: #434343; /* 화살표 색상 */
+  position: absolute; /* 위치를 명확히 하기 위해 절대 위치 사용 */
+  top: -16px; /* 상단 위치 조정 */
+  left: 180px; /* 왼쪽 위치 조정 */
+  padding: 10px; /* 클릭 영역을 키우기 위해 패딩 추가 */
+  font-family: 'Pretendard', sans-serif;
+  z-index: 26;
+}
 .select-btn-container {
   position: absolute;
   top: 211px;
@@ -259,6 +272,71 @@ body::-webkit-scrollbar-thumb {
   border : none;
 }
 
+.vs-recom-btn-container {
+  position: absolute;
+  top: 400px;
+  bottom: 20px;
+  width: calc(100% - 40px);
+  height: 200px;
+  padding: 20px;
+  z-index: 4;
+}
+
+.vs-cancel-btn, .vs-start-btn {
+  position: absolute;
+  border-radius: 50px;
+  font-family: 'Pretendard', sans-serif;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+}
+
+.vs-cancel-btn {
+  top: 82px;
+  left: 470px;
+  width: 110px;
+  height: 30px;
+  background-color: #D6D6D6;
+}
+
+.vs-start-btn {
+  top: 82px;
+  left: 600px;
+  width: 60px;
+  height: 30px;
+  background-color: #FF8000;
+}
+
+.search-result-text {
+  position: absolute;
+  top: 80px;
+  left: 138px;
+  font-family: 'BM JUA_TTF', sans-serif;
+  font-weight: regular;
+  font-size: 36px;
+  letter-spacing: -0.1em;
+  user-select: none;
+}
+
+/* Add a dropdown button */
+.ingre-list {
+  position: absolute;
+  top: 82px;
+  left: 138px;
+  width: 110px;
+  height: 30px;
+  background-color: #FF8000;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
 .recom-text {
   font-size: 36px;
   color: #434343;
@@ -373,3 +451,8 @@ body::-webkit-scrollbar-thumb {
 .search-result-container > .result-square {
   margin: 10px;
 }
+
+.hidden {
+  display: none;
+}
+
