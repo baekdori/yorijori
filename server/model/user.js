@@ -18,18 +18,6 @@ const user = {
         });
     },
 
-    // 모든 사용자 정보 조회 - 콘솔로그 적기 전, 기존 코드!
-    // getAll: (callback) =>{
-    // conn.query("SELECT * FROM Users", callback);   // 쿼리 실행 후, callback 함수를 실행하여 sql문 결과 불러옴
-    // },
-
-    // // 특정 사용자 정보 조회 (예시 : ID로 조회)
-    // getById: (id, callback) => {
-    //     const sql = "SELECT * FROM Users WHERE user_id = ?";
-    //     conn.query(sql, [id], callback);
-    // },
-    
-
      // 사용자 정보를 DB에 저장
      // create 메서드를 통해 프론트에서 받은 회원가입 정보를 Users 테이블에 삽입
     create: (userInfo, callback) => {
@@ -90,6 +78,26 @@ const user = {
                 console.log('update 결과:', results);
             }
             // 쿼리 실행 후, 콜백 함수 호출하여 에러와 결과 전달
+            callback(err, results);
+        });
+    },
+
+    // 사용자 정보를 DB에서 삭제
+    // delete 메서드 추가
+    delete: (userId, callback) => {
+        // sql 쿼리 문자열 정의 : 사용자 아이디를 기준으로 사용자 삭제
+        const sql = "DELETE FROM Users WHERE user_id = ?";
+        console.log(`SQL 실행: ${sql}, 파라미터: ${userId}`);
+        
+        // 데이터베이스에 쿼리 실행
+        conn.query(sql, [userId], (err, results) => {
+            if (err) {
+                console.error('delete 에러:', err); 
+            } else {
+                console.log('delete 결과:', results);
+            }
+            // 쿼리 실행 후, 콜백 함수 호출하여 에러와 결과 전달
+            console.log('쿼리 실행 완료, 콜백 호출');
             callback(err, results);
         });
     }
