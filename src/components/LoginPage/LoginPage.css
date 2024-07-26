@@ -40,27 +40,34 @@ body {
   
 
   /* 아이디 저장, 아이디 찾기 비밀번호 찾기 */
-  .options .remember {
-    display: flex;
-    align-items: center;
-    margin-right: 200px; /* 아이디 저장과 링크 사이의 여백을 설정 */
+  /* 아이디 저장, 아이디 찾기 비밀번호 찾기 */
+.options {
+  display: flex;
+  justify-content: space-between; /* 요소들을 좌우 끝으로 배치 */
+  align-items: center;
+  width: 100%; /* 부모 요소의 전체 너비를 차지하도록 설정 */
+}
 
-  }
-  
-  .options .links {
-    display: flex;
-    align-items: center;
-  }
-  
-  .options .link {
-    color: #6c757d;
-    text-decoration: none;
-    margin: 0 5px; /* 링크 사이의 여백을 설정 */
-  }
-  
-  .options .divider {
-    margin: 0 5px; /* 구분자 사이의 여백을 설정 */
-  }
+.options .remember {
+  display: flex;
+  align-items: center;
+}
+
+.options .links {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* 링크 그룹을 오른쪽 끝으로 이동 */
+}
+
+.options .link {
+  color: #6c757d;
+  text-decoration: none;
+  margin: 0 5px; /* 링크 사이의 여백을 설정 */
+}
+
+.options .divider {
+  margin: 0 5px; /* 구분자 사이의 여백을 설정 */
+}
   
 
   /* 입력칸 주황테두리 css */

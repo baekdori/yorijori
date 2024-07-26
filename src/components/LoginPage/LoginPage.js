@@ -57,9 +57,9 @@ const LoginPage = () => {
             <input
               type="text"
               id="username-l"
-              name="user_name"
+              name="user_id"
               placeholder="아이디 입력"
-              value={formData.user_name}
+              value={formData.user_id}
               onChange={handleChange}
               required
               className="input-field-l"
@@ -84,9 +84,11 @@ const LoginPage = () => {
               <input type="checkbox" name="remember" />
               아이디 저장
             </label>
+            <div className="links">
             <a href="/find-id" className="link">아이디 찾기</a>
             <span className="divider">|</span>
             <a href="/find-password" className="link">비밀번호 찾기</a>
+            </div>
           </div>
            
           <button type="submit" onClick={handleLogin} className="view-10">로그인</button>
