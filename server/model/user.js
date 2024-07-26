@@ -100,6 +100,23 @@ const user = {
             console.log('쿼리 실행 완료, 콜백 호출');
             callback(err, results);
         });
+    },
+
+    // 특정 사용자 정보 조회
+    getById: (userId, callback) => {
+        const sql = "SELECT user_id, user_nick, user_phone, user_email FROM Users WHERE user_id = ?";
+        console.log(`SQL 실행: ${sql}, 파라미터: ${userId}`);
+        
+        // 데이터베이스에 쿼리 실행
+        conn.query(sql, [userId], (err, results) => {
+            if (err) {
+                console.error('getById 에러:', err); 
+            } else {
+                console.log('getById 결과:', results);
+            }
+            // 쿼리 실행 후, 콜백 함수 호출하여 에러와 결과 전달
+            callback(err, results);
+        });
     }
 
 };

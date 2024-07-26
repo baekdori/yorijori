@@ -7,7 +7,6 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(bodyParser.json());
 
 // CORS(Cross-Origin Resource Sharing) 설정
 // npm i CORS 설치 필요
@@ -19,6 +18,7 @@ app.use(cors({
 app.use(express.urlencoded({ extended: false })); 
 app.use(express.json());
 app.use(session);
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -66,7 +66,6 @@ app.use('/comts/comtsdelete',cdRouter);
 // 댓글 수정 라우터(우석)
 const cmRouter = require('./routes/cmRouter')
 app.use('/comts/comtsmodify',cmRouter);
-
 
 // 추천 라우터(지훈)
 const recommendRouter = require('./routes/recommend'); 

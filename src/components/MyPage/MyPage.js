@@ -17,6 +17,7 @@ const MyPage = () => {
 
   // 컴포넌트가 처음 렌더링 될 때 사용자 정보 불러오기
   useEffect(() => {
+    console.log('프로필 정보 요청 시작');
     axios.get('http://localhost:4000/user/mypage/profile')  // 백엔드 서버에서 사용자의 프로필 데이터 가져오는 요청
       .then(response => {
         setUserData(response.data);
@@ -43,6 +44,7 @@ const MyPage = () => {
   // 확인 버튼 클릭 (회원 정보 수정)
   const handleSubmitClick = async () => {
     try {
+      console.log('회원정보 수정 요청 데이터:', userData);
       // 백엔드 서버(4000)로 POST 요청보내서 수정된 사용자 데이터 전송
       const response = await axios.put("http://localhost:4000/user/mypage", userData); 
       console.log('서버 응답 데이터:', response.data);
