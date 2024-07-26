@@ -34,7 +34,7 @@
 
 
 
-.logo-s {
+.logo-s-s {
   width: 100px; /* 너비를 100px로 설정 */
   height: auto; /* 높이는 자동으로 설정 */
   margin: 0 auto;
@@ -158,4 +158,61 @@ h1{
 .view-10,
 .view-9 {
   margin: 5px 0; /* 위아래 간격 조절 */
+}
+
+
+.overlap-wrapper-s {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 0 15px;
+  top:-426px;
+  box-sizing: border-box;
+}
+
+.group-wrapper-s {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.overlap-group-2-s {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top:20px;
+  width: 100%;
+}
+
+.component-s {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.xnix-line-s,
+.xnix-line-search-s,
+.xnix-line-hamburger-s {
+  margin-top: -36px; /* 16픽셀 위로 이동 */
+}
+
+.xnix-line {
+  width: 25px;
+  height: auto;
+}
+
+
+.xnix-line-search {
+  width: 25px;
+  height: auto;
+}
+
+.xnix-line-hamburger {
+
+  width: 25px;
+  height: auto;
 }

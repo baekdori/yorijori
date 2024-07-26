@@ -56,28 +56,28 @@ const SignupPage = () => {
   return (
     <div className="SignupPage">
 
-      <div className="overlap-wrapper">
+      <div className="overlap-wrapper-s">
         {/* 맨위에 올라가는 로고와 알림, 돋보기, 더보기칸 아이콘 */}
-        <div className="group-wrapper">
+        <div className="group-wrapper-s">
 
-          <div className="overlap-group-2">
+          <div className="overlap-group-2-s">
 
-            <div className="component">
+            <div className="component-s">
 
               <img
-                className="xnix-line"
+                className="xnix-line-s"
                 alt="Xnix line"
                 src="/static/img/xnix-line-notification-12-1.png"
               />
 
-              <img className="logo-s" alt="Logo s" src="/static/img/logo-s.png" />
+              <img className="logo-s-s" alt="Logo s" src="/static/img/logo-s.png" />
 
 
 
-              <XnixLineSearch4 className="xnix-line-search" color="#434343" />
+              <XnixLineSearch4 className="xnix-line-search-s" color="#434343" />
 
               <img
-                className="xnix-line-hamburger"
+                className="xnix-line-hamburger-s"
                 alt="Xnix line hamburger"
                 src="/static/img/xnix-line-hamburger-4-1.png"
               />
