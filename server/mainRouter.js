@@ -46,26 +46,32 @@ app.use('/foods/search', searchFoodsByIngredient);
 // 게시글 작성 라우터(우석) -> RecipeAddPage
 const pcRouter = require('./routes/pcRouter')
 app.use('/foods/postcreat',pcRouter);
+console.log('게시글 작성 라우터 연결: /foods/postcreat')
 
 // 게시글 보기 라우터(우석)
 const psRouter = require('./routes/psRouter')
 app.use('/foods/postsee',psRouter);
+console.log('게시글 보기 라우터 연결: /foods/postsee')
 
 // 게시글 수정 라우터(우석)
 const pmRouter = require('./routes/pmRouter')
 app.use('/foods/postmodify',pmRouter);
+console.log('게시글 수정 라우터 연결: /foods/postmodify')
 
 // 게시글 삭제 라우터(우석)
 const pdRouter = require('./routes/pdRouter')
 app.use('/foods/postdelete',pdRouter);
+console.log('게시글 삭제 라우터 연결: /foods/postdelete')
 
 // 댓글 삭제 라우터(우석)
 const cdRouter = require('./routes/cdRouter')
 app.use('/comts/comtsdelete',cdRouter);
+console.log('댓글 삭제 라우터 연결: /comts/comtsdelete')
 
 // 댓글 수정 라우터(우석)
 const cmRouter = require('./routes/cmRouter')
 app.use('/comts/comtsmodify',cmRouter);
+console.log('댓글 수정 라우터 연결: /comts/comtsmodify')
 
 // 추천 라우터(지훈)
 const recommendRouter = require('./routes/recommend'); 
