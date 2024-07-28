@@ -14,7 +14,6 @@ router.get('/', (req, res) => {
         } else {
             console.log('게시글 보기 응답:', result[0]);
             res.json(result[0]); // 조회된 게시글 정보를 JSON으로 응답
-            
         }
     });
 });
