@@ -32,11 +32,29 @@ const DetailPage = () => {
   // // if (!details) {
   // //   return <div>No details available</div>; // 데이터가 없을 때 표시할 컴포넌트
   // // }
+  // 상태 정의: 댓글 리스트와 현재 입력 중인 댓글
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+
+  // 댓글 등록 핸들러
+  const handleAddComment = () => {
+    // 댓글 길이 제한 확인 (500자)
+    if (newComment.length <= 500) {
+      // 새로운 댓글을 리스트에 추가
+      setComments([...comments, { text: newComment, date: new Date().toISOString() }]);
+      // 입력 필드 초기화
+      setNewComment('');
+    } else {
+      alert('댓글은 최대 500자까지 입력 가능합니다.');
+    }
+  };
+
+
 
   return (
     <div className="DetailPage"> {/* 최상위 요소로 div 사용 */}
-    <TopBar />
-  
+      <TopBar />
+
       <div className="detail-container"> {/* 상세 정보 컨테이너 */}
         {/* 각 섹션에 대한 자리 표시자 추가 */}
         <div className="image-section">
@@ -61,7 +79,7 @@ const DetailPage = () => {
 
         <div className="video-section">
           <h2>유튜브 영상</h2>
-          
+
         </div>
 
         <div className="description-section">
@@ -84,10 +102,37 @@ const DetailPage = () => {
           {/* <textarea maxLength="500" placeholder="댓글을 작성하세요..."></textarea>
           <button type="button">댓글 등록</button> */}
         </div>
+        <div style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
+          <h2>Review</h2>
+          <div style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px', borderRadius: '5px' }}>
+            <textarea
+              style={{ width: '100%', height: '100px', resize: 'none', padding: '10px', boxSizing: 'border-box' }}
+              placeholder="댓글을 입력하세요"
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            />
+            <button
+              style={{ marginTop: '10px', padding: '10px 20px', backgroundColor: '#ccc', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
+              onClick={handleAddComment}
+            >
+              등록
+            </button>
+          </div>
+          <div>
+            {comments.map((comment, index) => (
+              <div key={index} style={{ marginBottom: '10px', padding: '10px', border: '1px solid #eee', borderRadius: '5px' }}>
+                <div style={{ fontSize: '12px', color: '#999' }}>{comment.date}</div>
+                <div>{comment.text}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
       <BottomBar />
     </div>
-  );
-};
+            );
+          };
+
 
 export default DetailPage; // 컴포넌트를 기본 내보내기로 내보냄
