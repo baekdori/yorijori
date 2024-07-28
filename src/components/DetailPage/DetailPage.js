@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'; // 네비게이션을 위한 훅
 import './DetailPage.css'; // CSS 파일 불러옴
 import axios from 'axios'; // HTTP 요청을 위한 axios 불러옴
 import TopBar from '../TopBar/TopBar.js';
+import BottomBar from '../BottomBar/BottomBar.js';
 
 const DetailPage = () => {
   // const navigate = useNavigate(); // 네비게이션 훅 사용
@@ -84,6 +85,7 @@ const DetailPage = () => {
           <button type="button">댓글 등록</button> */}
         </div>
       </div>
+      <BottomBar />
     </div>
   );
 };
