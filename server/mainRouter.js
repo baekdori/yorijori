@@ -97,7 +97,7 @@ const favoriteRouter = require('./routes/favoriteList');
 app.use('/favorites', favoriteRouter);
 
 // 세션 확인 라우터(하은)
-const CheckSessionRouter = require('./routes/checkSessionRouter');
+const CheckSessionRouter = require('./routes/CheckSessionRouter');
 app.use('/check-session', CheckSessionRouter);
 // 백엔드에서 세션 상태를 확인하기 위한 API 엔드포인트
 // 백엔드에서 세션 상태를 확인하고, 그 결과를 프론트엔드에 JSON 형태로 응답하는 역할
