@@ -34,6 +34,11 @@ const LoginRouter = require('./routes/LoginRouter');
 app.use('/user/login', LoginRouter);   // LoginRouter와 login 화면 연결
 console.log('로그인 라우터 연결됨: /user/login');
 
+// 로그아웃 라우터(하은)
+const LogoutRouter = require('./routes/LogoutRouter'); 
+app.use('/user/logout', LogoutRouter);   // LogoutRouter와 logout 버튼 연결
+console.log('로그아웃 라우터 연결됨: /user/logout');
+
 // 마이페이지 (프로필, 회원정보 수정 및 탈퇴) 라우터 (하은)
 const MypageRouter = require('./routes/MypageRouter'); 
 app.use('/user/mypage', MypageRouter);   // MypageRouter와 mypage 화면 연결
@@ -86,6 +91,12 @@ app.use('/random-food-idx', recommendRouter);
 const favoriteRouter = require('./routes/favoriteList');
 app.use('/favorites', favoriteRouter);
 
+// 세션 확인 라우터(하은)
+const CheckSessionRouter = require('./routes/checkSessionRouter');
+app.use('/check-session', CheckSessionRouter);
+// 백엔드에서 세션 상태를 확인하기 위한 API 엔드포인트
+// 백엔드에서 세션 상태를 확인하고, 그 결과를 프론트엔드에 JSON 형태로 응답하는 역할
+console.log('세션 확인 라우터 연결됨: /check-session');
 
 // 서버 시작
 app.listen(port, () => {

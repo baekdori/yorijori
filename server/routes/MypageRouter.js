@@ -2,6 +2,15 @@ const express = require('express');
 const router = express.Router();
 const user = require('../model/user');
 
+// 인증 미들웨어
+const authMiddleware = (req, res, next) => {
+    if (req.session && req.session.user) {
+        next(); // 세션에 유저 정보가 있으면, 요청을 다음 미들웨어 또는 라우트로 넘김
+    } else {
+        res.status(401).json({ message: '인증이 필요합니다.' }); // 세션에 유저 정보가 없으면, 인증 오류 반환
+    }
+};
+
 // 프로필 라우터
 router.get('/profile', (req, res) => {
     console.log('세션 확인:', req.session);
@@ -82,5 +91,9 @@ router.delete('/:userId', async (req, res) => {
     }
 });
 
+// 예제 라우트에 인증 미들웨어 적용
+router.get('/protected', authMiddleware, (req, res) => {
+    res.json({ message: '인증된 사용자만 접근할 수 있는 페이지입니다.' });
+});
 
 module.exports = router;
