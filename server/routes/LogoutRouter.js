@@ -4,11 +4,15 @@ const user = require('../model/user');
 
 // 로그아웃 라우터 추가
 router.post('/logout', (req, res) => {
+  console.log('로그아웃 요청 수신:', req.session.user);
+  
   req.session.destroy(err => {
     if (err) {
-      return res.status(500).json({ message: '로그아웃 도중 오류가 발생했습니다.' });
+      console.error('로그아웃 도중 오류 발생:', err);
+      return res.status(500).json({ message: '로그아웃 오류' });
     }
-    res.json({ message: '로그아웃이 성공적으로 완료되었습니다.' });
+    console.log('로그아웃 완료');
+    res.json({ message: '로그아웃 완료' });
   });
 });
 
