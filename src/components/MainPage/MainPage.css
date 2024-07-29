@@ -460,11 +460,12 @@ body::-webkit-scrollbar-thumb {
 .result-square-text {
   position: absolute;
   bottom: 10px;
+  width : 260px;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'BM JUA_TTF', sans-serif;
   font-weight: regular;
-  font-size: 40px;
+  font-size: 28px;
   letter-spacing: -0.05em;
   color: #FFFFFF;
   user-select: none;

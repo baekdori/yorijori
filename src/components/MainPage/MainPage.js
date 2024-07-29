@@ -51,10 +51,10 @@ const MainPage = () => {
       }
       setIsKeywordSearch(true);
 
-  const ingredients = searchTags.map(tag => tag.text);
+      const ingredients = searchTags.map(tag => tag.text);
       try {
         const response = await axios.post('/foods/search', { ingredients });
-        setSearchResults(response.data);
+        setSearchResults(response.data); // Assume the response data is in the form of [{ food_name: '...' }, ...]
         setShowSearchResult(true);
       } catch (error) {
         console.error("검색 결과 가져오기 실패!", error);
@@ -73,6 +73,7 @@ const MainPage = () => {
       setShowSearchResult(true);
     }
   };
+
   const handleCancelClick = () => {
     setSearchTags([]);
     setInputValue('');
@@ -197,7 +198,7 @@ const MainPage = () => {
       </div>
 
       <div className="select-btn-container">
-        {!isVisualSearch && (
+      {!isVisualSearch && (
           <div className={`left-container ${isKeywordSearch ? 'expand' : ''}`} onClick={keywordSearching}>
             <div className={`searching-input ${isKeywordSearch ? 'expand-width' : ''}`}>
               {isKeywordSearch ? (
@@ -308,13 +309,20 @@ const MainPage = () => {
         </>
       )}
 
-      {(isKeywordSearch || isVisualSearch) && showSearchResult && (
-        <div className="search-results-container">
-          {searchResults.map((result, index) => (
-            <div className="search-result-box" key={index}>
-              {result.food_name}
+      {isKeywordSearch && !isVisualSearch && showSearchResult && (
+        <div className="search-result-container">
+          <div className="result-square">
+            {searchResults.length > 0 ? (
+              searchResults.map((food, index) => (
+                <div className="result-square-text" key={index}>
+                  {food.food_name}
+                </div>
+              ))
+            ) : (
+              <div className="result-square-text">검색 결과가 없습니다.</div>
+            )}
             </div>
-          ))}
+          
         </div>
       )}
 
