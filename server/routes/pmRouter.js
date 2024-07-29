@@ -3,9 +3,12 @@ const router = express.Router();
 const foods = require('../model/foods'); // foods 모델을 불러옴
 
 // 게시글 수정 라우터 (PUT 요청)
-router.put('/:food_idx', (req, res) => {
-    const { food_idx } = req.params;
-    const { food_name, food_desc, food_video, food_recipe, food_mood, ingre_img, user_id } = req.body;
+router.put('/', (req, res) => {
+    const { food_idx, food_name, food_desc, food_video, food_recipe, food_mood, ingre_img, user_id } = req.body;
+
+    if (!food_idx || !user_id) {
+        return res.status(400).send('food_idx와 user_id는 필수입니다.');
+    }
 
     const updatedPost = {
         food_name,

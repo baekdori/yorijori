@@ -18,8 +18,8 @@ try {
 }
 // 게시글 수정 api
 try {
-    const food_idx = 3;
     const udptmodify = {
+        food_idx: 3,
         food_name: '피자나라 치킨공주',
         food_desc: '맜잇다',
         food_video: 'null',
@@ -31,7 +31,7 @@ try {
 
     console.log('수정하는 데이터:', udptmodify); // 프론트엔드 콘솔에 수정 데이터 출력
 
-    const response = await fetch(`http://localhost:4000/foods/postmodify/${food_idx}`, {
+    const response = await fetch(`http://localhost:4000/foods/postmodify`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -51,10 +51,10 @@ try {
 }
 // 게시글 삭제 api
 try {
-    const food_idx = 3; // 삭제할 게시글의 food_idx
-    const user_id = kws; // 사용자 ID
+    const food_idx = 1003; // 삭제할 게시글의 food_idx
+    const user_id = 'kws'; // 사용자 ID
 
-    const response = await fetch(`http://localhost:4000/?food_idx=${food_idx}&user_id=${user_id}`, {
+    const response = await fetch(`http://localhost:4000/foods/postdelete?food_idx=${food_idx}&user_id=${user_id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
