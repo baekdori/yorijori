@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './DetailPage.css';
+import { useParams } from 'react-router-dom'; // useParams import
 import axios from 'axios';
 import TopBar from '../TopBar/TopBar.js';
 import BottomBar from '../BottomBar/BottomBar.js';
+import './DetailPage.css';
 
 const DetailPage = () => {
-  // 정보값 실시간 상태관리
+  // URL 파라미터에서 foodIdx를 가져옴
+  const { foodIdx } = useParams();
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState([]);
   const [editingComment, setEditingComment] = useState(null);
   const [editingText, setEditingText] = useState('');
-  const [imageLoaded, setImageLoaded] = useState(false); // 이미지 로드 상태 관리 추가
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const user_id = 'kws'; // 현재는 임의 아이디로 설정 -> 추후에 세션에서 받은 로그인 아이디로 변경되게
 
-  // 페이지 렌더링시 댓글 가져오기
+  // 페이지 렌더링 시 댓글과 북마크 상태 가져오기
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -25,10 +27,22 @@ const DetailPage = () => {
       }
     };
 
-    fetchComments();
-  }, []);
+    const fetchBookmarkStatus = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/favorites/status', {
+          params: { user_id, foodIdx }
+        });
+        setIsBookmarked(response.data.isBookmarked);
+      } catch (error) {
+        console.error('Error fetching bookmark status:', error);
+      }
+    };
 
-  // 등록기능 
+    fetchComments();
+    fetchBookmarkStatus();
+  }, [user_id, foodIdx]);
+
+  // 댓글 등록 기능
   const handleAddComment = async () => {
     if (newComment.trim() === '') {
       return;
@@ -49,7 +63,6 @@ const DetailPage = () => {
     if (editingText.trim() === '') {
       return;
     }
-    // 본인댓글만 수정
     const commentToEdit = comments.find(comment => comment.id === id);
     if (commentToEdit.user_id !== user_id) {
       alert('본인의 댓글만 수정할 수 있습니다.');
@@ -64,8 +77,6 @@ const DetailPage = () => {
         user_id
       };
 
-      console.log('수정하는 데이터:', udptmodify);
-
       const response = await fetch(`http://localhost:4000/comts/comtsmodify?comments_idx=${comments_idx}&user_id=${user_id}`, {
         method: 'PUT',
         headers: {
@@ -79,7 +90,6 @@ const DetailPage = () => {
       }
 
       const data = await response.json();
-      console.log('댓글 수정 응답:', data);
       setComments(comments.map(comment => comment.id === id ? data : comment));
       setEditingComment(null);
       setEditingText('');
@@ -89,7 +99,7 @@ const DetailPage = () => {
     }
   };
 
-  // 댓글 삭제 
+  // 댓글 삭제
   const comtsdelete = async (id) => {
     // 문장을 비교해보고 본인 댓글만 삭제
     const commentToDelete = comments.find(comment => comment.id === id);
@@ -120,6 +130,29 @@ const DetailPage = () => {
     }
   };
 
+  // 즐겨찾기 토글 기능
+  const toggleBookmark = async () => {
+    try {
+      const url = isBookmarked
+        ? 'http://localhost:4000/favorites/remove'
+        : 'http://localhost:4000/favorites/add';
+
+      const response = await axios.post(url, {
+        user_id,
+        foodIdx
+      });
+
+      if (!response.data.success) {
+        throw new Error(isBookmarked ? '북마크를 제거할 수 없습니다.' : '북마크를 추가할 수 없습니다.');
+      }
+
+      setIsBookmarked(!isBookmarked);
+    } catch (error) {
+      console.error('북마크 토글 오류:', error);
+      alert('북마크 상태를 변경할 수 없습니다.');
+    }
+  };
+
   return (
     <div className="DetailPage">
       <TopBar />
@@ -142,6 +175,9 @@ const DetailPage = () => {
           </div>
           <div className="bookmark-section">
             <h2>북마크</h2>
+            <button onClick={toggleBookmark}>
+              {isBookmarked ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+            </button>
           </div>
         </div>
 
