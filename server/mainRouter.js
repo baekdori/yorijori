@@ -12,13 +12,15 @@ const app = express();
 // npm i CORS 설치 필요
 app.use(cors({
   origin: 'http://localhost:3000',   // 3000포트의 데이터를 4000포트로 보냄
+  credentials: true // 세션 정보가 포함된 요청을 허용
 }));
 
 // 미들웨어 설정
-app.use(express.urlencoded({ extended: false })); 
+app.use(express.urlencoded({ extended: true })); 
 app.use(express.json());
 app.use(session);
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

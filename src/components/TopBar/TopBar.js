@@ -9,7 +9,7 @@ const TopBar = () => {
   // 세션을 통해 로그인 상태 확인
   useEffect(() => {   // useEffect 훅을 사용하여 컴포넌트가 처음 렌더링될 때 세션 상태를 확인
     console.log('세션 상태 확인 요청 시작');
-    axios.get('http://localhost:4000/check-session')  // 서버에 세션 상태를 확인하기 위한 요청
+    axios.get('http://localhost:4000/check-session', { withCredentials: true })  // 서버에 세션 상태를 확인하기 위한 요청
       .then(response => {
         if (response.data.user) {
           setIsLoggedIn(true);  // 세션에 유저 정보가 있으면 로그인 상태로 설정
@@ -27,7 +27,7 @@ const TopBar = () => {
   const handleLogout = async () => {   // handleLogout 함수 호출
     console.log('로그아웃 요청 시작');
     try {
-      const response = await axios.post('http://localhost:4000/logout'); // 서버로 로그아웃 요청 >> 세션 종료
+      const response = await axios.post('http://localhost:4000/logout', {}, { withCredentials: true }); // 서버로 로그아웃 요청 >> 세션 종료
       if (response.status === 200) {
         alert('로그아웃 되었습니다.');
         setIsLoggedIn(false);  // 로그아웃 성공시, isLoggedIn 상태를 false로 변경
