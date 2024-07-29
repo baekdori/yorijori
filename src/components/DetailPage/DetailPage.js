@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // useParams import
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import TopBar from '../TopBar/TopBar.js';
 import BottomBar from '../BottomBar/BottomBar.js';
 import './DetailPage.css';
 
 const DetailPage = () => {
-  // URL 파라미터에서 foodIdx를 가져옴
   const { foodIdx } = useParams();
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState([]);
@@ -14,9 +13,10 @@ const DetailPage = () => {
   const [editingText, setEditingText] = useState('');
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const user_id = 'kws'; // 현재는 임의 아이디로 설정 -> 추후에 세션에서 받은 로그인 아이디로 변경되게
+  const [title, setTitle] = useState('');
+  const [subtitle, setSubtitle] = useState('');
+  const user_id = 'kws';
 
-  // 페이지 렌더링 시 댓글과 북마크 상태 가져오기
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -38,11 +38,21 @@ const DetailPage = () => {
       }
     };
 
+    const fetchDetails = async () => {
+      try {
+        const response = await axios.get('/api/details');
+        setTitle(response.data.title);
+        setSubtitle(response.data.subtitle);
+      } catch (error) {
+        console.error('Error fetching details:', error);
+      }
+    };
+
     fetchComments();
     fetchBookmarkStatus();
+    fetchDetails();
   }, [user_id, foodIdx]);
 
-  // 댓글 등록 기능
   const handleAddComment = async () => {
     if (newComment.trim() === '') {
       return;
@@ -57,9 +67,7 @@ const DetailPage = () => {
     }
   };
 
-  // 댓글 수정
   const comtsmodify = async (id) => {
-    // 댓글 문제 없이 가져오기
     if (editingText.trim() === '') {
       return;
     }
@@ -99,9 +107,7 @@ const DetailPage = () => {
     }
   };
 
-  // 댓글 삭제
   const comtsdelete = async (id) => {
-    // 문장을 비교해보고 본인 댓글만 삭제
     const commentToDelete = comments.find(comment => comment.id === id);
     if (commentToDelete.user_id !== user_id) {
       alert('본인의 댓글만 삭제할 수 있습니다.');
@@ -130,7 +136,6 @@ const DetailPage = () => {
     }
   };
 
-  // 즐겨찾기 토글 기능
   const toggleBookmark = async () => {
     try {
       const url = isBookmarked
@@ -160,25 +165,25 @@ const DetailPage = () => {
         <div className={`image-section ${imageLoaded ? 'image-loaded' : ''}`}>
           {!imageLoaded && <div className="image-placeholder">사진</div>}
           <img
-            src="이미지_경로" // 서버에서 가져올 이미지 경로
+            src="이미지_경로"
             alt="음식 이미지"
-            onLoad={() => setImageLoaded(true)} // 이미지 로드 완료 시 상태 업데이트
+            onLoad={() => setImageLoaded(true)}
           />
-        </div>
-
+        
         <div className="title-group">
           <div className="title-section">
-            <h2>제목</h2>
+            <h2>{title}</h2>
+            <p>{subtitle}</p>
+            <div className="bookmark-section">
+              <img
+                className="bookmark-icon"
+                src={isBookmarked ? "꽉찬_하트_이미지_경로" : "빈_하트_이미지_경로"}
+                alt="Bookmark"
+                onClick={toggleBookmark}
+              />
+            </div>
           </div>
-          <div className="subtitle-section">
-            <h2>부제목</h2>
-          </div>
-          <div className="bookmark-section">
-            <h2>북마크</h2>
-            <button onClick={toggleBookmark}>
-              {isBookmarked ? '즐겨찾기 해제' : '즐겨찾기 추가'}
-            </button>
-          </div>
+        </div>
         </div>
 
         <div className="video-section">
@@ -222,7 +227,6 @@ const DetailPage = () => {
               </div>
             ))}
           </div>
-
 
           <div className="comment-input-container">
             <textarea
