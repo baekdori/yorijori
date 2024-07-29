@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // npm install axios 필요
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 
 
@@ -27,7 +27,7 @@ const LoginPage = () => {
     console.log('로그인 시도:', formData);
     try {
       const response = await axios.post("http://localhost:4000/user/login", formData);  // axios를 사용하여 백엔드 서버로 POST 요청 보냄
-      console.log('서버 응답:', response.data); // 서버 응답 출력
+      console.log('22222222222222222222222222222여기부터 콘솔이 안찍힘!!!!!!!!!1로그인을하면 정보가 게속 담겨있어야 할 것 같은데 어디에 담겨있어야할깡', response.data); // 서버 응답 출력
       if (response.status === 200) {
         alert('로그인 성공');
         navigate('/'); // 로그인 성공 시 메인 페이지로 이동
