@@ -15,6 +15,7 @@ const DetailPage = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
+  const [videoLink, setVideoLink] = useState(''); // 서버에서 가져올 유튜브 영상 링크
   const user_id = 'kws';
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const DetailPage = () => {
         const response = await axios.get('/api/details');
         setTitle(response.data.title);
         setSubtitle(response.data.subtitle);
+        setVideoLink(response.data.videoLink); // 유튜브 영상 링크 가져오기
       } catch (error) {
         console.error('Error fetching details:', error);
       }
@@ -169,7 +171,8 @@ const DetailPage = () => {
             alt="음식 이미지"
             onLoad={() => setImageLoaded(true)}
           />
-        
+        </div>
+
         <div className="title-group">
           <div className="title-section">
             <h2>{title}</h2>
@@ -184,10 +187,20 @@ const DetailPage = () => {
             </div>
           </div>
         </div>
-        </div>
 
         <div className="video-section">
-          <h2>유튜브 영상</h2>
+          {videoLink ? (
+            <iframe
+              className="video-iframe"
+              src={videoLink}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="YouTube video"
+            ></iframe>
+          ) : (
+            <div className="video-placeholder">영상이 없습니다</div>
+          )}
         </div>
 
         <div className="description-section">
