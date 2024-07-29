@@ -1,6 +1,12 @@
 const conn = require("./db");
 
 const comts = {
+    // 0. 댓글 생성
+    comtscreate: (comment_idx, user_id, comment_text, food_idx, food_emotion, callback) => {
+        const sql = `INSERT INTO Comts (comment_idx, user_id, comment_text, food_idx, food_emotion, comments_time) VALUES (?, ?, ?, ?, ?, NOW())`;
+        conn.query(sql, [comment_idx, user_id, comment_text, food_idx, food_emotion], callback);
+    },
+    
     // 1. 댓글 삭제
     comtsdelete: (comments_idx, user_id, callback) => {
         const sql = `DELETE FROM Comts WHERE comments_idx = ? AND user_id = ?`;

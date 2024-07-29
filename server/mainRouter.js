@@ -63,6 +63,11 @@ const pdRouter = require('./routes/pdRouter')
 app.use('/foods/postdelete',pdRouter);
 console.log('게시글 삭제 라우터 연결: /foods/postdelete')
 
+// 댓글 생성 라우터(훈민)
+const ccRouter = require('./routes/ccRouter');
+app.use('/comts/comtscreate', ccRouter);
+console.log('댓글 생성 라우터 연결 : /comts/comtscreate');
+
 // 댓글 삭제 라우터(우석)
 const cdRouter = require('./routes/cdRouter')
 app.use('/comts/comtsdelete',cdRouter);
