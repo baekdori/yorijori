@@ -167,26 +167,26 @@ const DetailPage = () => {
         <div className={`image-section ${imageLoaded ? 'image-loaded' : ''}`}>
           {!imageLoaded && <div className="image-placeholder">사진</div>}
           <img
-            src="이미지_경로"
+            src="이미지_경로" // 서버에서 가져올 이미지 경로
             alt="음식 이미지"
-            onLoad={() => setImageLoaded(true)}
+            onLoad={() => setImageLoaded(true)} // 이미지 로드 완료 시 상태 업데이트
           />
-        </div>
-
-        <div className="title-group">
-          <div className="title-section">
-            <h2>{title}</h2>
-            <p>{subtitle}</p>
-            <div className="bookmark-section">
-              <img
-                className="bookmark-icon"
-                src={isBookmarked ? "꽉찬_하트_이미지_경로" : "빈_하트_이미지_경로"}
-                alt="Bookmark"
-                onClick={toggleBookmark}
-              />
+          <div className="title-group">
+            <div className="title-section">
+              <h2>{title}</h2>
+              <p>{subtitle}</p>
+              <div className="bookmark-section">
+                <img
+                  className="bookmark-icon"
+                  src={isBookmarked ? "꽉찬_하트_이미지_경로" : "빈_하트_이미지_경로"}
+                  alt="Bookmark"
+                  onClick={toggleBookmark}
+                />
+              </div>
             </div>
           </div>
         </div>
+
 
         <div className="video-section">
           {videoLink ? (
