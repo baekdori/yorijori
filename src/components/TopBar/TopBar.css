@@ -9,7 +9,7 @@
 .top-bar {
   width: 800px; /* 너비를 800px로 설정 */
   height: 80px; /* 높이 */
-  background-color: #ffffff; /* 배경색 하얀색 */
+  background-color: #fbfbfb;
   display: flex; /* Flexbox로 설정 */
   justify-content: space-between; /* 아이템 사이에 공간 배분 */
   align-items: center; /* 세로로 가운데 정렬 */
@@ -40,11 +40,37 @@
 }
 
 .top-bar-item-logo .icon {
+  position: relative;
   width: auto; /* 이미지 너비 */
   height: 80px; /* 이미지 높이 */
   margin-top: 20px; /* 이미지 아래로 내리기 */
+  left : 0px;
+  flex-direction: column; /* 수직 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
 }
 
-.spacer {
-  flex-grow: 1; /* 공간을 채우도록 설정 */
+.spacer1 {
+  flex-grow: 7; /* 공간을 채우도록 설정 */
+}
+
+.spacer2 {
+  flex-grow: 3; /* 공간을 채우도록 설정 */
+}
+.top-bar-item-login {
+  width: 80px;
+  height: 40px;
+  margin-right : 20px;
+  border-radius: 10px;
+  background-color: #434343;
+  color: #ffffff;
+  font-family: 'Pretendard-Regular', sans-serif;
+  font-size: 12px;
+  letter-spacing: -0.6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
 }

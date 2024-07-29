@@ -5,11 +5,17 @@
   font-style: normal;
 }
 
+.main-page-topbar {
+  position: absolute; 
+  top: -50px; 
+}
+
 body {
   margin: 0;
   overflow-y: scroll; /* 상하 스크롤을 허용 */
   overflow-x: hidden; /* 수평 스크롤바를 숨김 */
   font-family: 'BM JUA_TTF', sans-serif;
+  background-color: #fbfbfb;
 }
 
 /* 웹킷 기반 브라우저에서 스크롤바 숨기기 */
@@ -36,6 +42,7 @@ body::-webkit-scrollbar-thumb {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
 }
 
 .recipe-text {
@@ -233,6 +240,37 @@ body::-webkit-scrollbar-thumb {
   z-index: 4;
 }
 
+.search-results-container {
+  position: absolute;
+  top: 604px; /* Y축 위치 */
+  left: 671px; /* X축 위치 */
+  width: 580px; /* 너비 */
+  height: 930px; /* 높이 */
+  display: grid;
+  grid-template-columns: repeat(2, 270px); /* 2열 */
+  grid-template-rows: repeat(3, 270px); /* 3행 */
+  gap: 20px; /* 각 박스 사이의 간격 */
+  padding: 20px; /* 패딩 */
+  overflow: auto; /* 필요 시 스크롤 */
+  box-sizing: border-box; /* 박스 크기 포함 */
+  z-index: 3; /* z-index */
+}
+
+.search-result-box {
+  width: 270px; /* 너비 */
+  height: 270px; /* 높이 */
+  background-color: #434343; /* 배경 색상 */
+  border-radius: 50px; /* 모서리 반경 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF; /* 텍스트 색상 */
+  font-family: 'BM JUA_TTF', sans-serif; /* 폰트 */
+  font-size: 24px; /* 폰트 크기 */
+  letter-spacing: -0.05em; /* 문자 간격 조정 */
+  text-align: center; /* 텍스트 정렬 */
+}
+
 .search-result-text {
   position: absolute;
   top : 80px;
@@ -335,6 +373,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  user-select: none;
 }
 
 .recom-text {
@@ -458,16 +497,17 @@ body::-webkit-scrollbar-thumb {
 
 .item-list-container {
   position: absolute;
-  top: 604px;
+  top: 560px;
   left: 110px;
   width: 700px;
   height: 450px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 50px;
   padding: 20px;
   box-sizing: border-box;
+  
 }
 
 .item-box {
@@ -487,10 +527,115 @@ body::-webkit-scrollbar-thumb {
 }
 
 .item-text {
-  position: relative; /* Position text absolutely within the item-box */
-  top: 125%; /* Position text vertically centered */
-  left: 42%; /* Position text horizontally centered */
-  transform: translate(-50%, -50%); /* Center text by offsetting half its size */
+  position: absolute; /* Position text absolutely within the item-box */
+  top: 150px; /* Move text down by 50px */
+  left: 80px; /* Move text right by 20px */
+  transform: translate(-50%, -50%); /* Center text horizontally and vertically */
   text-align: left;
-  display : block;
+  display: block;
+}
+
+.visual-text-container {
+  position: absolute;
+  left: 138px;
+  top: 230px;
+  width: 290px;
+  height: 140px;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: 10px; /* Adjust spacing between items if needed */
+  max-width: 100%; /* Prevent overflowing */
+  max-height: 100%; /* Adjust based on your layout */
+  overflow: auto; /* Scroll if necessary */
+  padding: 10px; /* Adjust padding if needed */
+  z-index: 15;
+  overflow: hidden; /* Prevent content overflow */
+}
+
+.visual-text {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+.dropped-item {
+  display: flex;
+  align-items: center;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  color: #434343;
+  margin-bottom: 10px; /* Space between items */
+  position: relative; /* Positioning of the remove button */
+  padding-right: 30px; /* Extra space for the remove button */
+}
+
+.remove-dropped-item {
+  position: absolute;
+  right: 0; /* Align button to the right of the item */
+  top: 50%; /* Vertically center the button */
+  transform: translateY(-50%); /* Adjust for vertical centering */
+  cursor: pointer;
+  font-size: 20px; /* Size of the "×" button */
+  color: #FF8000; /* Color of the "×" button */
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+  display: none; /* Hide element completely after fading out */
+}
+
+/* Fade in effect */
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+.item-list-container,
+.vs-results-container {
+  transition: opacity 0.5s;
+}
+
+.visual-text-container.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+.vs-results-container.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+.vs-results-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 580px;
+  height: 930px;
+  gap: 40px; /* x, y 간격 조정 */
+  position: absolute;
+  top: 604px;
+  opacity: 0; 
+}
+
+.vs-results-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.vs-search-result-box {
+  width: 270px;
+  height: 270px;
+  background-color: #434343;
+  border-radius: 50px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  text-align: center;
 }

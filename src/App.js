@@ -6,6 +6,7 @@ import SignupPage from './components/SignupPage/SignupPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import MyPage from './components/MyPage/MyPage';
 import DetailPage from './components/DetailPage/DetailPage';
+import TopBar from './components/TopBar/TopBar';
 
 function App() {
   return (
