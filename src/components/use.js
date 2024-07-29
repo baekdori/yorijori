@@ -76,7 +76,7 @@ try {
 try{
     const comments_idx =4;
     const user_id = kws;
-    const response = await fetch(`http://localhost:4000/?fcomments_idx=${comments_idx}&user_id=${user_id}`, {
+    const response = await fetch(`http://localhost:4000/comts/comtsdelete?comments_idx=${comments_idx}&user_id=${user_id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -97,15 +97,14 @@ try{
 try {
     const comments_idx = 3;
     const udptmodify = {
-        comments_idx: '1',
-        comments_text: '맜잇다',
-        food_idx: 'null',
+        comment_text: '맜잇다',
+        food_emotion: 'null',
         user_id: 'kws' // 실제 user_id 값을 여기에 설정
     };
 
     console.log('수정하는 데이터:', udptmodify); // 프론트엔드 콘솔에 수정 데이터 출력
 
-    const response = await fetch(`http://localhost:4000/comts/comtsmodify/${comments_idx}`, {
+    const response = await fetch(`http://localhost:4000/comts/comtsmodify?comments_idx=${comments_idx}&user_id=kws`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -118,7 +117,7 @@ try {
     }
 
     const data = await response.json();
-    console.log('게시글 수정 응답:', data);
+    console.log('댓글 수정 응답:', data);
 } catch (error) {
     console.error('에러 발생:', error);
     alert('정보를 수정할 수 없습니다.');
