@@ -11,6 +11,7 @@ const DetailPage = () => {
   const [comments, setComments] = useState([]);
   const [editingComment, setEditingComment] = useState(null);
   const [editingText, setEditingText] = useState('');
+  const [imageLoaded, setImageLoaded] = useState(false); // 이미지 로드 상태 관리 추가
   const user_id = 'kws'; // 현재는 임의 아이디로 설정 -> 추후에 세션에서 받은 로그인 아이디로 변경되게
 
   // 페이지 렌더링시 댓글 가져오기
@@ -123,8 +124,13 @@ const DetailPage = () => {
     <div className="DetailPage">
       <TopBar />
       <div className="detail-container">
-        <div className="image-section">
-          <h2>이미지</h2>
+        <div className={`image-section ${imageLoaded ? 'image-loaded' : ''}`}>
+          {!imageLoaded && <div className="image-placeholder">사진</div>}
+          <img
+            src="이미지_경로" // 서버에서 가져올 이미지 경로
+            alt="음식 이미지"
+            onLoad={() => setImageLoaded(true)} // 이미지 로드 완료 시 상태 업데이트
+          />
         </div>
 
         <div className="title-group">
@@ -153,7 +159,7 @@ const DetailPage = () => {
             {comments.map((comment) => (
               <div key={comment.id} className="comment-box">
                 <div className="comment-header">
-                  <span>닉네임</span>
+                  <span>{comment.nickname}</span>
                   <span>{comment.date}</span>
                 </div>
                 <div className="comment-content">
@@ -169,7 +175,7 @@ const DetailPage = () => {
                     <button onClick={() => setEditingComment(null)}>취소</button>
                   </div>
                 ) : (
-                  <div>
+                  <div className="comment-actions">
                     <button onClick={() => {
                       setEditingComment(comment.id);
                       setEditingText(comment.text);
@@ -180,6 +186,7 @@ const DetailPage = () => {
               </div>
             ))}
           </div>
+
 
           <div className="comment-input-container">
             <textarea
