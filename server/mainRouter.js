@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const path = require('path'); 
-const session = require('./session');
+// const session = require('./session');
+const { sessionMiddleware, cookieParser } = require('./session');
 const port = 4000;  // 4000포트 오픈
 const cors = require("cors");
 
@@ -18,7 +19,9 @@ app.use(cors({
 // 미들웨어 설정
 app.use(express.urlencoded({ extended: true })); 
 app.use(express.json());
-app.use(session);
+app.use(cookieParser);
+app.use(sessionMiddleware);
+// app.use(session);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

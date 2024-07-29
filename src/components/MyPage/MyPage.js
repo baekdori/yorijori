@@ -18,7 +18,7 @@ const MyPage = () => {
   // 컴포넌트가 처음 렌더링 될 때 사용자 정보 불러오기
   useEffect(() => {
     console.log('프로필 정보 요청 시작');
-    axios.get('http://localhost:4000/user/mypage/profile')  // 백엔드 서버에서 사용자의 프로필 데이터 가져오는 요청
+    axios.get('http://localhost:4000/user/mypage/profile', { withCredentials: true })  // 백엔드 서버에서 사용자의 프로필 데이터 가져오는 요청
       .then(response => {
         setUserData(response.data);
         console.log('사용자 정보 불러오기 성공:', response.data);
@@ -46,7 +46,7 @@ const MyPage = () => {
     try {
       console.log('회원정보 수정 요청 데이터:', userData);
       // 백엔드 서버(4000)로 POST 요청보내서 수정된 사용자 데이터 전송
-      const response = await axios.put("http://localhost:4000/user/mypage", userData); 
+      const response = await axios.put("http://localhost:4000/user/mypage", userData, { withCredentials: true }); 
       console.log('서버 응답 데이터:', response.data);
       if (response.status === 200) {
         setIsEditing(false);  // 서버로부터 성공 응답 받으면, 수정모드를 비활성화
@@ -71,7 +71,7 @@ const MyPage = () => {
         // 백엔드 서버(4000)로 요청 보내서 사용자 데이터 삭제
         // 프론트에서 탈퇴 요청을 보낼때, url경로에 사용자 ID를 포함시킴 (사용자ID를 명시적으로 전달하여, 경로를 통해 특정 사용자를 식별,삭제 가능) 
         console.log('회원 탈퇴 요청 전송:', userData.user_id);
-        const response = await axios.delete(`http://localhost:4000/user/mypage/${userData.user_id}`);
+        const response = await axios.delete(`http://localhost:4000/user/mypage/${userData.user_id}`, { withCredentials: true });
         console.log('서버 응답 데이터:', response.data);
         if (response.status === 200) {
           alert('회원 탈퇴가 성공적으로 완료되었습니다.');

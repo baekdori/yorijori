@@ -33,10 +33,6 @@ router.post('/', async (req, res) => {
         req.session.user = { user_id: foundUser.user_id, user_nick: foundUser.user_nick };
         console.log('로그인 성공:', req.session.user);
 
-        // 인증 성공 시 세션에 사용자 정보 저장
-        req.session.user = { user_id: foundUser.user_id };
-        console.log('로그인 성공:', req.session.user);
-
         res.json({ message: '로그인 성공', user: foundUser });  // 성공 메세지와 함께 사용자 정보 반환
     
       // 서버 오류 처리
