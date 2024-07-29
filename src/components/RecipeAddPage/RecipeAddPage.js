@@ -2,14 +2,13 @@ import React, { useState } from 'react'; // 상태관리를 위한 useState 추�
 import './RecipeAddPage.css';
 
 function RecipeAddPage() {
-
     // 입력한 정보를 관리하기 위한 상태 저장공간
-    const [desc, setTitle] = useState('');    // 음식 제목   -> nn
-    const [name, setName] = useState('');     // 음식 이름   -> nn
-    const [video, setVideo] = useState('');   // 음식 영상   -> n(안받아도됨)
-    const [recipe, setRecipe] = useState(''); // 음식 요리법 -> nn
-    const [mood, setMood] = useState('');     // 음식 식재료 -> nn
-    const [image, setImage] = useState('');   // 음식 사진   -> n(안받아도됨)
+    const [desc, setDesc] = useState('');    // 음식 정의 -> 게시글 제목
+    const [name, setName] = useState('');     // 음식 이름
+    const [video, setVideo] = useState('');   // 음식 영상
+    const [recipe, setRecipe] = useState(''); // 음식 레시피
+    const [mood, setMood] = useState('');     // 음식 사용 식재료
+    const [image, setImage] = useState('');   // 음식 이미지
 
     // 저장 정보를 비동기화 -> 새로고침 없이 적용되게 하는 코드
     const recipeAdd = async (e) => {          // 저장 변수 이름 및 비동기 기능
@@ -27,9 +26,9 @@ function RecipeAddPage() {
 
         try {
             // 서버 통신
-            // 서버로 GET 요청 보내기
+            // 서버로 POST 요청 보내기
             const response = await fetch('http://localhost:4000/foods/postcreat', {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json' // 요청 헤더에 JSON 형식 명시
                 },
@@ -39,6 +38,13 @@ function RecipeAddPage() {
             // 응답 처리
             if (response.ok) {
                 alert('레시피가 성공적으로 등록되었습니다.'); // 성공 시 알림
+                // 폼 초기화
+                setName('');
+                setDesc('');
+                setVideo('');
+                setRecipe('');
+                setMood('');
+                setImage('');
             } else {
                 alert('레시피 등록에 실패했습니다.'); // 실패 시 알림
             }
