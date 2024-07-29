@@ -2,16 +2,16 @@ const conn = require("./db");
 
 const comts = {
     // 1. 댓글 삭제
-    comtsdelete: (comments_idx, callback) => {
-        const sql = `DELETE FROM comts WHERE comments_idx = ?`;
-        conn.query(sql, [comments_idx], callback);
+    comtsdelete: (comments_idx, user_id, callback) => {
+        const sql = `DELETE FROM Comts WHERE comments_idx = ? AND user_id = ?`;
+        conn.query(sql, [comments_idx, user_id], callback);
     },
 
     // 2. 댓글 수정
-    comtsmodify: (comments_idx, updatedComment, callback) => {
-        const sql = `UPDATE comts SET comment_text = ?, comments_time = NOW() WHERE comments_idx = ?`;
+    comtsmodify: (comments_idx, user_id, updatedComment, callback) => {
+        const sql = `UPDATE Comts SET comment_text = ?, comments_time = NOW() WHERE comments_idx = ? AND user_id = ?`;
         const { comment_text } = updatedComment;
-        conn.query(sql, [comment_text, comments_idx], callback);
+        conn.query(sql, [comment_text, comments_idx, user_id], callback);
     },
     // 3. 특정 유저의 food_emotion = 1인 경우 food_idx와 food_name 조회
     getUserFoodIdx: (userId, callback) => {
