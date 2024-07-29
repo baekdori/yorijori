@@ -8,9 +8,10 @@ import BottomBar from '../BottomBar/BottomBar.js';
 const DetailPage = () => {
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState([]);
+  const [editingComment, setEditingComment] = useState(null);
+  const [editingText, setEditingText] = useState('');
 
   useEffect(() => {
-
     // 서버에서 댓글 목록을 가져옵니다.
     const fetchComments = async () => {
       try {
@@ -38,55 +39,88 @@ const DetailPage = () => {
       console.error('Error adding comment:', error);
     }
   };
-  
 
+  const handleEditComment = async (id) => {
+    if (editingText.trim() === '') {
+      return;
+    }
+
+    try {
+      const response = await axios.put(`/api/comments/${id}`, { text: editingText });
+      setComments(comments.map(comment => comment.id === id ? response.data : comment));
+      setEditingComment(null);
+      setEditingText('');
+    } catch (error) {
+      console.error('Error editing comment:', error);
+    }
+  };
+
+  const handleDeleteComment = async (id) => {
+    try {
+      await axios.delete(`/api/comments/${id}`);
+      setComments(comments.filter(comment => comment.id !== id));
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
 
   return (
-    <div className="DetailPage"> {/* 최상위 요소로 div 사용 */}
+    <div className="DetailPage">
       <TopBar />
-      <div className="detail-container"> {/* 상세 정보 컨테이너 */}
-        {/* 각 섹션에 대한 자리 표시자 추가 */}
+      <div className="detail-container">
         <div className="image-section">
           <h2>이미지</h2>
-          {/* <img src={details.imageURL} alt="음식 이미지" /> */}
         </div>
 
         <div className="title-group">
-          <div className="title-section"> {/*제목 섹션으로 변경 */}
+          <div className="title-section">
             <h2>제목</h2>
-            {/* <p>{details.title}</p> */}
           </div>
-          <div className="subtitle-section"> {/* 부제목 섹션 추가 */}
+          <div className="subtitle-section">
             <h2>부제목</h2>
-            {/* <p>{details.subtitle}</p> */}
           </div>
-          <div className="bookmark-section"> {/* 북마크 이미지 섹션 추가 */}
+          <div className="bookmark-section">
             <h2>북마크</h2>
-            {/* <img src={details.bookmarkImageURL} alt="북마크 이미지" /> */}
           </div>
         </div>
 
         <div className="video-section">
           <h2>유튜브 영상</h2>
-
         </div>
 
         <div className="description-section">
           <h2>상세 설명</h2>
-          {/* <p>{details.longDescription}</p> */}
         </div>
 
         <div className="comments-section">
           <h2>Review</h2>
           <div>
-            {comments.map((comment, index) => (
-              <div key={index}>
+            {comments.map((comment) => (
+              <div key={comment.id}>
                 <div>{comment.date}</div>
                 <div>{comment.text}</div>
+                {editingComment === comment.id ? (
+                  <div>
+                    <textarea
+                      value={editingText}
+                      onChange={(e) => setEditingText(e.target.value)}
+                    />
+                    <button onClick={() => handleEditComment(comment.id)}>수정</button>
+                    <button onClick={() => setEditingComment(null)}>취소</button>
+                  </div>
+                ) : (
+                  <div>
+                    <button onClick={() => {
+                      setEditingComment(comment.id);
+                      setEditingText(comment.text);
+                    }}>수정</button>
+                    <button onClick={() => handleDeleteComment(comment.id)}>삭제</button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
-          
+
           <div>
             <textarea
               placeholder="댓글을 입력하세요"
@@ -104,5 +138,4 @@ const DetailPage = () => {
   );
 };
 
-
-export default DetailPage; // 컴포넌트를 기본 내보내기로 내보냄
+export default DetailPage;
