@@ -113,4 +113,5 @@ def get_comments():
     return jsonify(response), 200 if response['status'] == 'success' else 400  # 응답 반환
 
 if __name__ == '__main__':
-    app.run(debug=False)  # 디버그 모드에서 애플리케이션 실행
+    app.run(host='0.0.0.0', port=5000, debug=False)
+
