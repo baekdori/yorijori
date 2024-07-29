@@ -121,13 +121,14 @@ const DetailPage = () => {
             ))}
           </div>
 
-          <div>
+          <div className="comment-input-container">
             <textarea
+              className="comment-input"
               placeholder="댓글을 입력하세요"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
             />
-            <button onClick={handleAddComment}>
+            <button className="comment-button" onClick={handleAddComment}>
               등록
             </button>
           </div>

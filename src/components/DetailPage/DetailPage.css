@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'BMJUA';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body.DetailPage {
     margin: 0;
     overflow-y: scroll; /* 상하 스크롤을 허용 */
@@ -30,3 +37,53 @@ body::-webkit-scrollbar {
     align-items: center;
     justify-content: center;
   }
+
+
+  /* 댓글 스타일 */
+h2{
+  font-family: 'BMJUA';
+}
+
+
+.comment-input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  width: 640px; /* 전체 컨테이너 너비 */
+  height: 145px; /* 전체 컨테이너 높이 */
+}
+
+.comment-input {
+  width: calc(100% - 141px); /* 버튼 너비를 뺀 입력 칸 너비 */
+  height: 100px; /* 입력 칸 높이 */
+  border: none;
+  resize: none;
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.comment-button {
+  background-color: #ddd;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-family: 'BMJUA', sans-serif; /* 폰트 적용 */
+  color: #707070; /* 폰트 색상 */
+  width: 121px; /* 버튼 너비 */
+  height: 100px; /* 버튼 높이 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px; /* 폰트 크기 설정 */
+}
+
+.comment-button:hover {
+  background-color: #ccc;
+}
