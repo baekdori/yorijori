@@ -20,10 +20,15 @@ const foods = {
 
 
      // 2. 게시글 보기 API
-    postsee: (food_idx, callback,User_id) => {
+     postsee: (food_idx, callback) => {
         const sql = `SELECT * FROM Foods WHERE food_idx = ?`;
-        conn.query(sql, [food_idx], callback);
-        
+        conn.query(sql, [food_idx], (err, results) => {
+            if (err) {
+                console.error('데이터 검색 중 오류 발생:', err);
+                return callback(err, null);
+            }
+            callback(null, results);
+        });
     },
     
     // 3. 게시글 수정 API

@@ -1,7 +1,7 @@
 // 게시글 보기 api
 try {
     const foodIdx = 3;
-    const response = await fetch(`http://localhost:4000/foods/postsee/${foodIdx}`, {
+    const response = await fetch(`http://localhost:4000/foods/postsee?food_idx=${foodIdx}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
