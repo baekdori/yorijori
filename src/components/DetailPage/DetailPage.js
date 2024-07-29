@@ -15,7 +15,8 @@ const DetailPage = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
-  const [videoLink, setVideoLink] = useState(''); // 서버에서 가져올 유튜브 영상 링크
+  const [videoLink, setVideoLink] = useState('');
+  const [description, setDescription] = useState(''); // 상세 설명을 위한 상태 추가
   const user_id = 'kws';
 
   useEffect(() => {
@@ -44,7 +45,8 @@ const DetailPage = () => {
         const response = await axios.get('/api/details');
         setTitle(response.data.title);
         setSubtitle(response.data.subtitle);
-        setVideoLink(response.data.videoLink); // 유튜브 영상 링크 가져오기
+        setVideoLink(response.data.videoLink);
+        setDescription(response.data.description); // 상세 설명 설정
       } catch (error) {
         console.error('Error fetching details:', error);
       }
@@ -167,9 +169,9 @@ const DetailPage = () => {
         <div className={`image-section ${imageLoaded ? 'image-loaded' : ''}`}>
           {!imageLoaded && <div className="image-placeholder">사진</div>}
           <img
-            src="이미지_경로" // 서버에서 가져올 이미지 경로
+            src="이미지_경로"
             alt="음식 이미지"
-            onLoad={() => setImageLoaded(true)} // 이미지 로드 완료 시 상태 업데이트
+            onLoad={() => setImageLoaded(true)}
           />
           <div className="title-group">
             <div className="title-section">
@@ -186,7 +188,6 @@ const DetailPage = () => {
             </div>
           </div>
         </div>
-
 
         <div className="video-section">
           {videoLink ? (
@@ -205,10 +206,12 @@ const DetailPage = () => {
 
         <div className="description-section">
           <h2>상세 설명</h2>
+          <p>{description}</p>
         </div>
 
         <div className="comments-section">
           <h2>Review</h2>
+          <hr className="review-underline" />
           <div>
             {comments.map((comment) => (
               <div key={comment.id} className="comment-box">
