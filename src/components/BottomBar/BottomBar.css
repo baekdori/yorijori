@@ -13,10 +13,9 @@
     display: flex; /* Flexbox로 설정 */
     justify-content: space-around; /* 가로로 균등하게 정렬 */
     align-items: center; /* 세로로 가운데 정렬 */
-    position: fixed; /* 고정 위치 */
+    position: absolute; /* 절대 위치 */
     bottom: 0; /* 화면 하단에 고정 */
-    left: 50%; /* 수평 중앙 정렬 */
-    transform: translateX(-50%); /* 수평 중앙 정렬을 위한 이동 */
+    left: 0; /* 왼쪽에 고정 */
 }
 
 /* nav-item 스타일 설정 */

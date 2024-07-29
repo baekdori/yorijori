@@ -102,6 +102,7 @@ const DetailPage = () => {
           {/* <textarea maxLength="500" placeholder="댓글을 작성하세요..."></textarea>
           <button type="button">댓글 등록</button> */}
         </div>
+        
         <div style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
           <h2>Review</h2>
           <div style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px', borderRadius: '5px' }}>
@@ -127,7 +128,6 @@ const DetailPage = () => {
             ))}
           </div>
         </div>
-
       </div>
       <BottomBar />
     </div>

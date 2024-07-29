@@ -1,28 +1,23 @@
 import React from 'react';
 import './TopBar.css';
-import { XnixLineSearch4 } from '../static/icons/XnixLineSearch4'; // 상대 경로가 올바른지 확인
 
 const TopBar = () => {
   return (
-    <div className="overlap-wrapper">
-      <div className="group-wrapper">
-        <div className="overlap-group-2">
-          <div className="component">
-            <img
-              className="xnix-line"
-              alt="Xnix line"
-              src="/static/img/xnix-line-notification-12-1.png"
-            />
-            <img className="logo-s" alt="Logo s" src="/static/img/logo-s.png" />
-            <XnixLineSearch4 className="xnix-line-search" color="#434343" />
-            <img
-              className="xnix-line-hamburger"
-              alt="Xnix line hamburger"
-              src="/static/img/xnix-line-hamburger-4-1.png"
-            />
-          </div>
-        </div>
-      </div>
+    <div className="top-bar">
+      <a href="/notifications" className="top-bar-item">
+        <img className="icon" alt="Notifications" src="/static/img/xnix-line-notification-12-1.png" />
+      </a>
+      <div className="spacer"></div> {/* 왼쪽 아이템과 중앙 로고 사이 공간 */}
+      <a href="/" className="top-bar-item-logo">
+        <img className="icon" alt="Logo" src="/static/img/logo-s.png" />
+      </a>
+      <div className="spacer"></div> {/* 중앙 로고와 오른쪽 아이템 사이 공간 */}
+      <a href="/search" className="top-bar-item">
+        <img className="icon" alt="Search" src="/static/img/search.png" />
+      </a>
+      <a href="/menu" className="top-bar-item">
+        <img className="icon" alt="Menu" src="/static/img/xnix-line-hamburger-4-1.png" />
+      </a>
     </div>
   );
 };
