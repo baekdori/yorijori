@@ -6,8 +6,8 @@ import axios from 'axios';
 const TopBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // 컴포넌트가 처음으로 렌더링되어 DOM에 추가될 때, 세션을 통해 로그인 상태를 확인
-  useEffect(() => {
+  // 세션을 통해 로그인 상태 확인
+  useEffect(() => {   // useEffect 훅을 사용하여 컴포넌트가 처음 렌더링될 때 세션 상태를 확인
     console.log('세션 상태 확인 요청 시작');
     axios.get('http://localhost:4000/check-session')  // 서버에 세션 상태를 확인하기 위한 요청
       .then(response => {
@@ -23,16 +23,16 @@ const TopBar = () => {
       });
   }, []);  // 빈 배열을 두 번째 인수로 전달하여 컴포넌트가 처음 렌더링될 때만 실행
 
-  // 로그아웃 버튼 클릭시, axios.post를 사용하여 서버로 로그아웃 요청을 보내고, 세션 종료
-  const handleLogout = async () => {
+  // 로그아웃 버튼 클릭시
+  const handleLogout = async () => {   // handleLogout 함수 호출
     console.log('로그아웃 요청 시작');
     try {
-      const response = await axios.post('http://localhost:4000/logout');
+      const response = await axios.post('http://localhost:4000/logout'); // 서버로 로그아웃 요청 >> 세션 종료
       if (response.status === 200) {
         alert('로그아웃 되었습니다.');
-        setIsLoggedIn(false);  // 로그아웃 상태를 false로 변경
+        setIsLoggedIn(false);  // 로그아웃 성공시, isLoggedIn 상태를 false로 변경
         console.log('로그아웃 성공:', response.data);
-        window.location.href = '/';
+        window.location.href = '/'; // 로그아웃 성공시, 메인화면으로 리디렉션
       } else {
         console.log('로그아웃 실패:', response.data);
       }
