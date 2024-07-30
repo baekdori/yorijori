@@ -54,7 +54,8 @@ const MainPage = () => {
       }, []);
       setVisualSearchResults(uniqueResults);
     } catch (error) {
-      console.error('Error fetching visual search results:', error);
+      console.error('Error fetching visual search results:', error.message);
+      console.error('Error details:', error.response ? error.response.data : error);
     }
   };
 
@@ -85,7 +86,7 @@ const MainPage = () => {
   const renderSearchResults = () => {
     const rows = [];
     for (let i = 0; i < searchResults.length; i += 2) {
-      rows.push(searchResults.slice(i, i + 2)); // 두 개씩 묶어서 행을 생성
+      rows.push(searchResults.slice(i, i + 1)); // 두 개씩 묶어서 행을 생성
     }
     return (
       <div className="search-results-container">
@@ -113,7 +114,7 @@ const MainPage = () => {
   const renderVisualSearchResults = () => {
     const rows = [];
     for (let i = 0; i < visualSearchResults.length; i += 2) {
-      rows.push(visualSearchResults.slice(i, i + 2));
+      rows.push(visualSearchResults.slice(i, i + 1));
     }
     return (
       <div className="vs-results-container">
@@ -175,7 +176,7 @@ const MainPage = () => {
     } else {
       setIsTransitioning(true);
       setTimeout(async () => {
-        await fetchVisualSearchResults(); // Fetch results for visual search
+        fetchVisualSearchResults(); // Fetch results for visual search
         setShowSearchResult(true);
         setIsTransitioning(false);
       }, 500); 
