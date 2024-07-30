@@ -15,23 +15,16 @@ app.use(cookieParser);
 app.use(sessionMiddleware);
 
 
-
 // CORS(Cross-Origin Resource Sharing) 설정
 app.use(cors({
   origin: 'http://localhost:3000',   // 3000포트의 데이터를 4000포트로 보냄
   credentials: true // 세션 정보가 포함된 요청을 허용
 }));
 
-
-
-
 // app.use(session);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!');
-// });
 
 // 회원가입 라우터(하은)
 const SignupRouter = require('./routes/SignupRouter');
