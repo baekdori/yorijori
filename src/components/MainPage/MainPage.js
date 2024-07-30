@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './MainPage.css';
 import TopBar from '../TopBar/TopBar.js';
@@ -17,6 +17,126 @@ const MainPage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const recipeTextRef = useRef(null);
+
+  const fetchSearchResults = async () => {
+    try {
+      const ingredients = searchTags.map(tag => tag.text).join(',');
+      const response = await axios.get('http://localhost:4000/foods/search', {
+        params: { q: ingredients }
+      });
+      const uniqueResults = response.data.reduce((acc, current) => {
+        const x = acc.find(item => item.food_idx === current.food_idx);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
+      setSearchResults(uniqueResults);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
+
+  const fetchVisualSearchResults = async () => {
+    try {
+      const ingredients = droppedItems.map(tag => tag.text).join(',');
+      const response = await axios.get('http://localhost:4000/foods/search', {
+        params: { q: ingredients }
+      });
+      const uniqueResults = response.data.reduce((acc, current) => {
+        const x = acc.find(item => item.food_idx === current.food_idx);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
+      setVisualSearchResults(uniqueResults);
+    } catch (error) {
+      console.error('Error fetching visual search results:', error);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (inputValue.trim()) {
+        setSearchTags(prevTags => [...prevTags, { text: inputValue.trim() }]);
+        setInputValue('');
+      }
+      setIsKeywordSearch(true);
+      fetchSearchResults(); 
+    }
+  };
+
+  const handleStartClick = () => {
+    if (searchTags.length === 0) {
+      alert('반드시 하나 이상의 재료를 입력하세요');
+    } else {
+      fetchSearchResults(); 
+    }
+  };
+
+  const removeTag = (index) => {
+    setSearchTags(tags => tags.filter((_, i) => i !== index));
+  };
+
+  const renderSearchResults = () => {
+    const rows = [];
+    for (let i = 0; i < searchResults.length; i += 2) {
+      rows.push(searchResults.slice(i, i + 2)); // 두 개씩 묶어서 행을 생성
+    }
+    return (
+      <div className="search-results-container">
+        {rows.length > 0 ? (
+          rows.map((row, rowIndex) => (
+            <div key={rowIndex} className="search-results-row">
+              {row.map((result) => (
+                <div key={result.food_idx} className="result-square">
+                  <div className="result-square-text">
+                    <h3>{result.food_name}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))
+        ) : (
+          <div className="result-square">
+            <div className="result-square-text">검색 결과가 없습니다.</div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderVisualSearchResults = () => {
+    const rows = [];
+    for (let i = 0; i < visualSearchResults.length; i += 2) {
+      rows.push(visualSearchResults.slice(i, i + 2));
+    }
+    return (
+      <div className="vs-results-container">
+        {rows.length > 0 ? (
+          rows.map((row, rowIndex) => (
+            <div key={rowIndex} className="vs-results-row">
+              {row.map((result) => (
+                <div key={result.food_idx} className="result-square">
+                  <div className="result-square-text">
+                    <h3>{result.food_name}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))
+        ) : (
+          <div className="vs-search-result-box">
+            <div className="result-square-text">검색 결과가 없습니다.</div>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const keywordSearching = () => {
     setIsKeywordSearch(true);
@@ -42,38 +162,6 @@ const MainPage = () => {
     setInputValue(event.target.value);
   };
 
-  const handleKeyDown = async (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      if (inputValue.trim()) {
-        setSearchTags(prevTags => [...prevTags, { text: inputValue.trim() }]);
-        setInputValue('');
-      }
-      setIsKeywordSearch(true);
-
-      const ingredients = searchTags.map(tag => tag.text);
-      try {
-        const response = await axios.post('/foods/search', { ingredients });
-        setSearchResults(response.data); // Assume the response data is in the form of [{ food_name: '...' }, ...]
-        setShowSearchResult(true);
-      } catch (error) {
-        console.error("검색 결과 가져오기 실패!", error);
-      }
-    }
-  };
-
-  const removeTag = (index) => {
-    setSearchTags(tags => tags.filter((_, i) => i !== index));
-  };
-
-  const handleStartClick = () => {
-    if (searchTags.length === 0) {
-      alert('반드시 하나 이상의 재료를 입력하세요');
-    } else {
-      setShowSearchResult(true);
-    }
-  };
-
   const handleCancelClick = () => {
     setSearchTags([]);
     setInputValue('');
@@ -81,16 +169,16 @@ const MainPage = () => {
     setSearchResults([]);
   };
 
-  const vsHandleStartClick = () => {
+  const vsHandleStartClick = async () => {
     if (droppedItems.length === 0) {
       alert('반드시 하나 이상의 재료를 입력하세요');
     } else {
       setIsTransitioning(true);
-      setTimeout(() => {
-        setVisualSearchResults(droppedItems);
+      setTimeout(async () => {
+        await fetchVisualSearchResults(); // Fetch results for visual search
         setShowSearchResult(true);
         setIsTransitioning(false);
-      }, 500); // Duration of the fade-out transition
+      }, 500); 
     }
   };
 
@@ -99,7 +187,7 @@ const MainPage = () => {
     setInputValue('');
     setShowSearchResult(false);
     setSearchResults([]);
-    setDroppedItems([]); // Clear the dropped items
+    setDroppedItems([]); 
   };
 
   const handleKeywordBackClick = () => {
@@ -133,7 +221,6 @@ const MainPage = () => {
       alert("아이템 한도에 도달했습니다.");
       return;
     }
-
     const draggedIndex = event.dataTransfer.getData("text/plain");
     const itemText = itemTexts[draggedIndex];
     if (!droppedItems.find(item => item.text === itemText)) {
@@ -179,6 +266,12 @@ const MainPage = () => {
     '고기고기'
   ];
 
+  useEffect(() => {
+    if (isVisualSearch && droppedItems.length > 0) {
+      fetchVisualSearchResults();
+    }
+  }, [droppedItems, isVisualSearch]);
+
   return (
     <div className="main-page">
       <TopBar />
@@ -198,7 +291,7 @@ const MainPage = () => {
       </div>
 
       <div className="select-btn-container">
-      {!isVisualSearch && (
+        {!isVisualSearch && (
           <div className={`left-container ${isKeywordSearch ? 'expand' : ''}`} onClick={keywordSearching}>
             <div className={`searching-input ${isKeywordSearch ? 'expand-width' : ''}`}>
               {isKeywordSearch ? (
@@ -280,6 +373,8 @@ const MainPage = () => {
         </div>
       )}
 
+      {isKeywordSearch && searchResults.length > 0 && renderSearchResults()}
+
       {isVisualSearch && (
         <>
           <div className="vs-recom-btn-container">
@@ -309,41 +404,7 @@ const MainPage = () => {
         </>
       )}
 
-      {isKeywordSearch && !isVisualSearch && showSearchResult && (
-        <div className="search-result-container">
-          <div className="result-square">
-            {searchResults.length > 0 ? (
-              searchResults.map((food, index) => (
-                <div className="result-square-text" key={index}>
-                  {food.food_name}
-                </div>
-              ))
-            ) : (
-              <div className="result-square-text">검색 결과가 없습니다.</div>
-            )}
-            </div>
-          
-        </div>
-      )}
-
-      {isVisualSearch && visualSearchResults.length > 0 && (
-        <div
-          className={`vs-results-container ${!isTransitioning ? 'fade-in' : ''}`}
-        >
-          {[0, 1, 2].map(rowIndex => (
-            <div key={rowIndex} className="vs-results-row">
-              {[0, 1].map(colIndex => (
-                <div
-                  key={colIndex}
-                  className="vs-search-result-box"
-                >
-                  {visualSearchResults[rowIndex * 2 + colIndex]?.text || ''}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
+      {isVisualSearch && showSearchResult && visualSearchResults.length > 0 && renderVisualSearchResults()}
     </div>
   );
 };

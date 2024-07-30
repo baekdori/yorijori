@@ -240,22 +240,6 @@ body::-webkit-scrollbar-thumb {
   z-index: 4;
 }
 
-.search-results-container {
-  position: absolute;
-  top: 604px; /* Y축 위치 */
-  left: 671px; /* X축 위치 */
-  width: 580px; /* 너비 */
-  height: 930px; /* 높이 */
-  display: grid;
-  grid-template-columns: repeat(2, 270px); /* 2열 */
-  grid-template-rows: repeat(3, 270px); /* 3행 */
-  gap: 20px; /* 각 박스 사이의 간격 */
-  padding: 20px; /* 패딩 */
-  overflow: auto; /* 필요 시 스크롤 */
-  box-sizing: border-box; /* 박스 크기 포함 */
-  z-index: 3; /* z-index */
-}
-
 .search-result-box {
   width: 270px; /* 너비 */
   height: 270px; /* 높이 */
@@ -428,19 +412,24 @@ body::-webkit-scrollbar-thumb {
 .food-result-bottom-container .fr:last-child {
   margin-right: 0;
 }
-
-.search-result-container {
+.search-results-container,
+.vs-results-container {
+  display: grid;
   position: absolute;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  grid-auto-rows: 270px; /* Fixed height for each row */
+  gap: 40px; /* 40px gap between columns and rows */
   top: 610px;
   left: 118px;
-  width: 580px;
-  height: flex;
+  width: 580px; /* Adjust width as needed */
+  /* Height is not set; container will grow based on its content */
   background-color: transparent;
   border: none;
   z-index: 3;
 }
 
 .result-square {
+  flex: 1; /* Allow squares to take up available space evenly */
   width: 270px;
   height: 270px;
   background-color: #D6D6D6;
@@ -448,11 +437,13 @@ body::-webkit-scrollbar-thumb {
   position: absolute;
   margin: 0 auto;
   z-index: 3;
-  transition: background 1s ease-in-out;
 }
 
 .result-square:hover {
-  background: linear-gradient(to top, #FF8000 30%, #D6D6D6 30%);
+  background: linear-gradient(to top, 
+    rgba(255, 128, 0, 1) 0%, 
+    rgba(255, 128, 0, 0.6) 30%, 
+    rgba(255, 128, 0, 0) 50%);
   transition: background 1s ease-in-out;
   z-index: 3;
 }
@@ -486,10 +477,6 @@ body::-webkit-scrollbar-thumb {
   user-select: none;
   text-align: center;
   z-index: 3;
-}
-
-.search-result-container > .result-square {
-  margin: 10px;
 }
 
 .hidden {
