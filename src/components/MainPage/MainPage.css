@@ -6,10 +6,17 @@
 }
 
 .TopBar {
-  position: absolute; 
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
+
 .BottomBar {
-  position: absolute;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 body {
@@ -34,13 +41,14 @@ body::-webkit-scrollbar-thumb {
 }
 
 .main-page {
-  position: absolute;
+  position: relative; /* 중앙 정렬을 위해 상대 위치로 설정 */
   width: 800px;
-  height: 100%;
+  min-height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
   display: flex;
+  flex-direction: column; /* 세로 정렬 */
   align-items: center;
-  transform: translate(-50%, -50%); /* 중앙 정렬 조정 */
-  justify-content: center;
+  margin: 0 auto; /* 가운데 정렬 */
+  padding-top: 80px; /* 상단 바 높이만큼 패딩 추가 */
 }
 
 .recipe-text {
@@ -68,6 +76,7 @@ body::-webkit-scrollbar-thumb {
   font-family: 'Pretendard', sans-serif;
   z-index: 15;
 }
+
 .visual-backarrow {
   cursor: pointer;
   margin-right: 10px;
@@ -81,6 +90,7 @@ body::-webkit-scrollbar-thumb {
   font-family: 'Pretendard', sans-serif;
   z-index: 26;
 }
+
 .select-btn-container {
   position: absolute;
   top: 211px;
@@ -166,9 +176,9 @@ body::-webkit-scrollbar-thumb {
 .right-container {
   width: 200px; /* 초기 너비 */
   height: 200px;
-  left :488px;
+  left: 488px;
   top: 212px;
-  position:absolute;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -179,7 +189,7 @@ body::-webkit-scrollbar-thumb {
 .searching-plate {
   width: 135px;
   height: 135px;
-  top:0px;
+  top: 0px;
   left: 100px;
   border-radius: 50%;
   border: 3px solid #434343;
@@ -201,7 +211,7 @@ body::-webkit-scrollbar-thumb {
 .tiktok {
   position: absolute;
   width: 2px;
-  top:260px;
+  top: 260px;
   height: 100px;
   background-color: #434343;
   z-index: 5;
@@ -255,7 +265,7 @@ body::-webkit-scrollbar-thumb {
 
 .search-result-text {
   position: absolute;
-  top : 80px;
+  top: 80px;
   left: 138px;
   font-family: 'BM JUA_TTF', sans-serif;
   font-weight: regular;
@@ -275,7 +285,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #D6D6D6;
   cursor: pointer;
   user-select: none;
-  border : none;
+  border: none;
 }
 
 .start-btn {
@@ -289,7 +299,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #FF8000;
   cursor: pointer;
   user-select: none;
-  border : none;
+  border: none;
 }
 
 .vs-recom-btn-container {
@@ -410,7 +420,8 @@ body::-webkit-scrollbar-thumb {
 .food-result-bottom-container .fr:last-child {
   margin-right: 0;
 }
-.search-results-container{
+
+.search-results-container {
   display: grid;
   position: absolute;
   grid-template-columns: repeat(2, 1fr); /* Two columns */
@@ -448,7 +459,7 @@ body::-webkit-scrollbar-thumb {
 .result-square-text {
   position: absolute;
   bottom: 10px;
-  width : 260px;
+  width: 260px;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'BM JUA_TTF', sans-serif;
@@ -492,7 +503,6 @@ body::-webkit-scrollbar-thumb {
   gap: 50px;
   padding: 20px;
   box-sizing: border-box;
-  
 }
 
 .item-box {
@@ -588,6 +598,7 @@ body::-webkit-scrollbar-thumb {
   opacity: 0;
   transition: opacity 0.5s ease-out;
 }
+
 .vs-results-container.fade-in {
   opacity: 1;
   transition: opacity 0.5s ease-in;
@@ -639,7 +650,7 @@ body::-webkit-scrollbar-thumb {
 .vs-search-result-text {
   position: absolute;
   bottom: 10px;
-  width : 260px;
+  width: 260px;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'BM JUA_TTF', sans-serif;
