@@ -164,101 +164,102 @@ const DetailPage = () => {
 
   return (
     <div className="DetailPage">
-      <TopBar />
-      <div className="detail-container">
-        <div className={`image-section ${imageLoaded ? 'image-loaded' : ''}`}>
-          {!imageLoaded && <div className="image-placeholder">사진</div>}
-          <img
-            src="이미지_경로"
-            alt="음식 이미지"
-            onLoad={() => setImageLoaded(true)}
-          />
-          <div className="title-group">
-            <div className="title-section">
-              <h2>{title}</h2>
-              <p>{subtitle}</p>
-              <div className="bookmark-section">
-                <img
-                  className="bookmark-icon"
-                  src={isBookmarked ? "꽉찬_하트_이미지_경로" : "빈_하트_이미지_경로"}
-                  alt="Bookmark"
-                  onClick={toggleBookmark}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="video-section">
-          {videoLink ? (
-            <iframe
-              className="video-iframe"
-              src={videoLink}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="YouTube video"
-            ></iframe>
-          ) : (
-            <div className="video-placeholder">영상이 없습니다</div>
-          )}
-        </div>
-
-        <div className="description-section">
-          <h2>상세 설명</h2>
-          <p>{description}</p>
-        </div>
-
-        <div className="comments-section">
-          <h2>Review</h2>
-          <hr className="review-underline" />
-          <div>
-            {comments.map((comment) => (
-              <div key={comment.id} className="comment-box">
-                <div className="comment-header">
-                  <span>{comment.nickname}</span>
-                  <span>{comment.date}</span>
-                </div>
-                <div className="comment-content">
-                  {comment.text}
-                </div>
-                {editingComment === comment.id ? (
-                  <div>
-                    <textarea
-                      value={editingText}
-                      onChange={(e) => setEditingText(e.target.value)}
-                    />
-                    <button onClick={() => comtsmodify(comment.id)}>수정</button>
-                    <button onClick={() => setEditingComment(null)}>취소</button>
-                  </div>
-                ) : (
-                  <div className="comment-actions">
-                    <button onClick={() => {
-                      setEditingComment(comment.id);
-                      setEditingText(comment.text);
-                    }}>수정</button>
-                    <button onClick={() => comtsdelete(comment.id)}>삭제</button>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="comment-input-container">
-            <textarea
-              className="comment-input"
-              placeholder="댓글을 입력하세요"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
+  <TopBar />
+  <div className="detail-container">
+    <div className={`image-section ${imageLoaded ? 'image-loaded' : ''}`}>
+      {!imageLoaded && <div className="image-placeholder">사진</div>}
+      <img
+        src="이미지_경로"
+        alt="음식 이미지"
+        onLoad={() => setImageLoaded(true)}
+      />
+      <div className="title-group">
+        <div className="title-section">
+          <h2>{title}</h2>
+          <p>{subtitle}</p>
+          <div className="bookmark-section">
+            <img
+              className="bookmark-icon"
+              src={isBookmarked ? "꽉찬_하트_이미지_경로" : "빈_하트_이미지_경로"}
+              alt="Bookmark"
+              onClick={toggleBookmark}
             />
-            <button className="comment-button" onClick={handleAddComment}>
-              등록
-            </button>
           </div>
         </div>
       </div>
-      <BottomBar />
     </div>
+
+    <div className="video-section">
+      {videoLink ? (
+        <iframe
+          className="video-iframe"
+          src={videoLink}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title="YouTube video"
+        ></iframe>
+      ) : (
+        <div className="video-placeholder">영상이 없습니다</div>
+      )}
+    </div>
+
+    <div className="description-section">
+      <h2>상세 설명</h2>
+      <p>{description}</p>
+    </div>
+
+    <div className="comments-section">
+      <h2>Review</h2>
+      <hr className="review-underline" />
+      <div>
+        {comments.map((comment) => (
+          <div key={comment.id} className="comment-box">
+            <div className="comment-header">
+              <span>{comment.nickname}</span>
+              <span>{comment.date}</span>
+            </div>
+            <div className="comment-content">
+              {comment.text}
+            </div>
+            {editingComment === comment.id ? (
+              <div>
+                <textarea
+                  value={editingText}
+                  onChange={(e) => setEditingText(e.target.value)}
+                />
+                <button onClick={() => comtsmodify(comment.id)}>수정</button>
+                <button onClick={() => setEditingComment(null)}>취소</button>
+              </div>
+            ) : (
+              <div className="comment-actions">
+                <button onClick={() => {
+                  setEditingComment(comment.id);
+                  setEditingText(comment.text);
+                }}>수정</button>
+                <button onClick={() => comtsdelete(comment.id)}>삭제</button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="comment-input-container">
+        <textarea
+          className="comment-input"
+          placeholder="댓글을 입력하세요"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+        />
+        <button className="comment-button" onClick={handleAddComment}>
+          등록
+        </button>
+      </div>
+    </div>
+  </div>
+  <BottomBar />
+</div>
+
   );
 };
 

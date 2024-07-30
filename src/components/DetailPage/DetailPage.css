@@ -36,16 +36,30 @@ body::-webkit-scrollbar-thumb {
 /* 기존 DetailPage 스타일 수정 */
 .DetailPage {
   position: absolute;
-  width: 800px;
-  top: 0px;
+  width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+  top: 0;
   height: 100%;
-  left: 0px;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* 가운데에서 시작하도록 변경 */
+  justify-content: flex-start;
   padding-top: 100px; /* 탑바 높이만큼 패딩 추가 */
+  overflow-x: hidden; /* 수평 스크롤바를 숨김 */
 }
+
+/* .detail-container 스타일 수정 */
+.detail-container {
+  width: 800px; /* 고정된 너비 설정 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box; /* 패딩 포함한 박스 크기 계산 */
+  transform: translateX(9px); /* 왼쪽으로 약간 이동 */
+  padding-bottom: 20px;
+}
+
 
 /* 댓글 입력 칸 스타일 */
 h2 {
