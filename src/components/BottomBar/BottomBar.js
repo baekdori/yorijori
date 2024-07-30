@@ -12,7 +12,7 @@ const BottomNav = () => {
         <img className="Post" alt="Post" src="/static/img/message.png" />
         <span>게시글작성</span>
       </a>
-      <a href="/home" className="nav-item">
+      <a href="/" className="nav-item">
         <img className="Home" alt="Home" src="/static/img/home.png" />
         <span>홈</span>
       </a>
