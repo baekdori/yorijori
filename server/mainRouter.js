@@ -8,6 +8,13 @@ const port = 4000;  // 4000포트 오픈
 
 const app = express();
 
+// 미들웨어 설정
+app.use(express.urlencoded({ extended: true })); 
+app.use(express.json());
+app.use(cookieParser);
+app.use(sessionMiddleware);
+
+
 
 // CORS(Cross-Origin Resource Sharing) 설정
 app.use(cors({
@@ -15,18 +22,16 @@ app.use(cors({
   credentials: true // 세션 정보가 포함된 요청을 허용
 }));
 
-// 미들웨어 설정
-app.use(express.urlencoded({ extended: true })); 
-app.use(express.json());
-app.use(cookieParser);
-app.use(sessionMiddleware);
+
+
+
 // app.use(session);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello World!');
+// });
 
 // 회원가입 라우터(하은)
 const SignupRouter = require('./routes/SignupRouter');
@@ -95,12 +100,6 @@ app.use('/random-food-idx', recommendRouter);
 const favoriteRouter = require('./routes/favoriteList');
 app.use('/favorites', favoriteRouter);
 
-// // 세션 확인 라우터(하은)
-// const CheckSessionRouter = require('./routes/CheckSessionRouter');
-// app.use('/check-session', CheckSessionRouter);
-// // 백엔드에서 세션 상태를 확인하기 위한 API 엔드포인트
-// // 백엔드에서 세션 상태를 확인하고, 그 결과를 프론트엔드에 JSON 형태로 응답하는 역할
-// console.log('세션 확인 라우터 연결됨: /check-session');
 
 // 서버 시작
 app.listen(port, () => {

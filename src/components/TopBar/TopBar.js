@@ -8,10 +8,16 @@ const TopBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
+
+  console.log('메인에서 확인한 세션 값', sessionStorage.getItem('user'))
+  // if (sessionStorage.getItem('user')) { console.log('로그인상태') } else {
+  //   console.log('로그아웃상태')
+  // }
+
   // 로그인 버튼 클릭 시 호출되는 함수
   const handleLogin = async () => {
     try {
-      
+
       const response = await axios.post('http://localhost:4000/user/login', {
         user_id: 'testuser',
         user_pw: 'password123'
@@ -21,6 +27,7 @@ const TopBar = () => {
       if (response.status === 200) {
         alert('로그인 되었습니다.');
         setIsLoggedIn(true);
+        // 여기가 로그인 상태를 true로 바꾸는 곳인데, 애초에 이 페이지로 정보가 response 오지도 않음!!!!!!!!!!!!!!
         setUser(response.data.user); // 사용자 정보를 state에 저장
         console.log('로그인 성공:', response.data.user);
       }
@@ -46,20 +53,17 @@ const TopBar = () => {
   //     });
   // }, []);  // 빈 배열을 두 번째 인수로 전달하여 컴포넌트가 처음 렌더링될 때만 실행
 
+
+
   // 로그아웃 버튼 클릭시
   const handleLogout = async () => {   // handleLogout 함수 호출하여 로그아웃 요청 처리
     console.log('로그아웃 요청 시작');
-    try {
-      const response = await axios.post('http://localhost:4000/user/logout', {}, { withCredentials: true }); // 서버로 로그아웃 요청 >> 세션 종료
-      if (response.status === 200) {
-        alert('로그아웃 되었습니다.');
-        setIsLoggedIn(false);  // 로그아웃 성공시, isLoggedIn 상태를 false로 변경
-        console.log('로그아웃 성공:', response.data);
-        window.location.href = '/'; // 로그아웃 성공시, 메인화면으로 리디렉션
-      }
-    } catch (error) {
-      console.error('로그아웃 중 오류 발생:', error);
-    }
+
+    // 세션삭제 
+    sessionStorage.clear()
+    
+    alert("로그아웃합니다.")
+    window.location.href="/"
   };
 
   return (
@@ -72,7 +76,7 @@ const TopBar = () => {
         <img className="icon" alt="Logo" src="/static/img/logo-s.png" />
       </a>
       <div className="spacer2"></div> {/* 왼쪽 아이템과 중앙 로고 사이 공간 */}
-      {isLoggedIn ? (
+      {sessionStorage.getItem('user') ? (
         <button onClick={handleLogout} className="top-bar-item-login">로그아웃</button>
       ) : (
         <Link to="/login" className="top-bar-item-login">로그인</Link>

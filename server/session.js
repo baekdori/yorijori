@@ -3,10 +3,13 @@ const FileStore = require('session-file-store')(session);
 const cookieParser = require('cookie-parser');
 const path = require('path');
 
+
+
 const fileStoreOptions = {
   path: path.join(__dirname, 'sessions'), // 세션 파일을 저장할 디렉토리 경로!!!!!!!!
   ttl: 3600 // 세션 파일의 유효기간 (초 단위로 설정, 여기서는 1시간)
 };
+
 
 module.exports = {
   sessionMiddleware: session({

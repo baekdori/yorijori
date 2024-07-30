@@ -12,6 +12,7 @@ router.post('/logout', (req, res) => {
       return res.status(500).json({ message: '로그아웃 오류' });
     }
     console.log('로그아웃 완료');
+    res.clearCookie('sessionId'); // 세션 쿠키 삭제
     res.json({ message: '로그아웃 완료' });
   });
 });
