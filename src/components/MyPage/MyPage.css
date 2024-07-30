@@ -212,7 +212,7 @@ input:not(:read-only) {
   border: none;
   cursor: pointer;
   pointer-events: auto;
-  margin-top: 220px;
+  margin-top: 400px;
 }
 
 .correction-btn {
