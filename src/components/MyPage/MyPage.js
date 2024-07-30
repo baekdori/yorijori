@@ -91,28 +91,28 @@ const MyPage = () => {
   };
 
   return (
-    <div className="mypage">
+    <div className="mypage-container">
       <TopBar />
-      <div className="title">마이페이지</div>
+      <div className="mypage-title">마이페이지</div>
 
-      <div className="first-line"></div>
+      <div className="mypage-first-line"></div>
 
-      <div className="id-container">
-        <div className="picture-circle"></div>
-        <div className="id-info">
-          <div className="id">ID</div>
-          <div className="input-prompt">아이디</div>
-          <div className="name">이름</div>
-          <div className="input-prompt">이름</div>
+      <div className="mypage-id-container">
+        <div className="mypage-picture-circle"></div>
+        <div className="mypage-id-info">
+          <div className="mypage-id">ID</div>
+          <div className="mypage-input-prompt">아이디</div>
+          <div className="mypage-name">이름</div>
+          <div className="mypage-input-prompt">이름</div>
         </div>
       </div>
 
-      <div className="second-line"></div>
+      <div className="mypage-second-line"></div>
 
-      <div className="nickname">닉네임</div>
+      <div className="mypage-nickname">닉네임</div>
       <input
         type="text"
-        className="nick-input"
+        className="mypage-input"
         name="user_nick"
         value={userData.user_nick}
         onChange={handleInputChange}
@@ -120,10 +120,10 @@ const MyPage = () => {
         style={{ userSelect: isEditing ? 'auto' : 'none' }}
       />
 
-      <div className="phone">핸드폰</div>
+      <div className="mypage-phone">핸드폰</div>
       <input
         type="text"
-        className="phone-input"
+        className="mypage-input"
         name="user_phone"
         value={userData.user_phone}
         onChange={handleInputChange}
@@ -131,10 +131,10 @@ const MyPage = () => {
         style={{ userSelect: isEditing ? 'auto' : 'none' }}
       />
 
-      <div className="email">이메일</div>
+      <div className="mypage-email">이메일</div>
       <input
         type="text"
-        className="email-input"
+        className="mypage-input"
         name="user_email"
         value={userData.user_email}
         onChange={handleInputChange}
@@ -142,14 +142,14 @@ const MyPage = () => {
         style={{ userSelect: isEditing ? 'auto' : 'none' }}
       />
 
-      <button className="delete-account-btn" onClick={handleDeleteClick}>
+      <button className="mypage-delete-account-btn" onClick={handleDeleteClick}>
         회원 탈퇴
       </button>
 
       <BottomBar />
 
-      <button className="correction-btn" onClick={handleCorrectionClick}>수정</button>
-      <button className="submit-btn" onClick={handleSubmitClick} disabled={!isEditing}>확인</button>
+      <button className="mypage-correction-btn" onClick={handleCorrectionClick}>수정</button>
+      <button className="mypage-submit-btn" onClick={handleSubmitClick} disabled={!isEditing}>확인</button>
     </div>
   );
 };

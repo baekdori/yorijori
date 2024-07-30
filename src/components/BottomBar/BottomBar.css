@@ -7,42 +7,40 @@
 }
 
 .bottom-nav {
-    width: 800px; /* 너비 */
-    height: 80px; /* 높이 */
-    background-color: rgba(0, 0, 0, 0.75); /* 배경색과 투명도 */
-    display: flex; /* Flexbox로 설정 */
-    justify-content: space-around; /* 가로로 균등하게 정렬 */
-    align-items: center; /* 세로로 가운데 정렬 */
-    position: fixed; /* 절대 위치 */
-    bottom: 0; /* 화면 하단에 고정 */
-    left:560px; /* 왼쪽에 고정 */
-    z-index: 1000; /* 다른 요소들보다 위에 표시 */
-}
-
-/* nav-item 스타일 설정 */
-.nav-item {
-    background: none; /* 배경 없음 */
-    border: none; /* 테두리 없음 */
-    cursor: pointer; /* 마우스 포인터 모양 변경 */
-    display: flex; /* Flexbox로 설정 */
-    flex-direction: column; /* 수직 정렬 */
-    justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
-    padding: 10px; /* 패딩 설정 */
-    text-decoration: none; /* 링크 밑줄 제거 */
-    color: inherit; /* 링크 색상 상속 */
-}
-
-/* 이미지 스타일 설정 */
-.nav-item img {
-    width: 40px; /* 이미지 너비 */
-    height: 40px; /* 이미지 높이 */
-}
-
-/* 텍스트 스타일 설정 */
-.nav-item span {
-    margin-top: 5px; /* 텍스트 위쪽 여백 */
-    font-size: 12px; /* 글자 크기 */
-    color: #fff; /* 글자 색상 */
+    width: 800px;
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+  }
+  
+  .nav-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .nav-item img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .nav-item span {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #fff;
     font-family: 'Pretendard-Regular';
-}
+  }
