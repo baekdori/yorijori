@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const user = require('../model/user');
 
-// 로그아웃 라우터 추가
+// 로그아웃 라우터
 router.post('/logout', (req, res) => {
   console.log('로그아웃 요청 수신:', req.session.user);
   

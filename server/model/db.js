@@ -12,10 +12,10 @@ const conn = mysql.createConnection({
 
 conn.connect((err) => {
   if (err) {
-    console.error('연결 실패: ', err.stack);
+    console.error('DB 연결 실패: ', err.stack);
     return;
   }
   // 연결 진행
-  console.log('연결 성공');
+  console.log('DB 연결 성공');
 });
 module.exports = conn;

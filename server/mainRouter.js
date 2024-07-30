@@ -1,16 +1,15 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const path = require('path'); 
+const cors = require("cors");
 // const session = require('./session');
 const { sessionMiddleware, cookieParser } = require('./session');
 const port = 4000;  // 4000포트 오픈
-const cors = require("cors");
 
 const app = express();
 
 
 // CORS(Cross-Origin Resource Sharing) 설정
-// npm i CORS 설치 필요
 app.use(cors({
   origin: 'http://localhost:3000',   // 3000포트의 데이터를 4000포트로 보냄
   credentials: true // 세션 정보가 포함된 요청을 허용
@@ -96,12 +95,12 @@ app.use('/random-food-idx', recommendRouter);
 const favoriteRouter = require('./routes/favoriteList');
 app.use('/favorites', favoriteRouter);
 
-// 세션 확인 라우터(하은)
-const CheckSessionRouter = require('./routes/CheckSessionRouter');
-app.use('/check-session', CheckSessionRouter);
-// 백엔드에서 세션 상태를 확인하기 위한 API 엔드포인트
-// 백엔드에서 세션 상태를 확인하고, 그 결과를 프론트엔드에 JSON 형태로 응답하는 역할
-console.log('세션 확인 라우터 연결됨: /check-session');
+// // 세션 확인 라우터(하은)
+// const CheckSessionRouter = require('./routes/CheckSessionRouter');
+// app.use('/check-session', CheckSessionRouter);
+// // 백엔드에서 세션 상태를 확인하기 위한 API 엔드포인트
+// // 백엔드에서 세션 상태를 확인하고, 그 결과를 프론트엔드에 JSON 형태로 응답하는 역할
+// console.log('세션 확인 라우터 연결됨: /check-session');
 
 // 서버 시작
 app.listen(port, () => {
