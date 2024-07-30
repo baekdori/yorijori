@@ -412,8 +412,7 @@ body::-webkit-scrollbar-thumb {
 .food-result-bottom-container .fr:last-child {
   margin-right: 0;
 }
-.search-results-container,
-.vs-results-container {
+.search-results-container{
   display: grid;
   position: absolute;
   grid-template-columns: repeat(2, 1fr); /* Two columns */
@@ -442,8 +441,8 @@ body::-webkit-scrollbar-thumb {
 .result-square:hover {
   background: linear-gradient(to top, 
     rgba(255, 128, 0, 1) 0%, 
-    rgba(255, 128, 0, 0.6) 30%, 
-    rgba(255, 128, 0, 0) 50%);
+    rgba(255, 128, 0, 0.6) 15%, 
+    rgba(255, 128, 0, 0) 30%);
   transition: background 1s ease-in-out;
   z-index: 3;
 }
@@ -458,7 +457,7 @@ body::-webkit-scrollbar-thumb {
   font-weight: regular;
   font-size: 28px;
   letter-spacing: -0.05em;
-  color: #FFFFFF;
+  color: #000000;
   user-select: none;
   text-align: center;
   z-index: 3;
@@ -597,33 +596,60 @@ body::-webkit-scrollbar-thumb {
 }
 
 .vs-results-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 580px;
-  height: 930px;
-  gap: 40px; /* x, y 간격 조정 */
+  display: grid;
   position: absolute;
-  top: 604px;
-  opacity: 0; 
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  grid-auto-rows: 270px; /* Fixed height for each row */
+  gap: 40px; /* 40px gap between columns and rows */
+  top: 610px;
+  left: 118px;
+  width: 580px; /* Adjust width as needed */
+  /* Height is not set; container will grow based on its content */
+  background-color: transparent;
+  border: none;
+  z-index: 3;
 }
 
 .vs-results-row {
+  height: 270px;
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
 .vs-search-result-box {
+  border-radius: 50px;
+  flex: 1; /* Allow squares to take up available space evenly */
   width: 270px;
   height: 270px;
-  background-color: #434343;
+  background-color: #D6D6D6;
   border-radius: 50px;
-  margin: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 16px;
+  position: absolute;
+  margin: 0 auto;
+  z-index: 3;
+}
+
+.vs-search-result-box:hover {
+  background: linear-gradient(to top, 
+    rgba(255, 128, 0, 1) 0%, 
+    rgba(255, 128, 0, 0.6) 15%, 
+    rgba(255, 128, 0, 0) 30%);
+  transition: background 1s ease-in-out;
+  z-index: 3;
+}
+
+.vs-search-result-text {
+  position: absolute;
+  bottom: 10px;
+  width : 260px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'BM JUA_TTF', sans-serif;
+  font-weight: regular;
+  font-size: 28px;
+  letter-spacing: -0.05em;
+  color: #000000;
+  user-select: none;
   text-align: center;
+  z-index: 3;
 }

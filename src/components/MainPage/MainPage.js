@@ -1,89 +1,96 @@
-import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
-import './MainPage.css';
-import TopBar from '../TopBar/TopBar.js';
-import BottomBar from '../BottomBar/BottomBar.js';
+import React, { useState, useRef, useEffect } from 'react'; // React와 필요한 훅을 임포트
+import axios from 'axios'; // HTTP 요청을 위해 axios 임포트
+import './MainPage.css'; // CSS 스타일 시트 임포트
+import TopBar from '../TopBar/TopBar.js'; // 상단 바 컴포넌트 임포트
+import BottomBar from '../BottomBar/BottomBar.js'; // 하단 바 컴포넌트 임포트
 
 const MainPage = () => {
-  const [isKeywordSearch, setIsKeywordSearch] = useState(false);
-  const [isVisualSearch, setIsVisualSearch] = useState(false);
-  const [showSearchResult, setShowSearchResult] = useState(false);
-  const [searchTags, setSearchTags] = useState([]);
-  const [inputValue, setInputValue] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [draggedItem, setDraggedItem] = useState(null);
-  const [droppedItems, setDroppedItems] = useState([]);
-  const [visualSearchResults, setVisualSearchResults] = useState([]);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isKeywordSearch, setIsKeywordSearch] = useState(false); // 키워드 검색 모드 상태
+  const [isVisualSearch, setIsVisualSearch] = useState(false); // 비주얼 검색 모드 상태
+  const [showSearchResult, setShowSearchResult] = useState(false); // 검색 결과 표시 상태
+  const [searchTags, setSearchTags] = useState([]); // 검색 태그 상태
+  const [inputValue, setInputValue] = useState(''); // 입력값 상태
+  const [searchResults, setSearchResults] = useState([]); // 키워드 검색 결과 상태
+  const [draggedItem, setDraggedItem] = useState(null); // 드래그한 아이템 상태
+  const [droppedItems, setDroppedItems] = useState([]); // 비주얼 검색에서 드랍된 아이템 상태
+  const [visualSearchResults, setVisualSearchResults] = useState([]); // 비주얼 검색 결과 상태
+  const [isTransitioning, setIsTransitioning] = useState(false); // 전환 애니메이션 상태
 
-  const recipeTextRef = useRef(null);
+  const recipeTextRef = useRef(null); // 레시피 텍스트를 참조할 수 있는 Ref
 
+  // 키워드 검색 결과를 서버에서 가져오는 함수
   const fetchSearchResults = async () => {
     try {
-      const ingredients = searchTags.map(tag => tag.text).join(',');
+      const ingredients = searchTags.map(tag => tag.text).join(','); // 검색 태그를 쉼표로 구분된 문자열로 변환
       const response = await axios.get('http://localhost:4000/foods/search', {
-        params: { q: ingredients }
+        params: { q: ingredients } // 요청 파라미터에 검색 태그 추가
       });
       const uniqueResults = response.data.reduce((acc, current) => {
-        const x = acc.find(item => item.food_idx === current.food_idx);
+        const x = acc.find(item => item.food_idx === current.food_idx); // 중복 제거
         if (!x) {
-          return acc.concat([current]);
+          return acc.concat([current]); // 중복이 없으면 결과 배열에 추가
         } else {
-          return acc;
+          return acc; // 중복이 있으면 그대로 반환
         }
       }, []);
-      setSearchResults(uniqueResults);
+      setSearchResults(uniqueResults); // 검색 결과 상태 업데이트
     } catch (error) {
-      console.error('Error fetching search results:', error);
+      console.error('Error fetching search results:', error); // 오류 발생 시 로그 출력
     }
   };
 
+  // 비주얼 검색 결과를 서버에서 가져오는 함수
   const fetchVisualSearchResults = async () => {
     try {
-      const ingredients = droppedItems.map(tag => tag.text).join(',');
+      const ingredients = droppedItems.map(tag => tag.text).join(','); // 드랍된 아이템을 쉼표로 구분된 문자열로 변환
       const response = await axios.get('http://localhost:4000/foods/search', {
-        params: { q: ingredients }
+        params: { q: ingredients } // 요청 파라미터에 검색 태그 추가
       });
       const uniqueResults = response.data.reduce((acc, current) => {
-        const x = acc.find(item => item.food_idx === current.food_idx);
+        const x = acc.find(item => item.food_idx === current.food_idx); // 중복 제거
         if (!x) {
-          return acc.concat([current]);
+          return acc.concat([current]); // 중복이 없으면 결과 배열에 추가
         } else {
-          return acc;
+          return acc; // 중복이 있으면 그대로 반환
         }
       }, []);
-      setVisualSearchResults(uniqueResults);
+      setVisualSearchResults(uniqueResults); // 비주얼 검색 결과 상태 업데이트
     } catch (error) {
-      console.error('Error fetching visual search results:', error.message);
-      console.error('Error details:', error.response ? error.response.data : error);
+      console.error('Error fetching visual search results:', error.message); // 오류 발생 시 로그 출력
+      console.error('Error details:', error.response ? error.response.data : error); // 오류 세부 사항 로그 출력
     }
   };
 
+  // 키워드 검색 시 Enter 입력 시 검색 태그 추가 및 검색 수행
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault();
-      if (inputValue.trim()) {
-        setSearchTags(prevTags => [...prevTags, { text: inputValue.trim() }]);
-        setInputValue('');
+      event.preventDefault(); // 기본 Enter 키 동작 방지
+      if (inputValue.trim()) { // 입력값이 비어있지 않으면
+        setSearchTags(prevTags => [...prevTags, { text: inputValue.trim() }]); // 검색 태그 추가
+        setInputValue(''); // 입력값 초기화
       }
-      setIsKeywordSearch(true);
-      fetchSearchResults(); 
+      setIsKeywordSearch(true); // 키워드 검색 모드 활성화
+      fetchSearchResults(); // 검색 결과 가져오기
     }
   };
 
+  // 키워드 검색에서 검색 시작 버튼 클릭 시 처리
   const handleStartClick = () => {
-    if (searchTags.length === 0) {
-      alert('반드시 하나 이상의 재료를 입력하세요');
+    if (searchTags.length === 0) { // 검색 태그가 없으면
+      alert('반드시 하나 이상의 재료를 입력하세요'); // 경고 메시지 표시
     } else {
-      fetchSearchResults(); 
+      fetchSearchResults(); // 검색 결과 가져오기
     }
   };
 
+  // 등록된 검색어 제거
   const removeTag = (index) => {
-    setSearchTags(tags => tags.filter((_, i) => i !== index));
+    setSearchTags(tags => tags.filter((_, i) => i !== index)); // 지정된 인덱스의 검색어 제거
   };
 
+  // 키워드 검색 결과 렌더링
   const renderSearchResults = () => {
+    console.log('키워드 검색 결과 : ', searchResults); // 디버깅 로그
     const rows = [];
     for (let i = 0; i < searchResults.length; i += 2) {
       rows.push(searchResults.slice(i, i + 1)); // 두 개씩 묶어서 행을 생성
@@ -111,10 +118,12 @@ const MainPage = () => {
     );
   };
 
+  // 비주얼 검색 결과 렌더링
   const renderVisualSearchResults = () => {
+    console.log('비주얼 검색 결과 : ', visualSearchResults); // 디버깅 로그
     const rows = [];
     for (let i = 0; i < visualSearchResults.length; i += 2) {
-      rows.push(visualSearchResults.slice(i, i + 1));
+      rows.push(visualSearchResults.slice(i, i + 1)); // 두 개씩 묶어서 행을 생성
     }
     return (
       <div className="vs-results-container">
@@ -122,8 +131,8 @@ const MainPage = () => {
           rows.map((row, rowIndex) => (
             <div key={rowIndex} className="vs-results-row">
               {row.map((result) => (
-                <div key={result.food_idx} className="result-square">
-                  <div className="result-square-text">
+                <div key={result.food_idx} className="vs-search-result-box">
+                  <div className="vs-search-result-text">
                     <h3>{result.food_name}</h3>
                   </div>
                 </div>
@@ -139,110 +148,127 @@ const MainPage = () => {
     );
   };
 
+  // 키워드 검색 모드로 전환
   const keywordSearching = () => {
-    setIsKeywordSearch(true);
-    setIsVisualSearch(false);
-    setShowSearchResult(false);
+    setIsKeywordSearch(true); // 키워드 검색 모드 활성화
+    setIsVisualSearch(false); // 비주얼 검색 모드 비활성화
+    setShowSearchResult(false); // 검색 결과 표시 비활성화
   };
 
+  // 비주얼 검색 모드로 전환
   const visualSearching = () => {
-    setIsKeywordSearch(false);
-    setIsVisualSearch(true);
-    setShowSearchResult(false);
+    setIsKeywordSearch(false); // 키워드 검색 모드 비활성화
+    setIsVisualSearch(true); // 비주얼 검색 모드 활성화
+    setShowSearchResult(false); // 검색 결과 표시 비활성화
   };
 
+  // 레시피 페이지로 이동
   const handleClick = () => {
     try {
-      window.location.href = '/ResultPage';
+      window.location.href = '/ResultPage'; // 결과 페이지로 이동
     } catch {
-      console.log("레시피 결과 보기 실패!");
+      console.log("레시피 결과 보기 실패!"); // 이동 실패 시 로그 출력
     }
   };
 
+  // 입력값 변경 처리
   const handleInputChange = (event) => {
-    setInputValue(event.target.value);
+    setInputValue(event.target.value); // 입력값 상태 업데이트
   };
 
+  // 키워드 검색 시 전체 취소 버튼 클릭 시 처리
   const handleCancelClick = () => {
-    setSearchTags([]);
-    setInputValue('');
-    setShowSearchResult(false);
-    setSearchResults([]);
+    setSearchTags([]); // 검색 태그 초기화
+    setInputValue(''); // 입력값 초기화
+    setShowSearchResult(false); // 검색 결과 표시 비활성화
+    setSearchResults([]); // 검색 결과 초기화
   };
 
+  // 비주얼 검색 시작 버튼 클릭 시 처리
   const vsHandleStartClick = async () => {
-    if (droppedItems.length === 0) {
-      alert('반드시 하나 이상의 재료를 입력하세요');
+    if (droppedItems.length === 0) { // 드랍된 아이템이 없으면
+      alert('반드시 하나 이상의 재료를 입력하세요'); // 경고 메시지 표시
     } else {
-      setIsTransitioning(true);
+      setIsTransitioning(true); // 전환 애니메이션 시작
       setTimeout(async () => {
-        fetchVisualSearchResults(); // Fetch results for visual search
-        setShowSearchResult(true);
-        setIsTransitioning(false);
-      }, 500); 
+        setShowSearchResult(true); // 검색 결과 표시 활성화
+        await fetchVisualSearchResults(); // 비주얼 검색 결과 가져오기
+        setIsTransitioning(false); // 전환 애니메이션 종료
+      }, 500); // 500ms 후에 검색 결과 가져오기
     }
   };
 
+  // 비주얼 검색 시 전체 취소 버튼 클릭 시 처리
   const vsHandleCancelClick = () => {
-    setSearchTags([]);
-    setInputValue('');
-    setShowSearchResult(false);
-    setSearchResults([]);
-    setDroppedItems([]); 
+    setSearchTags([]); // 검색 태그 초기화
+    setInputValue(''); // 입력값 초기화
+    setShowSearchResult(false); // 검색 결과 표시 비활성화
+    setSearchResults([]); // 검색 결과 초기화
+    setDroppedItems([]); // 드랍된 아이템 초기화
   };
 
+  // 키워드 검색 모드에서 뒤로 가기 버튼 클릭 시 처리
   const handleKeywordBackClick = () => {
-    setIsKeywordSearch(false);
-    setSearchTags([]);
-    setInputValue('');
-    setShowSearchResult(false);
-    setSearchResults([]);
+    setIsKeywordSearch(false); // 키워드 검색 모드 비활성화
+    setSearchTags([]); // 검색 태그 초기화
+    setInputValue(''); // 입력값 초기화
+    setShowSearchResult(false); // 검색 결과 표시 비활성화
+    setSearchResults([]); // 검색 결과 초기화
   };
 
+  // 비주얼 검색 모드에서 뒤로 가기 버튼 클릭 시 처리
   const vsHandleBackClick = () => {
-    setIsVisualSearch(false);
-    setSearchTags([]);
-    setInputValue('');
-    setShowSearchResult(false);
-    setSearchResults([]);
+    setIsVisualSearch(false); // 비주얼 검색 모드 비활성화
+    setSearchTags([]); // 검색 태그 초기화
+    setInputValue(''); // 입력값 초기화
+    setShowSearchResult(false); // 검색 결과 표시 비활성화
+    setSearchResults([]); // 검색 결과 초기화
+    setVisualSearchResults([]); // 비주얼 검색 결과 초기화
+    renderVisualSearchResults(); // 비주얼 검색 결과 렌더링 초기화
+    fetchVisualSearchResults(); // 비주얼 검색 결과 가져오기 초기화
   };
 
+  // 비주얼 검색 모드에서 드래그 시작 처리
   const handleDragStart = (event, index) => {
-    event.dataTransfer.setData("text/plain", index);
-    setDraggedItem(index);
+    event.dataTransfer.setData("text/plain", index); // 드래그된 아이템의 인덱스를 데이터로 설정
+    setDraggedItem(index); // 드래그한 아이템 상태 업데이트
   };
 
+  // 비주얼 검색 모드에서 드래그 오버 처리
   const handleDragOver = (event) => {
-    event.preventDefault();
+    event.preventDefault(); // 기본 드래그 오버 동작 방지
   };
 
+  // 비주얼 검색 모드에서 드랍 처리
   const handleDrop = (event) => {
-    event.preventDefault();
-    if (droppedItems.length >= 8) {
-      alert("아이템 한도에 도달했습니다.");
+    event.preventDefault(); // 기본 드랍 동작 방지
+    if (droppedItems.length >= 8) { // 드랍된 아이템이 8개 이상이면
+      alert("아이템 한도에 도달했습니다."); // 경고 메시지 표시
       return;
     }
-    const draggedIndex = event.dataTransfer.getData("text/plain");
-    const itemText = itemTexts[draggedIndex];
-    if (!droppedItems.find(item => item.text === itemText)) {
-      setDroppedItems([...droppedItems, { text: itemText }]);
+    const draggedIndex = event.dataTransfer.getData("text/plain"); // 드래그된 아이템의 인덱스 가져오기
+    const itemText = itemTexts[draggedIndex]; // 인덱스를 사용하여 아이템 텍스트 가져오기
+    if (!droppedItems.find(item => item.text === itemText)) { // 드랍된 아이템 목록에 없는 경우
+      setDroppedItems([...droppedItems, { text: itemText }]); // 드랍된 아이템 목록에 추가
     }
-    setDraggedItem(null);
+    setDraggedItem(null); // 드래그한 아이템 상태 초기화
   };
 
+  // 비주얼 검색 모드에서 드랍된 문자열 제거
   const removeDroppedItem = (index) => {
-    setDroppedItems(items => items.filter((_, i) => i !== index));
+    setDroppedItems(items => items.filter((_, i) => i !== index)); // 지정된 인덱스의 드랍된 아이템 제거
   };
 
+  // 페이지 제목 렌더링
   const renderRecipeText = () => {
-    if (isKeywordSearch && !isVisualSearch) {
+    if (isKeywordSearch && !isVisualSearch) { // 키워드 검색 모드일 때
       return (
         <>
           <span className="back-arrow" onClick={handleKeywordBackClick}>←</span>
           {'키워드 검색'}
         </>
       );
-    } else if (isVisualSearch && !isKeywordSearch) {
+    } else if (isVisualSearch && !isKeywordSearch) { // 비주얼 검색 모드일 때
       return (
         <>
           <span className="visual-backarrow" onClick={vsHandleBackClick}>←</span>
@@ -250,52 +276,53 @@ const MainPage = () => {
         </>
       );
     } else {
-      return '레시피 찾아보기';
+      return '레시피 찾아보기'; // 기본 페이지 제목
     }
   };
 
-  const itemTexts = [
-    '돼지고기',
-    '닭고기',
-    '소고기',
-    '오리고기',
-    '꿩고기',
-    '콩고기',
-    '양고기',
-    '말고기',
+  const itemTexts = [ // 비주얼 검색에서 사용할 아이템 텍스트 배열
+    '돼지',
+    '닭',
+    '소',
+    '오리',
+    '꿩',
+    '콩',
+    '양',
+    '말',
     '칠면조',
-    '고기고기'
+    '고기'
   ];
 
+  // 드랍된 아이템이 변경되면 비주얼 검색 결과를 가져오기
   useEffect(() => {
     if (isVisualSearch && droppedItems.length > 0) {
-      fetchVisualSearchResults();
+      fetchVisualSearchResults(); // 비주얼 검색 결과 가져오기
     }
-  }, [droppedItems, isVisualSearch]);
+  }, [droppedItems, isVisualSearch]); // 의존성 배열에 드랍된 아이템과 비주얼 검색 모드 추가
 
   return (
-    <div className="main-page">
-      <TopBar />
-      <BottomBar />
+    <div className="main-page"> {/* 메인 페이지 컨테이너 */}
+      <TopBar /> {/* 상단 바 렌더링 */}
+      <BottomBar /> {/* 하단 바 렌더링 */}
       <div
         className="recipe-text"
         ref={recipeTextRef}
         style={{
-          textAlign: 'center',
-          position: 'absolute',
-          left: isKeywordSearch ? '50%' : 'auto',
-          transform: isKeywordSearch ? 'translateX(-50%)' : 'none',
-          width: '100%',
+          textAlign: 'center', // 텍스트 가운데 정렬
+          position: 'absolute', // 절대 위치
+          left: isKeywordSearch ? '50%' : 'auto', // 키워드 검색 모드일 때 왼쪽 위치 설정
+          transform: isKeywordSearch ? 'translateX(-50%)' : 'none', // 키워드 검색 모드일 때 중앙 정렬
+          width: '100%', // 너비 100%
         }}
       >
-        {renderRecipeText()}
+        {renderRecipeText()} {/* 페이지 제목 렌더링 */}
       </div>
 
-      <div className="select-btn-container">
-        {!isVisualSearch && (
+      <div className="select-btn-container"> {/* 버튼 컨테이너 */}
+        {!isVisualSearch && ( /* 비주얼 검색 모드가 아닐 때만 렌더링 */
           <div className={`left-container ${isKeywordSearch ? 'expand' : ''}`} onClick={keywordSearching}>
             <div className={`searching-input ${isKeywordSearch ? 'expand-width' : ''}`}>
-              {isKeywordSearch ? (
+              {isKeywordSearch ? ( /* 키워드 검색 모드일 때 */
                 <input
                   type="text"
                   value={inputValue}
@@ -309,7 +336,7 @@ const MainPage = () => {
             </div>
           </div>
         )}
-        <div className="search-tags-container">
+        <div className="search-tags-container"> {/* 검색 태그 컨테이너 */}
           {searchTags.map((tag, index) => (
             <div className="search-tag" key={index}>
               {tag.text}
@@ -319,7 +346,7 @@ const MainPage = () => {
         </div>
       </div>
 
-      {!isKeywordSearch && !isVisualSearch && (
+      {!isKeywordSearch && !isVisualSearch && ( /* 키워드 검색 및 비주얼 검색 모드가 아닐 때 렌더링 */
         <div className="tiktok"></div>
       )}
 
@@ -345,20 +372,20 @@ const MainPage = () => {
         </>
       )}
 
-      <div className="food-pic"></div>
+      <div className="food-pic"></div> {/* 음식 사진 컨테이너 */}
 
       {!isKeywordSearch && !isVisualSearch && (
         <>
-          <div className="recom-container">
+          <div className="recom-container"> {/* 추천 컨테이너 */}
             <div className="recom-text">OO님이 좋아할 요리를 찾았어요!</div>
             <div className="recom-subtext">OO님의 기록을 분석하여 찾은 결과입니다</div>
           </div>
-          <div className="food-result-top-container">
+          <div className="food-result-top-container"> {/* 음식 결과 상단 컨테이너 */}
             <div className="fr" onClick={handleClick}></div>
             <div className="fr" onClick={handleClick}></div>
             <div className="fr" onClick={handleClick}></div>
           </div>
-          <div className="food-result-bottom-container">
+          <div className="food-result-bottom-container"> {/* 음식 결과 하단 컨테이너 */}
             <div className="fr" onClick={handleClick}></div>
             <div className="fr" onClick={handleClick}></div>
             <div className="fr" onClick={handleClick}></div>
@@ -366,7 +393,7 @@ const MainPage = () => {
         </>
       )}
 
-      {isKeywordSearch && (
+      {isKeywordSearch && ( /* 키워드 검색 모드일 때 렌더링 */
         <div className="recom-btn-container">
           <div className="search-result-text">검색 결과</div>
           <button className="cancel-btn" onClick={handleCancelClick}>전체 취소</button>
@@ -374,7 +401,7 @@ const MainPage = () => {
         </div>
       )}
 
-      {isKeywordSearch && searchResults.length > 0 && renderSearchResults()}
+      {isKeywordSearch && searchResults.length > 0 && renderSearchResults()} {/* 검색 결과가 있을 때 렌더링 */}
 
       {isVisualSearch && (
         <>
@@ -405,9 +432,9 @@ const MainPage = () => {
         </>
       )}
 
-      {isVisualSearch && showSearchResult && visualSearchResults.length > 0 && renderVisualSearchResults()}
+      {isVisualSearch && showSearchResult && visualSearchResults.length > 0 && renderVisualSearchResults()} {/* 비주얼 검색 결과 렌더링 */}
     </div>
   );
 };
 
-export default MainPage;
+export default MainPage; /* MainPage 컴포넌트 내보내기 */
