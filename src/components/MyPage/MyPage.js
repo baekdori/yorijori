@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './MyPage.css';
-import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
+// import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
 
 const MyPage = () => {
-  const navigate = useNavigate(); // navigate 함수 정의
+  // const navigate = useNavigate(); // navigate 함수 정의
 
   // 사용자 데이터 상태와 수정가능여부 관리하는 상태를 정의
   const [userData, setUserData] = useState({
@@ -76,7 +76,8 @@ const MyPage = () => {
         if (response.status === 200) {
           alert('회원 탈퇴가 성공적으로 완료되었습니다.');
           console.log('회원 탈퇴 응답:', response.data);
-          navigate('/login'); // 탈퇴 후 로그인 페이지로 이동
+          // navigate('/login'); 
+          window.location.href="/login"  // 탈퇴 후 로그인 페이지로 이동
         } else {
           alert('회원 탈퇴 실패');
           console.error('회원 탈퇴 실패:', response);
