@@ -18,6 +18,9 @@ const MainPage = () => {
 
   const recipeTextRef = useRef(null); // 레시피 텍스트를 참조할 수 있는 Ref
 
+  const seUser = sessionStorage.getItem('user'); // 유저 아이디를 변수에 저장
+  console.log('mainpage에서 확인한 세션아이디 저장값', seUser);
+
   // 키워드 검색 결과를 서버에서 가져오는 함수
   const fetchSearchResults = async () => {
     try {
@@ -377,8 +380,8 @@ const MainPage = () => {
       {!isKeywordSearch && !isVisualSearch && (
         <>
           <div className="recom-container"> {/* 추천 컨테이너 */}
-            <div className="recom-text">OO님이 좋아할 요리를 찾았어요!</div>
-            <div className="recom-subtext">OO님의 기록을 분석하여 찾은 결과입니다</div>
+            <div className="recom-text">{seUser}님이 좋아할 요리를 찾았어요!</div>
+            <div className="recom-subtext">{seUser}님의 기록을 분석하여 찾은 결과입니다</div>
           </div>
           <div className="food-result-top-container"> {/* 음식 결과 상단 컨테이너 */}
             <div className="fr" onClick={handleClick}></div>
