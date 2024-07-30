@@ -5,6 +5,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
 body.DetailPage {
   margin: 0;
   overflow-y: scroll; /* 상하 스크롤을 허용 */
@@ -54,6 +61,7 @@ h2 {
   margin-top: 20px;
   width: 640px; /* 전체 컨테이너 너비 */
   height: 145px; /* 전체 컨테이너 높이 */
+  font-family: 'Pretendard-Regular';
 }
 
 .comment-input {
@@ -65,6 +73,7 @@ h2 {
   border-radius: 10px;
   box-sizing: border-box;
   outline: none;
+  font-family: 'Pretendard-Regular';
 }
 
 .comment-button {
@@ -95,6 +104,8 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 100px;
+  font-family: 'Pretendard-Regular';
 }
 
 .comments-section h2 {
@@ -165,6 +176,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  font-family: 'Pretendard-Regular';
 }
 
 .comment-header {
@@ -247,6 +259,7 @@ h2 {
   padding: 10px;
   border-radius: 10px;
   margin: 10px;
+  font-family: 'Pretendard-Regular';
 }
 
 .bookmark-section {
@@ -300,6 +313,7 @@ h2 {
   position: relative; /* 자식 요소의 절대 위치를 위한 상대 위치 */
   margin: 20px auto; /* 가운데 정렬 */
   padding: 20px; /* 내부 패딩 */
+  font-family: 'Pretendard-Regular';
 }
 
 .description-section h2 {

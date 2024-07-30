@@ -54,6 +54,7 @@ const LoginPage = () => {
       <form>
         <div className="group">
           <div className="view-l">
+          <img className="loginuser" alt="loginuser" src="/static/img/loginuser.png" />
             <input
               type="text"
               id="user_id"
@@ -67,6 +68,7 @@ const LoginPage = () => {
           </div>
 
           <div className="view-2-l">
+          <img className="lock" alt="lock" src="/static/img/lock.png" />
             <input
               type="password"
               id="user_pw"
