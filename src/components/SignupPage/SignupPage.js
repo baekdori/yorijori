@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { XnixLineSearch4 } from '../static/icons/XnixLineSearch4'; // 상대 경로가 올바른지 확인
 import './SignupPage.css'; // 기존 CSS 파일 가져오기
 import axios from 'axios';
 
@@ -55,150 +54,117 @@ const SignupPage = () => {
 
   return (
     <div className="SignupPage">
-
-      <div className="overlap-wrapper-s">
-        <div className="group-wrapper-s">
-          <div className="overlap-group-2-s">
-            <div className="component-s">
-              <img
-                className="xnix-line-s"
-                alt="Xnix line"
-                src="/static/img/xnix-line-notification-12-1.png"
-              />
-              <img className="logo-s-s" alt="Logo s" src="/static/img/logo-s.png" />
-              <XnixLineSearch4 className="xnix-line-search-s" color="#434343" />
-              <img
-                className="xnix-line-hamburger-s"
-                alt="Xnix line hamburger"
-                src="/static/img/xnix-line-hamburger-4-1.png"
-              />
-            </div>
+      <h1>회 원 가 입</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="group-1">
+          <div className="view">
+            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
+            <input
+              type="text"
+              id="username"
+              name="user_id"
+              placeholder="아이디 입력"
+              value={formData.user_id}
+              onChange={handleChange}
+              required
+              className="input-field"
+            />
+          </div>
+          <div className="view-2">
+            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
+            <input
+              type="password"
+              id="password"
+              name="user_pw"
+              placeholder="비밀번호 입력"
+              value={formData.user_pw}
+              onChange={handleChange}
+              required
+              className="input-field"
+            />
+          </div>
+          <div className="view-3">
+            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="비밀번호 입력 확인"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              className="input-field"
+            />
+          </div>
+          <div className="view-4">
+            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
+            <input
+              type="text"
+              id="fullName"
+              name="user_name"
+              placeholder="회원 이름 입력"
+              value={formData.user_name}
+              onChange={handleChange}
+              required
+              className="input-field"
+            />
+          </div>
+          <div className="view-5">
+            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
+            <input
+              type="text"
+              id="nickname"
+              name="user_nick"
+              placeholder="사용할 닉네임 입력"
+              value={formData.user_nick}
+              onChange={handleChange}
+              required
+              className="input-field"
+            />
+          </div>
+          <div className="view-6">
+            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
+            <input
+              type="text"
+              id="phone"
+              name="user_phone"
+              placeholder="핸드폰 번호 입력"
+              value={formData.user_phone}
+              onChange={handleChange}
+              required
+              className="input-field"
+            />
+          </div>
+          <div className="view-7">
+            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
+            <label className="gender-label">
+              <input type="radio" name="user_gender" value="male" checked={formData.user_gender === 'male'} onChange={handleChange} required />
+              <img className="male" alt="male" src="/static/img/xnix-line-male.png" />남성
+            </label>
+            <label className="gender-label">
+              <input type="radio" name="user_gender" value="female" checked={formData.user_gender === 'female'} onChange={handleChange} required /> 
+              <img className="female" alt="female" src="/static/img/xnix-line-female.png" />여성
+            </label>
+          </div>
+          <div className="view-8">
+            <input
+              type="text"
+              id="phone"
+              name="user_email"
+              placeholder="이메일 입력(선택)"
+              value={formData.user_email}
+              onChange={handleChange}
+              className="input-field"
+            />
+          </div>
+          <div className="group-2">
+            <button type="submit" className="view-10">회원가입</button>
+            <button type="button" onClick={handleCancel} className="view-9">취소</button>
           </div>
         </div>
-
-        <h1>회 원 가 입</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="group-1">
-
-            <div className="view">
-            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
-              <input
-                type="text"
-                id="username"
-                name="user_id"
-                placeholder="아이디 입력"
-                value={formData.user_id}
-                onChange={handleChange}
-                required
-                className="input-field"
-              />
-            </div>
-
-            <div className="view-2">
-            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
-              <input
-                type="password"
-                id="password"
-                name="user_pw"
-                placeholder="비밀번호 입력"
-                value={formData.user_pw}
-                onChange={handleChange}
-                required
-                className="input-field"
-              />
-            </div>
-
-            <div className="view-3">
-            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="비밀번호 입력 확인"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-                className="input-field"
-              />
-            </div>
-
-            <div className="view-4">
-            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
-              <input
-                type="text"
-                id="fullName"
-                name="user_name"
-                placeholder="회원 이름 입력"
-                value={formData.user_name}
-                onChange={handleChange}
-                required
-                className="input-field"
-              />
-            </div>
-
-            <div className="view-5">
-            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
-              <input
-                type="text"
-                id="nickname"
-                name="user_nick"
-                placeholder="사용할 닉네임 입력"
-                value={formData.user_nick}
-                onChange={handleChange}
-                required
-                className="input-field"
-              />
-            </div>
-
-            <div className="view-6">
-            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
-              <input
-                type="text"
-                id="phone"
-                name="user_phone"
-                placeholder="핸드폰 번호 입력"
-                value={formData.user_phone}
-                onChange={handleChange}
-                required
-                className="input-field"
-              />
-            </div>
-
-            <div className="view-7">
-            <img className="star" alt="star" src="/static/img/xnix-line-star.png" />
-              <label className="gender-label">
-                <input type="radio" name="user_gender" value="male" checked={formData.user_gender === 'male'} onChange={handleChange} required />
-                <img className="male" alt="male" src="/static/img/xnix-line-male.png" />남성
-              </label>
-              <label className="gender-label">
-                <input type="radio" name="user_gender" value="female" checked={formData.user_gender === 'female'} onChange={handleChange} required /> 
-                <img className="female" alt="female" src="/static/img/xnix-line-female.png" />여성
-              </label>
-            </div>
-
-            <div className="view-8">
-              <input
-                type="text"
-                id="phone"
-                name="user_email"
-                placeholder="이메일 입력(선택)"
-                value={formData.user_email}
-                onChange={handleChange}
-                className="input-field"
-              />
-            </div>
-
-            <div className="group-2">
-              <button type="submit" className="view-10">회원가입</button>
-              <button type="button" onClick={handleCancel} className="view-9">취소</button>
-            </div>
-
-          </div>
-        </form>
-      </div>
+      </form>
     </div>
   );
 };
-
 
 export default SignupPage;
