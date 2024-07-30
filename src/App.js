@@ -12,6 +12,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+       <TopBar /> {/* 공통 컴포넌트 TopBar 추가 */}
         <Routes>
           {/* 라우팅 설정  */}
           <Route path="/" element={<MainPage />} />

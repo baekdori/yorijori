@@ -4,17 +4,23 @@ const user = require('../model/user');
 
 // 인증 미들웨어
 const authMiddleware = (req, res, next) => {
+    console.log('인증 미들웨어 호출됨');
+    console.log(`요청 URL: ${req.originalUrl}`);
+    console.log(`요청 메서드: ${req.method}`);
+    console.log(`요청 시간: ${new Date().toISOString()}`);
+
+    // 세션 및 유저 정보 확인
+    console.log('MypageRouter에서 세션 데이터 로그 출력:', req.session);
     if (req.session && req.session.user) {
+        console.log('유저 인증 성공');
+        console.log(`유저 ID: ${req.session.user.id}`);
+        console.log(`유저 이름: ${req.session.user.name}`);
         next(); // 세션에 유저 정보가 있으면, 요청을 다음 미들웨어 또는 라우트로 넘김
     } else {
         res.status(401).json({ message: '인증이 필요합니다.' }); // 세션에 유저 정보가 없으면, 인증 오류 반환
     }
 };
 
-// 예제 라우트에 인증 미들웨어 적용 - 디버깅에 유용
-router.get('/protected', authMiddleware, (req, res) => {
-    res.json({ message: '인증된 사용자만 접근할 수 있는 페이지입니다.' });
-});
 
 // 프로필 라우터에 인증 미들웨어 적용
 router.get('/profile', authMiddleware, (req, res) => {
@@ -66,6 +72,7 @@ router.get('/profile', authMiddleware, (req, res) => {
 
 // 회원 정보 수정 라우터
 router.put('/', authMiddleware, async (req, res) => {
+    const userId = req.session.user.user_id;
     const { user_id, user_nick, user_phone, user_email } = req.body;
     console.log('회원정보 수정 요청 데이터:', req.body);
 

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const user = require('../model/user');
-
 const bcrypt = require('bcrypt');   // npm install bcrypt 설치 필요
 // bcrypt : 비밀번호를 안전하게 해싱하고 저장하는데 사용되는 라이브러리
 // 비밀번호 해싱(Hashing) : 사용자가 입력한 비밀번호를 해시 값으로 변환하여 DB에 저장
@@ -30,8 +29,15 @@ router.post('/', async (req, res) => {
         } // 일치하지 않는 경우, 오류메세지 반환
 
         // 세션에 사용자 정보 저장
-        req.session.user = { user_id: foundUser.user_id, user_nick: foundUser.user_nick };
-        console.log('로그인 성공:', req.session.user);
+        req.session.user = {
+            user_id: foundUser.user_id,
+            user_name: foundUser.user_name,
+            user_nick: foundUser.user_nick,
+            user_email: foundUser.user_email
+        };
+        
+        // 세션 데이터 로그 출력
+        console.log('세션 등록 완료:', req.session);
 
         res.json({ message: '로그인 성공', user: foundUser });  // 성공 메세지와 함께 사용자 정보 반환
     
