@@ -6,7 +6,6 @@ import BottomBar from '../BottomBar/BottomBar.js';
 // import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
 
 const MyPage = () => {
-  // const navigate = useNavigate(); // navigate 함수 정의
 
   // 사용자 데이터 상태와 수정가능여부 관리하는 상태를 정의
   const [userData, setUserData] = useState({
@@ -103,7 +102,7 @@ const MyPage = () => {
         console.error('회원 탈퇴 실패:', response);
       }
     } catch (error) {
-      console.error('회원 탈퇴 중 오류 발생:', error);
+      console.error('회원 탈퇴 중 오류 발생~~~~~~~:', error);
       alert('회원 탈퇴 도중 오류 발생');
     }
   };
