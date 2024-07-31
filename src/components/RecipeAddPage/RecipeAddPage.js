@@ -1,5 +1,6 @@
 import React, { useState } from 'react'; // 상태관리를 위한 useState 추가
 import './RecipeAddPage.css';
+import BottomBar from '../BottomBar/BottomBar.js';
 
 function RecipeAddPage() {
     // 입력한 정보를 관리하기 위한 상태 저장공간
@@ -67,6 +68,7 @@ function RecipeAddPage() {
                 <button className="cancel-btn-r">취소</button>
                 <button className="submit-btn-r">등록</button>
             </form>
+            <BottomBar />
         </div>
     );
 }
