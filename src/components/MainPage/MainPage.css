@@ -497,10 +497,9 @@ body::-webkit-scrollbar-thumb {
   left: 110px;
   width: 700px;
   height: 450px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 50px;
+  display: flex; /* 수정됨: 가로 스크롤을 위해 flex 사용 */
+  overflow-x: auto; /* 수정됨: 가로 스크롤 허용 */
+  gap: 50px; /* 수정됨: 항목 간의 간격 조정 */
   padding: 20px;
   box-sizing: border-box;
 }

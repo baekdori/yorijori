@@ -16,6 +16,7 @@ const MainPage = ({ setSelectedResult }) => {
   const [droppedItems, setDroppedItems] = useState([]); // 비주얼 검색에서 드랍된 아이템 상태
   const [visualSearchResults, setVisualSearchResults] = useState([]); // 비주얼 검색 결과 상태
   const [isTransitioning, setIsTransitioning] = useState(false); // 전환 애니메이션 상태
+  const itemListContainerRef = useRef(null); // item-list-container를 참조할 수 있는 Ref
 
   const recipeTextRef = useRef(null); // 레시피 텍스트를 참조할 수 있는 Ref
 
@@ -23,6 +24,26 @@ const MainPage = ({ setSelectedResult }) => {
 
   const seUser = sessionStorage.getItem('user'); // 유저 아이디를 변수에 저장
   console.log('mainpage에서 확인한 세션아이디 저장값', seUser);
+
+  useEffect(() => {
+    const handleWheel = (event) => {
+      event.preventDefault(); // 기본 동작 방지
+      if (itemListContainerRef.current) {
+        itemListContainerRef.current.scrollLeft += event.deltaY;
+      }
+    };
+  
+    const container = itemListContainerRef.current;
+    if (container) {
+      container.addEventListener('wheel', handleWheel, { passive: false }); // passive 옵션 설정
+    }
+  
+    return () => {
+      if (container) {
+        container.removeEventListener('wheel', handleWheel);
+      }
+    };
+  }, [itemListContainerRef.current]);
 
   // 키워드 검색 결과를 서버에서 가져오는 함수
   const fetchSearchResults = async () => {
@@ -430,6 +451,7 @@ const MainPage = ({ setSelectedResult }) => {
               className={`item-list-container ${isTransitioning ? 'fade-out' : ''}`}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
+              ref={itemListContainerRef} // 추가된 부분
             >
               {itemTexts.map((item, index) => (
                 <div
