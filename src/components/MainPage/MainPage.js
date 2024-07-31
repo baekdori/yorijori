@@ -259,9 +259,9 @@ const MainPage = ({ setSelectedResult }) => {
       return;
     }
     const draggedIndex = event.dataTransfer.getData("text/plain"); // 드래그된 아이템의 인덱스 가져오기
-    const itemText = itemTexts[draggedIndex]; // 인덱스를 사용하여 아이템 텍스트 가져오기
-    if (!droppedItems.find(item => item.text === itemText)) { // 드랍된 아이템 목록에 없는 경우
-      setDroppedItems([...droppedItems, { text: itemText }]); // 드랍된 아이템 목록에 추가
+    const item = itemTexts[draggedIndex]; // 인덱스를 사용하여 아이템 가져오기
+    if (!droppedItems.find(droppedItem => droppedItem.text === item.text)) { // 드랍된 아이템 목록에 없는 경우
+      setDroppedItems([...droppedItems, item]); // 드랍된 아이템 목록에 추가
     }
     setDraggedItem(null); // 드래그한 아이템 상태 초기화
   };
@@ -293,16 +293,16 @@ const MainPage = ({ setSelectedResult }) => {
   };
 
   const itemTexts = [ // 비주얼 검색에서 사용할 아이템 텍스트 배열
-    '돼지',
-    '닭',
-    '소',
-    '오리',
-    '꿩',
-    '콩',
-    '양',
-    '말',
-    '칠면조',
-    '고기'
+    { text: '닭', imageUrl: '/static/img/Chicken.png' },
+    { text: '고구마', imageUrl: '/static/img/Sweet potato.png' },
+    { text: '양파', imageUrl: '/static/img/Onion.png' },
+    { text: '양배추', imageUrl: '/static/img/Cabbage.png' },
+    { text: '마늘', imageUrl: '/static/img/Garlic.png' },
+    { text: '설탕', imageUrl: '/static/img/Sugar.png' },
+    { text: '깻잎', imageUrl: '/static/img/Perilla leaves.png' },
+    { text: '고추장', imageUrl: '/static/img/red chili paste.png' },
+    { text: '소', imageUrl: '/static/img/Beef.png' },
+    { text: '돼지', imageUrl: '/static/img/pork.png' }
   ];
 
   // 드랍된 아이템이 변경되면 비주얼 검색 결과를 가져오기
@@ -372,15 +372,18 @@ const MainPage = ({ setSelectedResult }) => {
             </div>
           </div>
           {isVisualSearch && (
-            <div className={`visual-text-container ${isTransitioning ? 'fade-out' : ''}`}>
-              {droppedItems.map((item, index) => (
-                <div key={index} className="dropped-item">
-                  {item.text}
-                  <span className="remove-tag" onClick={() => removeDroppedItem(index)}>×</span>
-                </div>
-              ))}
-            </div>
+            <>
+              <div className={`visual-text-container ${isTransitioning ? 'fade-out' : ''}`}>
+                {droppedItems.map((item, index) => (
+                  <div key={index} className="dropped-item">
+                    {item.text}
+                    <span className="remove-tag" onClick={() => removeDroppedItem(index)}>×</span>
+                  </div>
+                ))}
+              </div>
+            </>
           )}
+
         </>
       )}
 
@@ -428,7 +431,7 @@ const MainPage = ({ setSelectedResult }) => {
               onDragOver={handleDragOver}
               onDrop={handleDrop}
             >
-              {itemTexts.map((text, index) => (
+              {itemTexts.map((item, index) => (
                 <div
                   key={index}
                   className={`item-box ${draggedItem === index ? 'dragging' : ''}`}
@@ -436,7 +439,8 @@ const MainPage = ({ setSelectedResult }) => {
                   onDragStart={(event) => handleDragStart(event, index)}
                   onDragEnd={() => setDraggedItem(null)}
                 >
-                  <span className="item-text">{text}</span>
+                  <img src={item.imageUrl} alt={item.text} className="item-image" />
+                  <span className="item-text">{item.text}</span>
                 </div>
               ))}
             </div>
