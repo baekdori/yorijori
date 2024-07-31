@@ -65,12 +65,15 @@ function RecipeAddPage() {
                 </div>
                 <div className="second-line"></div>
                 <textarea className="recipe-input" placeholder="본문 내용을 입력하세요"></textarea>
-                <button className="cancel-btn-r">취소</button>
-                <button className="submit-btn-r">등록</button>
+                <div className="button-container">
+                    <button type="button" className="cancel-btn-r">취소</button>
+                    <button type="submit" className="submit-btn-r">등록</button>
+                </div>
             </form>
             <BottomBar />
         </div>
     );
+    
 }
 
 export default RecipeAddPage;

@@ -14,54 +14,47 @@
 
 body.DetailPage {
   margin: 0;
-  overflow-y: scroll; /* 상하 스크롤을 허용 */
-  overflow-x: hidden; /* 수평 스크롤바를 숨김 */
-  font-family: 'BM JUA_TTF', sans-serif;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  font-family: 'BMJUA', sans-serif;
 }
 
-/* 웹킷 기반 브라우저에서 스크롤바 숨기기 */
 body::-webkit-scrollbar {
-  width: 0; /* 스크롤바의 너비를 0으로 설정 */
-  height: 0; /* 스크롤바의 높이를 0으로 설정 */
+  width: 0;
+  height: 0;
 }
 
 body::-webkit-scrollbar-track {
-  background: transparent; /* 스크롤바 트랙을 투명하게 설정 */
+  background: transparent;
 }
 
 body::-webkit-scrollbar-thumb {
-  background: transparent; /* 스크롤바 thumb를 투명하게 설정 */
+  background: transparent;
 }
 
-/* 기존 DetailPage 스타일 수정 */
 .DetailPage {
-  position: absolute;
-  width: 100%; /* 부모 요소의 너비를 100%로 설정 */
-  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 100px;
+  width: 100%;
   height: 100%;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 100px; /* 탑바 높이만큼 패딩 추가 */
-  overflow-x: hidden; /* 수평 스크롤바를 숨김 */
+  box-sizing: border-box;
 }
 
-/* .detail-container 스타일 수정 */
 .detail-container {
-  width: 800px; /* 고정된 너비 설정 */
+  width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  box-sizing: border-box; /* 패딩 포함한 박스 크기 계산 */
-  transform: translateX(9px); /* 왼쪽으로 약간 이동 */
+  box-sizing: border-box;
   padding-bottom: 20px;
+  margin: 0 auto; /* 중앙 정렬을 위한 추가 */
 }
 
-
-/* 댓글 입력 칸 스타일 */
 h2 {
   font-family: 'BMJUA';
 }
@@ -73,14 +66,14 @@ h2 {
   border-radius: 10px;
   padding: 10px;
   margin-top: 20px;
-  width: 640px; /* 전체 컨테이너 너비 */
-  height: 145px; /* 전체 컨테이너 높이 */
+  width: 640px;
+  height: 145px;
   font-family: 'Pretendard-Regular';
 }
 
 .comment-input {
-  width: calc(100% - 141px); /* 버튼 너비를 뺀 입력 칸 너비 */
-  height: 100px; /* 입력 칸 높이 */
+  width: calc(100% - 141px);
+  height: 100px;
   border: none;
   resize: none;
   padding: 10px;
@@ -97,24 +90,24 @@ h2 {
   padding: 10px 20px;
   cursor: pointer;
   margin-left: 10px;
-  font-family: 'BMJUA', sans-serif; /* 폰트 적용 */
-  color: #707070; /* 폰트 색상 */
-  width: 121px; /* 버튼 너비 */
-  height: 100px; /* 버튼 높이 */
+  font-family: 'BMJUA', sans-serif;
+  color: #707070;
+  width: 121px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px; /* 폰트 크기 설정 */
+  font-size: 30px;
 }
 
 .comment-button:hover {
   background-color: #ccc;
 }
 
-/* 댓글 섹션 스타일 */
 .comments-section {
-  width: 800px; /* 너비 설정 */
-  margin: 0 auto; /* 가운데 정렬 */
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,57 +122,14 @@ h2 {
 }
 
 .review-underline {
-  width: 800px; /* 밑줄 길이 */
+  width: 100%;
+  max-width: 800px;
   border: none;
-  border-top: 1px solid #ccc; /* 밑줄 스타일 */
-  margin-top: -10px; /* 밑줄 위치 조정 */
+  border-top: 1px solid #ccc;
+  margin-top: -10px;
   margin-bottom: 20px;
 }
 
-.comment-input-container {
-  display: flex;
-  align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px;
-  margin-top: 20px;
-  width: 640px; /* 전체 컨테이너 너비 */
-  height: 145px; /* 전체 컨테이너 높이 */
-}
-
-.comment-input {
-  width: calc(100% - 141px); /* 버튼 너비를 뺀 입력 칸 너비 */
-  height: 100px; /* 입력 칸 높이 */
-  border: none;
-  resize: none;
-  padding: 10px;
-  border-radius: 10px;
-  box-sizing: border-box;
-  outline: none;
-}
-
-.comment-button {
-  background-color: #ddd;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin-left: 10px;
-  font-family: 'BMJUA', sans-serif; /* 폰트 적용 */
-  color: #707070; /* 폰트 색상 */
-  width: 121px; /* 버튼 너비 */
-  height: 100px; /* 버튼 높이 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px; /* 폰트 크기 설정 */
-}
-
-.comment-button:hover {
-  background-color: #ccc;
-}
-
-/* 댓글 보이는 칸 수정 */
 .comment-box {
   background-color: #f0f0f0;
   border-radius: 10px;
@@ -223,16 +173,17 @@ h2 {
 .comment-actions button:hover {
   background-color: #ddd;
 }
-/* 이미지 섹션 */
+
 .image-section {
-  width: 800px; /* 고정된 너비 */
-  height: 579px; /* 고정된 높이 */
-  border: 2px solid orange; /* 테두리 색상 */
-  border-radius: 10px; /* 둥근 테두리 */
+  width: 100%;
+  max-width: 800px;
+  height: 579px;
+  border: 2px solid orange;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative; /* 자식 요소의 절대 위치를 위한 상대 위치 */
+  position: relative;
 }
 
 .image-placeholder {
@@ -244,32 +195,32 @@ h2 {
   max-width: 100%;
   max-height: 100%;
   border-radius: 10px;
-  display: none; /* 초기 상태에서 이미지를 숨김 */
-  position: absolute; /* 부모 요소에 맞춰서 위치 조정 */
+  display: none;
+  position: absolute;
 }
 
 .image-loaded .image-placeholder {
-  display: none; /* 이미지가 로드되면 텍스트 숨김 */
+  display: none;
 }
 
 .image-loaded img {
-  display: block; /* 이미지가 로드되면 표시 */
+  display: block;
 }
 
-/* 제목 섹션 & 북마크 */
 .title-group {
   position: absolute;
-  width: 700px; /* 너비를 700px로 설정 */
-  height: 180px; /* 높이를 180px로 설정 */
-  bottom: 10px; /* 이미지 섹션의 하단에서 약간의 간격을 둠 */
-  left: 50%; /* 중앙 정렬 */
-  transform: translateX(-50%); /* 중앙 정렬 */
+  width: 700px;
+  height: 180px;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  z-index: 2; /* 이미지 위에 표시되도록 z-index 설정 */
+  z-index: 2;
 }
+
 .title-section {
-  background-color: rgba(255, 255, 255, 0); /* 투명 배경 */
+  background-color: rgba(255, 255, 255, 0);
   padding: 10px;
   border-radius: 10px;
   margin: 10px;
@@ -288,17 +239,17 @@ h2 {
   cursor: pointer;
 }
 
-/* 비디오 섹션 */
 .video-section {
-  width: 800px; /* 고정된 너비 */
-  height: 450px; /* 16:9 비율의 높이 */
-  border: 1px solid #ccc; /* 테두리 색상 */
-  border-radius: 10px; /* 둥근 테두리 */
+  width: 100%;
+  max-width: 800px;
+  height: 450px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative; /* 자식 요소의 절대 위치를 위한 상대 위치 */
-  margin-top: 20px; /* 이미지 섹션과의 간격 */
+  position: relative;
+  margin-top: 20px;
 }
 
 .video-placeholder {
@@ -313,20 +264,19 @@ h2 {
   border-radius: 10px;
 }
 
-
-/* 상세 설명 섹션 */
 .description-section {
-  width: 600px; /* 고정된 너비 */
-  height: 700px; /* 고정된 높이 */
-  border: 2px solid orange; /* 테두리 색상 */
-  border-radius: 10px; /* 둥근 테두리 */
+  width: 100%;
+  max-width: 600px;
+  height: 700px;
+  border: 2px solid orange;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative; /* 자식 요소의 절대 위치를 위한 상대 위치 */
-  margin: 20px auto; /* 가운데 정렬 */
-  padding: 20px; /* 내부 패딩 */
+  position: relative;
+  margin: 20px auto;
+  padding: 20px;
   font-family: 'Pretendard-Regular';
 }
 

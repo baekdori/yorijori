@@ -177,7 +177,7 @@ const DetailPage = ({ result }) => {
       <div className="detail-container">
         <div className={`image-section ${imageLoaded ? 'image-loaded' : ''}`}>
           <img
-            src={fdim} // 음식이미지
+            src={fdim}
             alt="음식 이미지"
             onLoad={() => setImageLoaded(true)}
           />
@@ -196,7 +196,7 @@ const DetailPage = ({ result }) => {
             </div>
           </div>
         </div>
-
+  
         <div className="video-section">
           {fdvd ? (
             <iframe
@@ -211,12 +211,12 @@ const DetailPage = ({ result }) => {
             <div className="video-placeholder">영상이 없습니다</div>
           )}
         </div>
-
+  
         <div className="description-section">
           <h2>상세 설명</h2>
           <p>{fdrp}</p>
         </div>
-
+  
         <div className="comments-section">
           <h2>Review</h2>
           <hr className="review-underline" />
@@ -251,7 +251,7 @@ const DetailPage = ({ result }) => {
               </div>
             ))}
           </div>
-
+  
           <div className="comment-input-container">
             <textarea
               className="comment-input"
