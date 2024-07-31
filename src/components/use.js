@@ -117,7 +117,7 @@ try {
     const comments_idx = 3;
     const udptmodify = {
         comment_text: '맜잇다',
-        food_emotion: 'null',
+        
         user_id: 'kws' // 실제 user_id 값을 여기에 설정
     };
 
