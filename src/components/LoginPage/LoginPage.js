@@ -21,7 +21,7 @@ const LoginPage = () => {
     });
   };
 
-  // 로그인 처리 함수
+  // 로그인 처리 함수 (API 호출)
   const handleLogin = async (e) => {
     e.preventDefault(); // 폼 제출의 기본 동작인 페이지 리로드 방지
     console.log('로그인 시도:', formData);

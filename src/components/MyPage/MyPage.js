@@ -19,16 +19,31 @@ const MyPage = () => {
 
   // 컴포넌트가 처음 렌더링 될 때 사용자 정보 불러오기
   useEffect(() => {
-    console.log('프로필 정보 요청 시작');
-    axios.get('http://localhost:4000/user/mypage/profile', { withCredentials: true })  // 백엔드 서버에서 사용자의 프로필 데이터 가져오는 요청
+    const myUser = sessionStorage.getItem('user'); // 유저 정보를 변수에 저장
+    console.log('프로필 정보 요청 시작', myUser);
+
+    // front 에서 받아온 test라는 정보를 -> node로 보내서 얘 정보 가지고 오는거임 axios로 
+    axios.post('http://localhost:4000/user/mypage/profile', { user: myUser })
       .then(response => {
         setUserData(response.data);
         console.log('사용자 정보 불러오기 성공:', response.data);
       })
-      .catch(error => {
+      .catch(error => {  
         console.error('사용자 정보 불러오기 오류:', error);
       });
   }, []);    // 빈 배열([])을 두 번째 인수로 전달하여 컴포넌트가 처음 렌더링될 때만 이 효과를 실행
+
+
+    // axios.get('http://localhost:4000/user/mypage/profile', { user :  })  // 백엔드 서버에서 사용자의 프로필 데이터 가져오는 요청
+    //   .then(response => {
+    //     setUserData(response.data);
+    //     console.log('사용자 정보 불러오기 성공:', response.data);
+    //   })
+    //   .catch(error => {  
+    //     console.error('사용자 정보 불러오기 오류:', error);
+    //   });
+
+
 
   // 입력값 변경
   const handleInputChange = (e) => {
