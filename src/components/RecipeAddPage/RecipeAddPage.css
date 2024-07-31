@@ -107,6 +107,21 @@
     resize: vertical; /* Allows the textarea to be resizable vertically */
 }
 
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none; /* 외곽선 제거 */
+}
+
 .cancel-btn-r, .submit-btn-r {
     position: absolute;
     width: 300px;
