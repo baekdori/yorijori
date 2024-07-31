@@ -6,6 +6,17 @@ const comts = {
         const sql = `INSERT INTO Comts (comment_idx, user_id, comment_text, food_idx, food_emotion, comments_time) VALUES (?, ?, ?, ?, ?, NOW())`;
         conn.query(sql, [comment_idx, user_id, comment_text, food_idx, food_emotion], callback);
     },
+    // 댓글 보기
+    comtssee: (food_idx, callback) => {
+        const sql = `SELECT * FROM Comts WHERE food_idx = ?`;
+        conn.query(sql, [food_idx], (err, results) => {
+            if (err) {
+                console.error('데이터 검색 중 오류 발생:', err);
+                return callback(err, null);
+            }
+            callback(null, results);
+        });
+    },
     
     // 1. 댓글 삭제
     comtsdelete: (comments_idx, user_id, callback) => {
