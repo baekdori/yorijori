@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
             console.error('서버 오류 발생:', err);
             res.status(500).send('서버 오류 발생'); // 에러 발생 시
         } else {
-            console.log('게시글 보기 응답:', result);
+            console.log('댓글 보기 응답:', result);
             res.json(result); // 조회된 댓글 정보를 JSON으로 응답
         }
     });
