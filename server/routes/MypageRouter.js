@@ -76,8 +76,7 @@ router.post('/profile', (req, res) => {
 
 
 // 회원 정보 수정 라우터
-router.put('/', (req, res) => {
-    const userId = req.body.user;
+router.put('/edit', (req, res) => {
     const { user_id, user_nick, user_phone, user_email } = req.body;
     console.log('회원정보 수정 요청 데이터:', req.body);
 
@@ -100,8 +99,8 @@ router.put('/', (req, res) => {
 });
 
 // 회원 탈퇴 라우터
-router.delete('/:userId', async (req, res) => { 
-    const userId = req.params.userId;
+router.delete('/delete', async (req, res) => { 
+    const userId = req.body.user;
     console.log('회원 탈퇴 요청:', userId);
 
     try {
@@ -111,13 +110,7 @@ router.delete('/:userId', async (req, res) => {
                 return res.status(500).json({ message: '서버 오류가 발생했습니다.' });
             }
             console.log('회원 탈퇴 결과:', results);
-            req.session.destroy((err) => {
-                if (err) {
-                    console.error('세션 삭제 중 오류 발생:', err);
-                    return res.status(500).json({ message: '세션 삭제 중 오류가 발생했습니다.' });
-                }
-                res.json({ message: '회원 탈퇴가 성공적으로 완료되었습니다.' });
-            });
+            res.json({ message: '회원 탈퇴가 성공적으로 완료되었습니다.' });
         });
     } catch (err) {
         console.error('회원 탈퇴 중 예외 발생:', err); 

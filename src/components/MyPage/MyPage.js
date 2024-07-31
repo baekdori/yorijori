@@ -66,7 +66,7 @@ const MyPage = () => {
       const updatedUserData = { ...userData, user_id: myUser }; // user_id 포함
       console.log('회원정보 수정 요청 데이터:',  updatedUserData);
       // 백엔드 서버(4000)로 POST 요청보내서 수정된 사용자 데이터 전송
-      const response = await axios.put("http://localhost:4000/user/mypage", updatedUserData, { withCredentials: true });
+      const response = await axios.put("http://localhost:4000/user/mypage/edit", updatedUserData, { withCredentials: true });
       console.log('서버 응답 데이터:', response.data);
       if (response.status === 200) {
           setIsEditing(false);  // 서버로부터 성공 응답 받으면, 수정모드를 비활성화
@@ -84,19 +84,19 @@ const MyPage = () => {
 
   // 회원 탈퇴 버튼 클릭
   const handleDeleteClick = async () => {
+    const myUser = sessionStorage.getItem('user'); // 세션에서 유저 정보를 다시 가져옴
     const confirmDelete = window.confirm('정말로 회원 탈퇴를 하시겠습니까?');
     if (!confirmDelete) return;
 
     try {
       // 백엔드 서버(4000)로 요청 보내서 사용자 데이터 삭제
-      // 프론트에서 탈퇴 요청을 보낼때, url경로에 사용자 ID를 포함시킴 (사용자ID를 명시적으로 전달하여, 경로를 통해 특정 사용자를 식별,삭제 가능) 
-      console.log('회원 탈퇴 요청 전송:', userData.user_id);
-      const response = await axios.delete(`http://localhost:4000/user/mypage/${userData.user_id}`, { withCredentials: true });
+      console.log('회원 탈퇴 요청 전송:', myUser);
+      const response = await axios.delete(`http://localhost:4000/user/mypage/delete`, { data: { user: myUser }, withCredentials: true });
       console.log('서버 응답 데이터:', response.data);
       if (response.status === 200) {
         alert('회원 탈퇴가 성공적으로 완료되었습니다.');
         console.log('회원 탈퇴 응답:', response.data);
-        // navigate('/login'); 
+        sessionStorage.clear(); // 세션에서 모든 항목 삭제
         window.location.href = "/login"  // 탈퇴 후 로그인 페이지로 이동
       } else {
         alert('회원 탈퇴 실패');
