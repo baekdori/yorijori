@@ -20,8 +20,7 @@ model.eval()  # 모델을 평가 모드로 설정
 tokenizer = BertTokenizer.from_pretrained('monologg/kobert')
 
 def preprocess_comment(comment):
-# 댓글을 BERT 모델의 입력 형식으로 변환하는 함수.
-
+    # 댓글을 BERT 모델의 입력 형식으로 변환하는 함수.
     inputs = tokenizer.encode_plus(
         comment,
         add_special_tokens=True,  # [CLS]와 [SEP] 토큰 추가
@@ -33,30 +32,27 @@ def preprocess_comment(comment):
     return inputs['input_ids'], inputs['attention_mask']
 
 def predict_sentiment(comment):
-# 댓글의 감정을 예측하는 함수.
-    
+    # 댓글의 감정을 예측하는 함수.
     input_ids, attention_mask = preprocess_comment(comment)
-
     with torch.no_grad():
         # 모델에 입력을 전달하여 예측
         outputs = model(input_ids, attention_mask=attention_mask)
         logits = outputs.logits
         probabilities = F.softmax(logits, dim=-1)  # 로짓을 확률로 변환
         predicted_label = torch.argmax(probabilities, dim=1).item()  # 가장 높은 확률의 레이블 선택
-
     sentiment = 'positive' if predicted_label == 1 else 'negative'
     return sentiment
 
 def get_db_connection():
-# MySQL 데이터베이스에 연결하는 함수.
-
+    # MySQL 데이터베이스에 연결하는 함수.
     try:
         connection = mysql.connector.connect(
             host='project-db-stu3.smhrd.com',
             port=3307,
             user='Insa5_JSB_hacksim_1',
             password='aischool1',
-            database='Insa5_JSB_hacksim_1'
+            database='Insa5_JSB_hacksim_1',
+            charset='utf8mb4'
         )
         if connection.is_connected():
             return connection
@@ -70,26 +66,31 @@ def home():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-# 댓글을 제출하고 감정을 예측하여 데이터베이스에 저장하는 엔드포인트.
- 
+    # 댓글을 제출하고 감정을 예측하여 데이터베이스에 저장하는 엔드포인트.
     data = request.json
-    user_id = data.get('id')
-    comment = data.get('comment')
-    food = data.get('food')
+    comments_idx = data.get('comments_idx')
+    comment_text = data.get('comment_text')
+    user_id = data.get('user_id')
+    food_idx = data.get('food_idx')
 
     # 필수 파라미터가 누락된 경우 오류 응답 반환
-    if not user_id or not comment or not food:
-        return jsonify({'status': 'error', 'message': 'Missing id, comment, or food'}), 400
+    if not comments_idx or not comment_text or not user_id or not food_idx:
+        return jsonify({'status': 'error', 'message': 'Missing one or more fields'}), 400
 
-    sentiment = predict_sentiment(comment)
+    # 감정 예측
+    sentiment = predict_sentiment(comment_text)
+    # 'positive'와 'negative'를 1과 0으로 매핑
+    food_emotion = 1 if sentiment == 'positive' else 0
 
     connection = get_db_connection()
     if connection:
         cursor = connection.cursor()
         try:
-            # 댓글, 사용자 ID, 음식과 감정을 데이터베이스에 저장
-            cursor.execute("INSERT INTO comments (user_id, comment, food, sentiment) VALUES (%s, %s, %s, %s)",
-                           (user_id, comment, food, sentiment))
+            # 댓글, 사용자 ID, 음식 인덱스와 예측된 감정을 데이터베이스에 저장
+            cursor.execute(
+                "INSERT INTO Comts (comments_idx, comment_text, user_id, food_idx, food_emotion, comments_time) VALUES (%s, %s, %s, %s, %s, NOW())",
+                (comments_idx, comment_text, user_id, food_idx, food_emotion)
+            )
             connection.commit()
             response = {'status': 'success', 'message': 'Data inserted successfully', 'sentiment': sentiment}
         except Error as e:
@@ -102,16 +103,16 @@ def submit():
 
     return jsonify(response), 200 if response['status'] == 'success' else 400
 
+
 @app.route('/comments', methods=['GET'])
 def get_comments():
-# 데이터베이스에서 모든 댓글을 조회하는 엔드포인트.
-  
+    # 데이터베이스에서 모든 댓글을 조회하는 엔드포인트.
     connection = get_db_connection()
     if connection:
         cursor = connection.cursor(dictionary=True)
         try:
             # 댓글 데이터 조회
-            cursor.execute("SELECT * FROM comments")
+            cursor.execute("SELECT * FROM Comts")  # 테이블 이름을 Comts로 수정
             rows = cursor.fetchall()
             response = {'status': 'success', 'data': rows}
         except Error as e:
