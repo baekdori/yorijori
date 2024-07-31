@@ -228,7 +228,7 @@ const DetailPage = ({ result }) => {
   
         <div className="description-section">
           <h2>상세 설명</h2>
-          <p>{fdrp}</p>
+          <div dangerouslySetInnerHTML={{ __html: fdrp }} />
         </div>
   
         <div className="comments-section">

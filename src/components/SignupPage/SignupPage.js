@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignupPage.css'; // 기존 CSS 파일 가져오기
 import axios from 'axios';
+import TopBar from '../TopBar/TopBar.js';
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ const SignupPage = () => {
 
   return (
     <div className="SignupPage">
+      <TopBar />
       <h1>회 원 가 입</h1>
       <form onSubmit={handleSubmit}>
         <div className="group-1">

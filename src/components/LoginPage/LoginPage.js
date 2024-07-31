@@ -2,6 +2,7 @@ import axios from 'axios'; // npm install axios 필요
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
+import TopBar from '../TopBar/TopBar.js';
 
 
 const LoginPage = () => {
@@ -56,7 +57,9 @@ const LoginPage = () => {
 
   return (
     <div>
+      <TopBar />
       <div className="screen">
+      
         <img className="logo-b" alt="Logo s" src="/static/img/logo-s.png" />
 
       
