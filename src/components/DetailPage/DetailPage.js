@@ -15,12 +15,12 @@ const DetailPage = ({ result }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
-  const [videoLink, setVideoLink] = useState('');
   const [description, setDescription] = useState(''); // 상세 설명을 위한 상태 추가
   const user_id = 'kws';
 
   useEffect(() => {
-    console.log('DetailPage에서 받은 결과:', result.food_video);
+    console.log('DetailPage에서 받은 결과:', result);
+
     const fetchComments = async () => {
       try {
         const response = await axios.get('/api/comments');
@@ -46,7 +46,6 @@ const DetailPage = ({ result }) => {
         const response = await axios.get('/api/details');
         setTitle(response.data.title);
         setSubtitle(response.data.subtitle);
-        setVideoLink(response.data.videoLink);
         setDescription(response.data.description); // 상세 설명 설정
       } catch (error) {
         console.error('Error fetching details:', error);
@@ -162,25 +161,30 @@ const DetailPage = ({ result }) => {
       alert('북마크 상태를 변경할 수 없습니다.');
     }
   };
+
   const filledHeart = process.env.PUBLIC_URL + '/static/img/red heart_filled.png';
   const emptyHeart = process.env.PUBLIC_URL + '/static/img/red heart.png';
 
+  const fdnm = result.food_name;     // 음식이름
+  const fdvd = "https://www.youtube.com/embed/0gMdr8U4Ruo"; // 닭갈비
+  const fdds = result.food_desc;     // 음식설명
+  const fdrp = result.food_recipe;   // 음식레시피
+  const fdim = result.ingre_img;     // 음식이미지
 
   return (
     <div className="DetailPage">
       <TopBar />
       <div className="detail-container">
         <div className={`image-section ${imageLoaded ? 'image-loaded' : ''}`}>
-          {!imageLoaded && <div className="image-placeholder">사진</div>}
           <img
-            src="이미지_경로"
+            src={fdim} // 음식이미지
             alt="음식 이미지"
             onLoad={() => setImageLoaded(true)}
           />
           <div className="title-group">
             <div className="title-section">
-              <h2>{title}</h2>
-              <p>{subtitle}</p>
+              <h2>{fdnm}</h2> 
+              <p>{fdds}</p>
               <div className="bookmark-section">
                 <img
                   className="bookmark-icon"
@@ -194,10 +198,10 @@ const DetailPage = ({ result }) => {
         </div>
 
         <div className="video-section">
-          {videoLink ? (
+          {fdvd ? (
             <iframe
               className="video-iframe"
-              src={videoLink}
+              src={fdvd}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -210,7 +214,7 @@ const DetailPage = ({ result }) => {
 
         <div className="description-section">
           <h2>상세 설명</h2>
-          <p>{description}</p>
+          <p>{fdrp}</p>
         </div>
 
         <div className="comments-section">
@@ -263,7 +267,6 @@ const DetailPage = ({ result }) => {
       </div>
       <BottomBar />
     </div>
-
   );
 };
 

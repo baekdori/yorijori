@@ -23,7 +23,6 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/DetailPage" element={<DetailPage />} />
           <Route path="/DetailPage" element={<DetailPage result={selectedResult}/>} />
         </Routes>
       </div>
