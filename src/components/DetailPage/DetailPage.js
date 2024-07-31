@@ -5,7 +5,7 @@ import TopBar from '../TopBar/TopBar.js';
 import BottomBar from '../BottomBar/BottomBar.js';
 import './DetailPage.css';
 
-const DetailPage = () => {
+const DetailPage = ({ result }) => {
   const { foodIdx } = useParams();
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState([]);
@@ -20,6 +20,7 @@ const DetailPage = () => {
   const user_id = 'kws';
 
   useEffect(() => {
+    console.log('DetailPage에서 받은 결과:', result.food_video);
     const fetchComments = async () => {
       try {
         const response = await axios.get('/api/comments');

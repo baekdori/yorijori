@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'; // React와 필요한 훅을 임포트
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 임포트
 import axios from 'axios'; // HTTP 요청을 위해 axios 임포트
 import './MainPage.css'; // CSS 스타일 시트 임포트
 import TopBar from '../TopBar/TopBar.js'; // 상단 바 컴포넌트 임포트
 import BottomBar from '../BottomBar/BottomBar.js'; // 하단 바 컴포넌트 임포트
 
-const MainPage = () => {
+const MainPage = ({ setSelectedResult }) => {
   const [isKeywordSearch, setIsKeywordSearch] = useState(false); // 키워드 검색 모드 상태
   const [isVisualSearch, setIsVisualSearch] = useState(false); // 비주얼 검색 모드 상태
   const [showSearchResult, setShowSearchResult] = useState(false); // 검색 결과 표시 상태
@@ -17,6 +18,8 @@ const MainPage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false); // 전환 애니메이션 상태
 
   const recipeTextRef = useRef(null); // 레시피 텍스트를 참조할 수 있는 Ref
+
+  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
 
   const seUser = sessionStorage.getItem('user'); // 유저 아이디를 변수에 저장
   console.log('mainpage에서 확인한 세션아이디 저장값', seUser);
@@ -93,7 +96,7 @@ const MainPage = () => {
 
   // 키워드 검색 결과 렌더링
   const renderSearchResults = () => {
-    console.log('키워드 검색 결과 : ', searchResults); // 디버깅 로그
+    console.log('키워드 검색 결과요: ', searchResults); // 디버깅 로그
     const rows = [];
     for (let i = 0; i < searchResults.length; i += 2) {
       rows.push(searchResults.slice(i, i + 1)); // 두 개씩 묶어서 행을 생성
@@ -104,7 +107,7 @@ const MainPage = () => {
           rows.map((row, rowIndex) => (
             <div key={rowIndex} className="search-results-row">
               {row.map((result) => (
-                <div key={result.food_idx} className="result-square">
+                <div key={result.food_idx} className="result-square" onClick={() => handleResultClick(result)}>
                   <div className="result-square-text">
                     <h3>{result.food_name}</h3>
                   </div>
@@ -134,7 +137,7 @@ const MainPage = () => {
           rows.map((row, rowIndex) => (
             <div key={rowIndex} className="vs-results-row">
               {row.map((result) => (
-                <div key={result.food_idx} className="vs-search-result-box">
+                <div key={result.food_idx} className="vs-search-result-box" onClick={() => handleResultClick(result)}>
                   <div className="vs-search-result-text">
                     <h3>{result.food_name}</h3>
                   </div>
@@ -149,6 +152,12 @@ const MainPage = () => {
         )}
       </div>
     );
+  };
+
+  // 결과 클릭 시 처리 함수
+  const handleResultClick = (result) => {
+    setSelectedResult(result); // 결과 정보를 상태로 설정
+    navigate('/DetailPage'); // 페이지 이동
   };
 
   // 키워드 검색 모드로 전환
