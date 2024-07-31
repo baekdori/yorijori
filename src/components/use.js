@@ -72,6 +72,25 @@ try {
     alert('정보를 삭제할 수 없습니다.');
 }
 
+// 댓글 보기 api
+try {
+    const foodIdx = 3;
+    const response = await fetch(`http://localhost:4000/comts/comtssee?food_idx=${foodIdx}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (!response.ok) {
+        throw new Error('정보를 불러올 수 없습니다.');
+    }
+    const data = await response.json();
+    console.log(data);
+} catch (error) {
+    console.error('에러 발생', error);
+    alert('정보를 불러올 수 없습니다.');
+}
+
 // 댓글 삭제 
 try{
     const comments_idx =4;

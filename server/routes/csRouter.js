@@ -4,7 +4,7 @@ const comts = require('../model/comts'); // comts 모델을 불러옴
 
 router.get('/', (req, res) => {
     const { food_idx } = req.query; // 쿼리 파라미터로 food_idx를 받음
-    console.log('게시글 보기 요청:', food_idx);
+    console.log('댓글:', food_idx);
 
     comts.comtssee(food_idx, (err, result) => {
         if (err) {
