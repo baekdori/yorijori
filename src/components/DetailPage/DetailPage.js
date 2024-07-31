@@ -161,6 +161,9 @@ const DetailPage = () => {
       alert('북마크 상태를 변경할 수 없습니다.');
     }
   };
+  const filledHeart = process.env.PUBLIC_URL + '/static/img/red heart_filled.png';
+  const emptyHeart = process.env.PUBLIC_URL + '/static/img/red heart.png';
+
 
   return (
     <div className="DetailPage">
@@ -180,7 +183,7 @@ const DetailPage = () => {
               <div className="bookmark-section">
                 <img
                   className="bookmark-icon"
-                  src={isBookmarked ? "꽉찬_하트_이미지_경로" : "빈_하트_이미지_경로"}
+                  src={isBookmarked ? filledHeart : emptyHeart}
                   alt="Bookmark"
                   onClick={toggleBookmark}
                 />

@@ -269,7 +269,7 @@ h2 {
   z-index: 2; /* 이미지 위에 표시되도록 z-index 설정 */
 }
 .title-section {
-  background-color: rgba(255, 255, 255, 0.8); /* 반투명 배경 */
+  background-color: rgba(255, 255, 255, 0); /* 투명 배경 */
   padding: 10px;
   border-radius: 10px;
   margin: 10px;
