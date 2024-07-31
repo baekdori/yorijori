@@ -8,7 +8,7 @@ const BottomNav = () => {
         <img className="Category" alt="Category" src="/static/img/puzzle.png" />
         <span>카테고리</span>
       </a>
-      <a href="/post" className="nav-item">
+      <a href="/RecipeAddPage" className="nav-item">
         <img className="Post" alt="Post" src="/static/img/message.png" />
         <span>게시글작성</span>
       </a>
