@@ -494,7 +494,7 @@ body::-webkit-scrollbar-thumb {
 .item-list-container {
   position: absolute;
   top: 560px;
-  left: 110px;
+  left: 50px;
   width: 700px;
   height: 450px;
   display: flex; /* 수정됨: 가로 스크롤을 위해 flex 사용 */
@@ -502,6 +502,7 @@ body::-webkit-scrollbar-thumb {
   gap: 50px; /* 수정됨: 항목 간의 간격 조정 */
   padding: 20px;
   box-sizing: border-box;
+  white-space: nowrap; /* 요소들이 한 줄로 이어지도록 설정 */
 }
 
 .item-box {
