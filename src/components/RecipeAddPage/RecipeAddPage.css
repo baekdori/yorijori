@@ -10,11 +10,13 @@ body {
   padding: 0;
   font-family: 'BMJUA', sans-serif;
   display: flex;
+  flex-direction: column; /* 수직 정렬을 위한 추가 */
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* 위쪽 정렬 */
   height: 100vh;
   overflow-y: scroll; /* 상하 스크롤을 허용 */
   overflow-x: hidden; /* 수평 스크롤바를 숨김 */
+  padding-top: 20px; /* body를 아래로 20px 내림 */
 }
 
 /* 웹킷 기반 브라우저에서 스크롤바 숨기기 */
@@ -35,8 +37,9 @@ body::-webkit-scrollbar-thumb {
   position: relative;
   width: 90%; /* 화면 너비의 90% */
   max-width: 1200px; /* 최대 너비 */
-  margin: 0 auto; /* 가운데 정렬 */
+  margin: 20px auto; /* 상단바 위치 비우기 위해 margin 추가 */
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .recipe-title {
