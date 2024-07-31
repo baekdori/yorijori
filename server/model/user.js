@@ -104,7 +104,7 @@ const user = {
 
     // 특정 사용자 정보 조회
     getById: (userId, callback) => {
-        const sql = "SELECT user_id, user_nick, user_phone, user_email FROM Users WHERE user_id = ?";
+        const sql = "SELECT user_id, user_name, user_nick, user_phone, user_email FROM Users WHERE user_id = ?";
         console.log(`SQL 실행: ${sql}, 파라미터: ${userId}`);
         
         // 데이터베이스에 쿼리 실행

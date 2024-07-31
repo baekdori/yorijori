@@ -11,6 +11,7 @@ const MyPage = () => {
   // 사용자 데이터 상태와 수정가능여부 관리하는 상태를 정의
   const [userData, setUserData] = useState({
     user_id: '',
+    user_name: '',
     user_nick: '',
     user_phone: '',
     user_email: ''
@@ -116,9 +117,9 @@ const MyPage = () => {
         <div className="mypage-picture-circle"></div>
         <div className="mypage-id-info">
           <div className="mypage-id">ID</div>
-          <div className="mypage-input-prompt">아이디</div>
+          <div className="mypage-input-prompt">{userData.user_id}</div>
           <div className="mypage-name">이름</div>
-          <div className="mypage-input-prompt">이름</div>
+          <div className="mypage-input-prompt">{userData.user_name}</div>
         </div>
       </div>
 
