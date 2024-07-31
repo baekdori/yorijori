@@ -16,23 +16,18 @@ const DetailPage = ({ result }) => {
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [description, setDescription] = useState(''); // 상세 설명을 위한 상태 추가
-  const user_id = 'kws';
+  
+  const seUser = sessionStorage.getItem('user'); // 유저 아이디를 변수에 저장
+  console.log('디테일에서 확인한 세션아이디 저장값', seUser);
+
+  const user_id = seUser;
 
   useEffect(() => {
-    console.log('DetailPage에서 받은 결과:', result);
+    console.log('DetailPage에서 받은 결과:', result); //props 방식으로 가져온 음식 데이터 정보
 
-    const fetchComments = async () => {
-      try {
-        const response = await axios.get('/api/comments');
-        setComments(response.data);
-      } catch (error) {
-        console.error('Error fetching comments:', error);
-      }
-    };
+    const fdid = result.food_idx;
 
-    const fdid = result.food_idx
-
-    // 댓글 데이터를 가져오는 함수
+    //1. 댓글 데이터를 가져오는 함수
     const getcomts = async () => {
       try {
         // API 요청으로 댓글 데이터 가져오기
@@ -48,15 +43,14 @@ const DetailPage = ({ result }) => {
         const cmdata = await response.json();
         console.log('댓글 데이터 : ', cmdata);
 
-        // 가져온 댓글 데이터를 상태로 설정
-        setComments(cmdata);
-        
+        setComments(cmdata); // 가져온 댓글 데이터를 상태로 설정
       } catch (error) {
         console.error('에러 발생', error);
         alert('정보를 불러올 수 없습니다.');
       }
     };
 
+    // 즐겨찾기 추가, 삭제
     const fetchBookmarkStatus = async () => {
       try {
         const response = await axios.get('http://localhost:4000/favorites/status', {
@@ -79,82 +73,14 @@ const DetailPage = ({ result }) => {
       }
     };
 
-    fetchComments();          // 임의의 댓글 데이터를 가져오는 함수
     fetchBookmarkStatus();    // 북마크 상태를 가져오는 함수
     fetchDetails();           // 상세 정보를 가져오는 함수
     getcomts();               // 실제 댓글 데이터를 가져오는 함수
   }, [user_id, foodIdx]);
 
-  // 댓글 추가 함수
-  const handleAddComment = async () => {
-    if (newComment.trim() === '') {
-      return;
-    }
-
-    try {
-      // API 요청으로 댓글 추가
-      const response = await axios.post('/api/comments', { text: newComment, user_id });
-      setComments([...comments, response.data]); // 새로운 댓글을 기존 댓글에 추가
-      setNewComment('');
-    } catch (error) {
-      console.error('Error adding comment:', error);
-    }
-  };
-
-  // 댓글 수정 함수
-  const comtsmodify = async (id) => {
-    if (editingText.trim() === '') {
-      return;
-    }
-    const commentToEdit = comments.find(comment => comment.id === id);
-    if (commentToEdit.user_id !== user_id) {
-      alert('본인의 댓글만 수정할 수 있습니다.');
-      return;
-    }
-
-    try {
-      const comments_idx = id;
-      const udptmodify = {
-        comment_text: editingText,
-        food_emotion: 'null',
-        user_id
-      };
-
-      // API 요청으로 댓글 수정
-      const response = await fetch(`http://localhost:4000/comts/comtsmodify?comments_idx=${comments_idx}&user_id=${user_id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(udptmodify)
-      });
-
-      if (!response.ok) {
-        throw new Error('정보를 수정할 수 없습니다.');
-      }
-
-      const data = await response.json();
-      setComments(comments.map(comment => comment.id === id ? data : comment)); // 수정된 댓글로 상태 업데이트
-      setEditingComment(null);
-      setEditingText('');
-    } catch (error) {
-      console.error('에러 발생:', error);
-      alert('정보를 수정할 수 없습니다.');
-    }
-  };
-
   // 댓글 삭제 함수
-  const comtsdelete = async (id) => {
-    const commentToDelete = comments.find(comment => comment.id === id);
-    if (commentToDelete.user_id !== user_id) {
-      alert('본인의 댓글만 삭제할 수 있습니다.');
-      return;
-    }
-
+  const delcomts = async (comments_idx) => {
     try {
-      const comments_idx = id;
-
-      // API 요청으로 댓글 삭제
       const response = await fetch(`http://localhost:4000/comts/comtsdelete?comments_idx=${comments_idx}&user_id=${user_id}`, {
         method: 'DELETE',
         headers: {
@@ -166,12 +92,62 @@ const DetailPage = ({ result }) => {
       }
       const data = await response.json();
       console.log('게시글 삭제 응답:', data);
-
-      // 삭제된 댓글을 상태에서 제거
-      setComments(comments.filter(comment => comment.id !== id));
+      setComments(comments.filter(comment => comment.comments_idx !== comments_idx)); // 삭제된 댓글을 상태에서 제거
     } catch (error) {
       console.error('에러 발생:', error);
       alert('정보를 삭제할 수 없습니다.');
+    }
+  };
+
+  // 댓글 수정 함수
+  const mocomts = async (comments_idx) => {
+    try {
+      const updatedComment = {
+        comment_text: editingText,
+        user_id: user_id
+      };
+
+      console.log('수정하는 데이터:', updatedComment); // 프론트엔드 콘솔에 수정 데이터 출력
+
+      const response = await fetch(`http://localhost:4000/comts/comtsmodify?comments_idx=${comments_idx}&user_id=${user_id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedComment)
+      });
+
+      if (!response.ok) {
+        throw new Error('정보를 수정할 수 없습니다.');
+      }
+
+      const data = await response.json();
+      console.log('댓글 수정 응답:', data);
+
+      setComments(comments.map(comment => 
+        comment.comments_idx === comments_idx ? { ...comment, comment_text: editingText } : comment
+      ));
+
+      setEditingComment(null); // 수정 상태 초기화
+      setEditingText(''); // 수정 텍스트 초기화
+    } catch (error) {
+      console.error('에러 발생:', error);
+      alert('정보를 수정할 수 없습니다.');
+    }
+  };
+
+  // 댓글 추가 함수
+  const handleAddComment = async () => {
+    if (newComment.trim() === '') {
+      return;
+    }
+
+    try {
+      const response = await axios.post('/api/comments', { text: newComment, user_id });
+      setComments([...comments, response.data]); // 새로운 댓글을 기존 댓글에 추가
+      setNewComment(''); // 새로운 댓글 입력란 초기화
+    } catch (error) {
+      console.error('Error adding comment:', error);
     }
   };
 
@@ -182,7 +158,6 @@ const DetailPage = ({ result }) => {
         ? 'http://localhost:4000/favorites/remove'
         : 'http://localhost:4000/favorites/add';
 
-      // API 요청으로 북마크 상태 변경
       const response = await axios.post(url, {
         user_id,
         foodIdx
@@ -202,12 +177,14 @@ const DetailPage = ({ result }) => {
   const filledHeart = process.env.PUBLIC_URL + '/static/img/red heart_filled.png';
   const emptyHeart = process.env.PUBLIC_URL + '/static/img/red heart.png';
 
-  const fdnm = result.food_name;     // 음식이름
+  const fdnm = result.food_name;     // 음식 이름
   const fdvd = "https://www.youtube.com/embed/0gMdr8U4Ruo"; // 닭갈비
-  const fdds = result.food_desc;     // 음식설명
-  const fdrp = result.food_recipe;   // 음식레시피
-  const fdim = result.ingre_img;     // 음식이미지
-  console.log('댓글정보:',comments)
+  const fdds = result.food_desc;     // 음식 설명
+  const fdrp = result.food_recipe;   // 음식 레시피
+  const fdim = result.ingre_img;     // 음식 이미지
+
+  console.log('댓글정보:', comments);
+
   return (
     <div className="DetailPage">
       <TopBar />
@@ -258,32 +235,39 @@ const DetailPage = ({ result }) => {
           <h2>Review</h2>
           <hr className="review-underline" />
           <div>
-            {comments.map((comment, index) => (
-              <div key={comment.id} className="comment-box">
+            {comments.map((comment) => (
+              <div key={comment.id} className="comment-box">  {/* 각 댓글을 하나씩 순회하며, 댓글 정보를 보여주는 div 생성 */}
                 <div className="comment-header">
-                  <span>{comment.user_id}</span>
-                  
+                  <span>{comment.user_id}</span>  {/* 댓글 작성자의 ID를 보여줌 */}
                 </div>
                 <div className="comment-content">
-                  {comment.comment_text}
+                  {comment.comment_text}  {/* 댓글 내용을 보여줌 */}
                 </div>
-                {editingComment === comment.id ? (
-                  <div>
-                    <textarea
-                      value={editingText}
-                      onChange={(e) => setEditingText(e.target.value)}
-                    />
-                    <button onClick={() => comtsmodify(comment.id)}>수정</button>
-                    <button onClick={() => setEditingComment(null)}>취소</button>
-                  </div>
-                ) : (
-                  <div className="comment-actions">
-                    <button onClick={() => {
-                      setEditingComment(comment.id);
-                      setEditingText(comment.comments_text);
-                    }}>수정</button>
-                    <button onClick={() => comtsdelete(comment.id)}>삭제</button>
-                  </div>
+                {comment.user_id === user_id && (  
+                  editingComment === comment.id ? (
+                    <div>
+                      <textarea
+                        value={editingText}
+                        onChange={(e) => setEditingText(e.target.value)}
+                        placeholder="내용을 입력해주세요"  // 수정할 때 안내 문구 표시
+                      />  
+                      <button onClick={() => mocomts(comment.comments_idx)}>수정</button>  
+                      <button onClick={() => {
+                        setEditingComment(null);
+                        setEditingText('');
+                      }}>취소</button>  
+                    </div>
+                  ) : (
+                    <div className="comment-actions">
+                      <button onClick={() => {
+                        setEditingComment(comment.id);
+                        setEditingText('');
+                      }}>
+                        수정
+                      </button>  
+                      <button onClick={() => delcomts(comment.comments_idx)}>삭제</button>  
+                    </div>
+                  )
                 )}
               </div>
             ))}

@@ -75,7 +75,7 @@ try {
 // 댓글 보기 api
 try {
     const foodIdx = 3;
-    const response = await fetch(`http://localhost:4000/comts/comtssee?food_idx=${foodIdx}`, {
+    const response = await fetch(`http://localhost:4000/comts/postsee?food_idx=${foodIdx}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
