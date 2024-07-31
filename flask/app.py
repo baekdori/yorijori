@@ -64,6 +64,10 @@ def get_db_connection():
         print(f"Error: {e}")
         return None
 
+@app.route('/')
+def home():
+    return '연결 완료', 200
+
 @app.route('/submit', methods=['POST'])
 def submit():
 # 댓글을 제출하고 감정을 예측하여 데이터베이스에 저장하는 엔드포인트.
