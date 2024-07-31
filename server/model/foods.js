@@ -47,20 +47,18 @@ const foods = {
         conn.query(sql, [food_idx, user_id], callback);
     },
     // 5. 키워드 검색 API
-    searchFoodsByIngredients(ingredients, callback) {
-        // 재료 목록을 하나의 문자열로 결합 (재료들을 ', '로 구분하여 하나의 문자열로 만듭니다)
-        const combinedIngredients = ingredients.join(', ');
-    
-        // 쿼리문을 작성합니다. food_mood 컬럼이 combinedIngredients와 정확히 일치하는 행을 찾습니다.
-        const query = `SELECT food_idx, food_name, food_video FROM Foods WHERE food_mood = ?`;
-    
-        // 쿼리 실행 시 사용할 값을 배열에 담습니다. 여기서는 combinedIngredients가 유일한 값입니다.
-        const values = [combinedIngredients];
-    
-        // 데이터베이스에 쿼리를 실행하고, 결과를 콜백 함수로 반환합니다.
+    findMatchingFoods: (ingredients, callback) => {
+        if (ingredients.length === 0) {
+            return callback(null, []);
+        }
+
+        // 각 재료를 '%재료%' 형태로 변환하여 LIKE 쿼리에 포함
+        const conditions = ingredients.map(() => 'food_mood LIKE ?').join(' AND ');
+        const values = ingredients.map(ingredient => `%${ingredient}%`);
+        const query = `SELECT food_idx, food_name, food_video FROM Foods WHERE ${conditions}`;
+
         conn.query(query, values, callback);
     }
-    
     
 };
 
