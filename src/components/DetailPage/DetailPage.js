@@ -30,6 +30,33 @@ const DetailPage = ({ result }) => {
       }
     };
 
+    const fdid = result.food_idx
+
+    // 댓글 데이터를 가져오는 함수
+    const getcomts = async () => {
+      try {
+        // API 요청으로 댓글 데이터 가져오기
+        const response = await fetch(`http://localhost:4000/comts/comtssee?food_idx=${fdid}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!response.ok) {
+          throw new Error('정보를 불러올 수 없습니다.');
+        }
+        const cmdata = await response.json();
+        console.log('댓글 데이터 : ', cmdata);
+
+        // 가져온 댓글 데이터를 상태로 설정
+        setComments(cmdata);
+        
+      } catch (error) {
+        console.error('에러 발생', error);
+        alert('정보를 불러올 수 없습니다.');
+      }
+    };
+
     const fetchBookmarkStatus = async () => {
       try {
         const response = await axios.get('http://localhost:4000/favorites/status', {
@@ -52,25 +79,29 @@ const DetailPage = ({ result }) => {
       }
     };
 
-    fetchComments();
-    fetchBookmarkStatus();
-    fetchDetails();
+    fetchComments();          // 임의의 댓글 데이터를 가져오는 함수
+    fetchBookmarkStatus();    // 북마크 상태를 가져오는 함수
+    fetchDetails();           // 상세 정보를 가져오는 함수
+    getcomts();               // 실제 댓글 데이터를 가져오는 함수
   }, [user_id, foodIdx]);
 
+  // 댓글 추가 함수
   const handleAddComment = async () => {
     if (newComment.trim() === '') {
       return;
     }
 
     try {
+      // API 요청으로 댓글 추가
       const response = await axios.post('/api/comments', { text: newComment, user_id });
-      setComments([...comments, response.data]);
+      setComments([...comments, response.data]); // 새로운 댓글을 기존 댓글에 추가
       setNewComment('');
     } catch (error) {
       console.error('Error adding comment:', error);
     }
   };
 
+  // 댓글 수정 함수
   const comtsmodify = async (id) => {
     if (editingText.trim() === '') {
       return;
@@ -89,6 +120,7 @@ const DetailPage = ({ result }) => {
         user_id
       };
 
+      // API 요청으로 댓글 수정
       const response = await fetch(`http://localhost:4000/comts/comtsmodify?comments_idx=${comments_idx}&user_id=${user_id}`, {
         method: 'PUT',
         headers: {
@@ -102,7 +134,7 @@ const DetailPage = ({ result }) => {
       }
 
       const data = await response.json();
-      setComments(comments.map(comment => comment.id === id ? data : comment));
+      setComments(comments.map(comment => comment.id === id ? data : comment)); // 수정된 댓글로 상태 업데이트
       setEditingComment(null);
       setEditingText('');
     } catch (error) {
@@ -111,6 +143,7 @@ const DetailPage = ({ result }) => {
     }
   };
 
+  // 댓글 삭제 함수
   const comtsdelete = async (id) => {
     const commentToDelete = comments.find(comment => comment.id === id);
     if (commentToDelete.user_id !== user_id) {
@@ -121,6 +154,7 @@ const DetailPage = ({ result }) => {
     try {
       const comments_idx = id;
 
+      // API 요청으로 댓글 삭제
       const response = await fetch(`http://localhost:4000/comts/comtsdelete?comments_idx=${comments_idx}&user_id=${user_id}`, {
         method: 'DELETE',
         headers: {
@@ -133,6 +167,7 @@ const DetailPage = ({ result }) => {
       const data = await response.json();
       console.log('게시글 삭제 응답:', data);
 
+      // 삭제된 댓글을 상태에서 제거
       setComments(comments.filter(comment => comment.id !== id));
     } catch (error) {
       console.error('에러 발생:', error);
@@ -140,12 +175,14 @@ const DetailPage = ({ result }) => {
     }
   };
 
+  // 북마크 토글 함수
   const toggleBookmark = async () => {
     try {
       const url = isBookmarked
         ? 'http://localhost:4000/favorites/remove'
         : 'http://localhost:4000/favorites/add';
 
+      // API 요청으로 북마크 상태 변경
       const response = await axios.post(url, {
         user_id,
         foodIdx
@@ -155,7 +192,7 @@ const DetailPage = ({ result }) => {
         throw new Error(isBookmarked ? '북마크를 제거할 수 없습니다.' : '북마크를 추가할 수 없습니다.');
       }
 
-      setIsBookmarked(!isBookmarked);
+      setIsBookmarked(!isBookmarked); // 북마크 상태 토글
     } catch (error) {
       console.error('북마크 토글 오류:', error);
       alert('북마크 상태를 변경할 수 없습니다.');
@@ -170,7 +207,7 @@ const DetailPage = ({ result }) => {
   const fdds = result.food_desc;     // 음식설명
   const fdrp = result.food_recipe;   // 음식레시피
   const fdim = result.ingre_img;     // 음식이미지
-
+  console.log('댓글정보:',comments)
   return (
     <div className="DetailPage">
       <TopBar />
@@ -221,14 +258,14 @@ const DetailPage = ({ result }) => {
           <h2>Review</h2>
           <hr className="review-underline" />
           <div>
-            {comments.map((comment) => (
+            {comments.map((comment, index) => (
               <div key={comment.id} className="comment-box">
                 <div className="comment-header">
-                  <span>{comment.nickname}</span>
-                  <span>{comment.date}</span>
+                  <span>{comment.user_id}</span>
+                  
                 </div>
                 <div className="comment-content">
-                  {comment.text}
+                  {comment.comment_text}
                 </div>
                 {editingComment === comment.id ? (
                   <div>
@@ -243,7 +280,7 @@ const DetailPage = ({ result }) => {
                   <div className="comment-actions">
                     <button onClick={() => {
                       setEditingComment(comment.id);
-                      setEditingText(comment.text);
+                      setEditingText(comment.comments_text);
                     }}>수정</button>
                     <button onClick={() => comtsdelete(comment.id)}>삭제</button>
                   </div>

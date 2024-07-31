@@ -52,7 +52,7 @@ def get_db_connection():
             user='Insa5_JSB_hacksim_1',
             password='aischool1',
             database='Insa5_JSB_hacksim_1',
-            charset='utf8mb4'
+            charset='cp949'
         )
         if connection.is_connected():
             return connection
