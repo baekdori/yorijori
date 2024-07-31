@@ -194,6 +194,7 @@ const DetailPage = ({ result }) => {
             src={fdim}
             alt="음식 이미지"
             onLoad={() => setImageLoaded(true)}
+            onError={(e) => console.error('이미지 로드 실패:', e)}
           />
           <div className="title-group">
             <div className="title-section">
@@ -205,6 +206,7 @@ const DetailPage = ({ result }) => {
                   src={isBookmarked ? filledHeart : emptyHeart}
                   alt="Bookmark"
                   onClick={toggleBookmark}
+                  onError={(e) => console.error('이미지 로드 실패:', e)}
                 />
               </div>
             </div>
