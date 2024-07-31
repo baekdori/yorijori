@@ -62,21 +62,23 @@ const MyPage = () => {
   // 확인 버튼 클릭 (회원 정보 수정)
   const handleSubmitClick = async () => {
     try {
-      console.log('회원정보 수정 요청 데이터:', userData);
+      const myUser = sessionStorage.getItem('user'); // 세션에서 유저 정보를 다시 가져옴
+      const updatedUserData = { ...userData, user_id: myUser }; // user_id 포함
+      console.log('회원정보 수정 요청 데이터:',  updatedUserData);
       // 백엔드 서버(4000)로 POST 요청보내서 수정된 사용자 데이터 전송
-      const response = await axios.put("http://localhost:4000/user/mypage", userData, { withCredentials: true });
+      const response = await axios.put("http://localhost:4000/user/mypage", updatedUserData, { withCredentials: true });
       console.log('서버 응답 데이터:', response.data);
       if (response.status === 200) {
-        setIsEditing(false);  // 서버로부터 성공 응답 받으면, 수정모드를 비활성화
-        alert('회원정보가 성공적으로 수정되었습니다.');
-        console.log('회원정보 수정 응답:', response.data);
+          setIsEditing(false);  // 서버로부터 성공 응답 받으면, 수정모드를 비활성화
+          alert('회원정보가 성공적으로 수정되었습니다.');
+          console.log('회원정보 수정 응답:', response.data);
       } else {
-        alert('회원정보 수정 실패');
-        console.error('회원정보 수정 실패:', response);
+          alert('회원정보 수정 실패');
+          console.error('회원정보 수정 실패:', response);
       }
     } catch (error) {
-      console.error('회원정보 수정 중 오류 발생:', error);
-      alert('회원정보 수정 도중 오류 발생');
+        console.error('회원정보 수정 중 오류 발생:', error);
+        alert('회원정보 수정 도중 오류 발생');
     }
   };
 

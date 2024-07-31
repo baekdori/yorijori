@@ -76,8 +76,8 @@ router.post('/profile', (req, res) => {
 
 
 // 회원 정보 수정 라우터
-router.put('/', async (req, res) => {
-    const userId = req.session.user.user_id;
+router.put('/', (req, res) => {
+    const userId = req.body.user;
     const { user_id, user_nick, user_phone, user_email } = req.body;
     console.log('회원정보 수정 요청 데이터:', req.body);
 
