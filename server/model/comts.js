@@ -2,9 +2,9 @@ const conn = require("./db");
 
 const comts = {
     // 0. 댓글 생성
-    comtscreate: (comment_idx, user_id, comment_text, food_idx, food_emotion, callback) => {
-        const sql = `INSERT INTO Comts (comment_idx, user_id, comment_text, food_idx, food_emotion, comments_time) VALUES (?, ?, ?, ?, ?, NOW())`;
-        conn.query(sql, [comment_idx, user_id, comment_text, food_idx, food_emotion], callback);
+    comtscreate: (comment_idx, comment_text, user_id, food_idx, food_emotion, callback) => {
+        const sql = `INSERT INTO Comts (comment_idx, comment_text, user_id, food_idx, food_emotion, comments_time) VALUES (?, ?, ?, ?, ?, NOW())`;
+        conn.query(sql, [comment_idx, comment_text, user_id, food_idx, food_emotion], callback);
     },
     // 댓글 보기
     comtssee: (food_idx, callback) => {

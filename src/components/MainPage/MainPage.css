@@ -526,8 +526,9 @@ body::-webkit-scrollbar-thumb {
   top: 150px; /* Move text down by 50px */
   left: 80px; /* Move text right by 20px */
   transform: translate(-50%, -50%); /* Center text horizontally and vertically */
-  text-align: left;
+  text-align: center;
   display: block;
+  color: #000;
 }
 
 .visual-text-container {
