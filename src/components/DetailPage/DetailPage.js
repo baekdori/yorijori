@@ -193,10 +193,10 @@ const DetailPage = ({ result }) => {
       <div className="detail-container">
         <div className={`image-section ${imageLoaded ? 'image-loaded' : ''}`}>
           <img
-            src={fdim}
-            alt="음식 이미지"
-            onLoad={() => setImageLoaded(true)}
-            onError={(e) => console.error('이미지 로드 실패:', e)}
+            className="DakGalbi"
+            alt="DakGalbi"
+            src='/static/img/DakGalbi.jpg'
+          
           />
           <div className="title-group">
             <div className="title-section">
@@ -240,12 +240,12 @@ const DetailPage = ({ result }) => {
           <hr className="review-underline" />
           <div>
             {comments.map((comment) => (
-              <div key={comment.id} className="comment-box">  {/* 각 댓글을 하나씩 순회하며, 댓글 정보를 보여주는 div 생성 */}
+              <div key={comment.id} className="comment-box">
                 <div className="comment-header">
-                  <span>{comment.user_id}</span>  {/* 댓글 작성자의 ID를 보여줌 */}
+                  <span>{comment.user_id}</span>
                 </div>
                 <div className="comment-content">
-                  {comment.comment_text}  {/* 댓글 내용을 보여줌 */}
+                  {comment.comment_text}
                 </div>
                 {comment.user_id === user_id && (
                   editingComment === comment.id ? (
@@ -253,7 +253,7 @@ const DetailPage = ({ result }) => {
                       <textarea
                         value={editingText}
                         onChange={(e) => setEditingText(e.target.value)}
-                        placeholder="내용을 입력해주세요"  // 수정할 때 안내 문구 표시
+                        placeholder="내용을 입력해주세요"
                       />
                       <button onClick={() => mocomts(comment.comments_idx)}>수정</button>
                       <button onClick={() => {

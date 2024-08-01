@@ -59,7 +59,6 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   max-width: 800px;
   height: 579px;
-  border: 2px solid orange;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -73,11 +72,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 .image-section img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 박스 사이즈를 채우도록 설정 */
   border-radius: 10px;
-  display: none;
-  position: absolute;
 }
 
 .image-loaded .image-placeholder {
@@ -217,14 +215,17 @@ body::-webkit-scrollbar-thumb {
 
 .title-group {
   position: absolute;
-  width: 700px;
-  height: 180px;
   bottom: 10px;
-  left: 50%;
+  left: 50%; /* 타이틀 그룹을 왼쪽으로 이동 */
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   z-index: 2;
+  background-color: rgba(255, 255, 255, 0.7); /* 제목 배경 투명도 조절 */
+  padding: 10px;
+  border-radius: 10px;
+  width: 90%; /* 타이틀 그룹의 너비를 늘림 */
+  height: 20%; /* 타이틀 그룹의 너비를 늘림 */
 }
 
 .title-section {
@@ -233,12 +234,23 @@ body::-webkit-scrollbar-thumb {
   border-radius: 10px;
   margin: 10px;
   font-family: 'Pretendard-Regular';
+  text-align: center;
+}
+
+.title-section h2 {
+  font-family: 'BMJUA';
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.title-section p {
+  margin: 0;
 }
 
 .bookmark-section {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 466px;
+  right: 640px;
   z-index: 10;
 }
 
