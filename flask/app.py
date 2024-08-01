@@ -52,10 +52,10 @@ def get_db_connection():
             user='Insa5_JSB_hacksim_1',
             password='aischool1',
             database='Insa5_JSB_hacksim_1',
-            charset='cp949'
+            charset='utf8mb4',  # 여기서 charset을 utf8mb4로 설정
+            use_unicode=True  # 유니코드 사용 설정
         )
-        if connection.is_connected():
-            return connection
+        return connection
     except Error as e:
         print(f"Error: {e}")
         return None
@@ -102,7 +102,6 @@ def submit():
         response = {'status': 'error', 'message': 'Failed to connect to database'}
 
     return jsonify(response), 200 if response['status'] == 'success' else 400
-
 
 @app.route('/comments', methods=['GET'])
 def get_comments():
