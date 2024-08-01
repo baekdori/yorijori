@@ -18,12 +18,14 @@ const MainPage = ({ setSelectedResult }) => {
   const [isTransitioning, setIsTransitioning] = useState(false); // 전환 애니메이션 상태
   const itemListContainerRef = useRef(null); // item-list-container를 참조할 수 있는 Ref
 
+
   const recipeTextRef = useRef(null); // 레시피 텍스트를 참조할 수 있는 Ref
 
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
 
   const seUser = sessionStorage.getItem('user'); // 유저 아이디를 변수에 저장
   console.log('mainpage에서 확인한 세션아이디 저장값', seUser);
+
 
   useEffect(() => {
     const handleWheel = (event) => {
@@ -44,6 +46,24 @@ const MainPage = ({ setSelectedResult }) => {
       }
     };
   }, [itemListContainerRef.current]);
+  // 추천 레시피를 콘솔에 출력하는 함수
+  const logRecommendedRecipes = async () => {
+    if (!seUser) return; // 로그인하지 않은 경우
+
+    try {
+      const response = await axios.get('http://localhost:4000/random-food-idx', {
+        params: { userId: seUser } // 로그인한 사용자 아이디를 서버에 전달
+      });
+      console.log('추천 레시피:', response.data); // 추천 레시피 콘솔에 출력
+    } catch (error) {
+      console.error('추천 레시피 가져오기 오류:', error);
+    }
+  };
+
+  // 페이지 렌더링 시 추천 레시피 로깅
+  useEffect(() => {
+    logRecommendedRecipes();
+  }, [seUser]);
 
   // 키워드 검색 결과를 서버에서 가져오는 함수
   const fetchSearchResults = async () => {
