@@ -16,11 +16,15 @@ const DetailPage = ({ result }) => {
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [description, setDescription] = useState(''); // 상세 설명을 위한 상태 추가
-  
+
   const seUser = sessionStorage.getItem('user'); // 유저 아이디를 변수에 저장
   console.log('디테일에서 확인한 세션아이디 저장값', seUser);
 
   const user_id = seUser;
+
+  const filledHeart = process.env.PUBLIC_URL + '/static/img/red heart_filled.png';
+  const emptyHeart = process.env.PUBLIC_URL + '/static/img/red heart.png';
+
 
   useEffect(() => {
     console.log('DetailPage에서 받은 결과:', result); //props 방식으로 가져온 음식 데이터 정보
@@ -124,7 +128,7 @@ const DetailPage = ({ result }) => {
       const data = await response.json();
       console.log('댓글 수정 응답:', data);
 
-      setComments(comments.map(comment => 
+      setComments(comments.map(comment =>
         comment.comments_idx === comments_idx ? { ...comment, comment_text: editingText } : comment
       ));
 
@@ -174,8 +178,6 @@ const DetailPage = ({ result }) => {
     }
   };
 
-  const filledHeart = process.env.PUBLIC_URL + '/static/img/red heart_filled.png';
-  const emptyHeart = process.env.PUBLIC_URL + '/static/img/red heart.png';
 
   const fdnm = result.food_name;     // 음식 이름
   const fdvd = "https://www.youtube.com/embed/0gMdr8U4Ruo"; // 닭갈비
@@ -198,21 +200,21 @@ const DetailPage = ({ result }) => {
           />
           <div className="title-group">
             <div className="title-section">
-              <h2>{fdnm}</h2> 
+              <h2>{fdnm}</h2>
               <p>{fdds}</p>
-              <div className="bookmark-section">
-                <img
-                  className="bookmark-icon"
-                  src={isBookmarked ? filledHeart : emptyHeart}
-                  alt="Bookmark"
-                  onClick={toggleBookmark}
-                  onError={(e) => console.error('이미지 로드 실패:', e)}
-                />
-              </div>
             </div>
           </div>
         </div>
-  
+        <div className="bookmark-section">
+          <img
+            className="bookmark-icon"
+            src={isBookmarked ? filledHeart : emptyHeart}
+            alt="Bookmark"
+            onClick={toggleBookmark}
+            onError={(e) => console.error('이미지 로드 실패:', e)}
+          />
+        </div>
+
         <div className="video-section">
           {fdvd ? (
             <iframe
@@ -227,12 +229,12 @@ const DetailPage = ({ result }) => {
             <div className="video-placeholder">영상이 없습니다</div>
           )}
         </div>
-  
+
         <div className="description-section">
           <h2>상세 설명</h2>
           <div dangerouslySetInnerHTML={{ __html: fdrp }} />
         </div>
-  
+
         <div className="comments-section">
           <h2>Review</h2>
           <hr className="review-underline" />
@@ -245,19 +247,19 @@ const DetailPage = ({ result }) => {
                 <div className="comment-content">
                   {comment.comment_text}  {/* 댓글 내용을 보여줌 */}
                 </div>
-                {comment.user_id === user_id && (  
+                {comment.user_id === user_id && (
                   editingComment === comment.id ? (
                     <div>
                       <textarea
                         value={editingText}
                         onChange={(e) => setEditingText(e.target.value)}
                         placeholder="내용을 입력해주세요"  // 수정할 때 안내 문구 표시
-                      />  
-                      <button onClick={() => mocomts(comment.comments_idx)}>수정</button>  
+                      />
+                      <button onClick={() => mocomts(comment.comments_idx)}>수정</button>
                       <button onClick={() => {
                         setEditingComment(null);
                         setEditingText('');
-                      }}>취소</button>  
+                      }}>취소</button>
                     </div>
                   ) : (
                     <div className="comment-actions">
@@ -266,15 +268,15 @@ const DetailPage = ({ result }) => {
                         setEditingText('');
                       }}>
                         수정
-                      </button>  
-                      <button onClick={() => delcomts(comment.comments_idx)}>삭제</button>  
+                      </button>
+                      <button onClick={() => delcomts(comment.comments_idx)}>삭제</button>
                     </div>
                   )
                 )}
               </div>
             ))}
           </div>
-  
+
           <div className="comment-input-container">
             <textarea
               className="comment-input"

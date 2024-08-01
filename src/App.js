@@ -23,6 +23,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/DetailPage" element={<DetailPage result={selectedResult}/>} />
+          <Route path="/RecipeAddPage" element={<RecipeAddPage />} />
         </Routes>
       </div>
     </Router>
