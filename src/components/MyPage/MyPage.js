@@ -115,7 +115,9 @@ const MyPage = () => {
       <div className="mypage-first-line"></div>
 
       <div className="mypage-id-container">
-        <div className="mypage-picture-circle"></div>
+        <div className="mypage-picture-circle">
+        <img src="/static/img/animal_hamster.png" alt="프로필 이미지" className="mypage-picture" />
+        </div>
         <div className="mypage-id-info">
           <div className="mypage-id">ID</div>
           <div className="mypage-input-prompt">{userData.user_id}</div>
