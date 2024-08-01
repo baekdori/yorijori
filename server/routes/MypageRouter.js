@@ -31,9 +31,6 @@ const app = express()
 // router.get('/profile', (req, res) => {
 
 
-
-    // 맨 마지막에 res.json({})★★ㅁ88 백에서 정보를 이케 보내줘야 res에 받을수있음
-
 //     const userId = ;
 //     console.log('프로필 정보 요청:', userId);
 
