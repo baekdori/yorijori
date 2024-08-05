@@ -19,7 +19,9 @@
   z-index: 1000;
 }
 
+
 body {
+  top : 20px;
   overflow-y: scroll; /* 상하 스크롤을 허용 */
   overflow-x: hidden; /* 수평 스크롤바를 숨김 */
   font-family: 'BM JUA_TTF', sans-serif;
@@ -42,18 +44,31 @@ body::-webkit-scrollbar-thumb {
 
 .main-page {
   position: relative; /* 중앙 정렬을 위해 상대 위치로 설정 */
-  width: 800px;
+  width: 600px;
   min-height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
   display: flex;
   flex-direction: column; /* 세로 정렬 */
   align-items: center;
   margin: 0 auto; /* 가운데 정렬 */
   padding-top: 80px; /* 상단 바 높이만큼 패딩 추가 */
+  overflow-x : hidden;
+}
+.main-page::-webkit-scrollbar {
+  width: 0; /* 스크롤바의 너비를 0으로 설정 */
+  height: 0; /* 스크롤바의 높이를 0으로 설정 */
+}
+
+.main-page::-webkit-scrollbar-track {
+  background: transparent; /* 스크롤바 트랙을 투명하게 설정 */
+}
+
+.main-page::-webkit-scrollbar-thumb {
+  background: transparent; /* 스크롤바 thumb를 투명하게 설정 */
 }
 
 .recipe-text {
   position: absolute;
-  top: 156px;
+  top: 124px;
   align-items: center;
   font-size: 40px;
   color: #434343;
@@ -71,7 +86,7 @@ body::-webkit-scrollbar-thumb {
   color: #434343; /* 화살표 색상 */
   position: absolute; /* 위치를 명확히 하기 위해 절대 위치 사용 */
   top: -16px; /* 상단 위치 조정 */
-  left: 180px; /* 왼쪽 위치 조정 */
+  left: 140px; /* 왼쪽 위치 조정 */
   padding: 10px; /* 클릭 영역을 키우기 위해 패딩 추가 */
   font-family: 'Pretendard', sans-serif;
   z-index: 15;
@@ -85,7 +100,7 @@ body::-webkit-scrollbar-thumb {
   color: #434343; /* 화살표 색상 */
   position: absolute; /* 위치를 명확히 하기 위해 절대 위치 사용 */
   top: -16px; /* 상단 위치 조정 */
-  left: 180px; /* 왼쪽 위치 조정 */
+  left: 140px; /* 왼쪽 위치 조정 */
   padding: 10px; /* 클릭 영역을 키우기 위해 패딩 추가 */
   font-family: 'Pretendard', sans-serif;
   z-index: 26;
@@ -93,7 +108,7 @@ body::-webkit-scrollbar-thumb {
 
 .select-btn-container {
   position: absolute;
-  top: 211px;
+  top: 183px;
   width: 520px;
   height: 200px;
   z-index: 2;
@@ -176,8 +191,8 @@ body::-webkit-scrollbar-thumb {
 .right-container {
   width: 200px; /* 초기 너비 */
   height: 200px;
-  left: 488px;
-  top: 212px;
+  left: 392px;
+  top: 183px;
   position: absolute;
   display: flex;
   align-items: center;
@@ -218,14 +233,17 @@ body::-webkit-scrollbar-thumb {
 }
 
 .food-pic {
-  position: absolute;
-  top: 250px;
-  left: 400px;
-  width: 800px;
-  height: 410px;
+  position: relative;
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  align-items: center;
+  justify-content: center;
+  width: 660px;
+  height: 700px;
+  left: 330px;
   background-color: #EFEFEF;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 0;
 }
 
 .recom-container {
@@ -265,8 +283,9 @@ body::-webkit-scrollbar-thumb {
 
 .search-result-text {
   position: absolute;
+  display: flex;
   top: 80px;
-  left: 138px;
+  left : 60px;
   font-family: 'BM JUA_TTF', sans-serif;
   font-weight: regular;
   font-size: 36px;
@@ -277,7 +296,7 @@ body::-webkit-scrollbar-thumb {
 .cancel-btn {
   position: absolute;
   top: 82px;
-  left: 470px;
+  left: 340px;
   width: 110px;
   height: 30px;
   border-radius: 50px;
@@ -292,7 +311,7 @@ body::-webkit-scrollbar-thumb {
   position: absolute;
   border-radius: 50px;
   top: 82px;
-  left: 600px;
+  left: 480px;
   width: 60px;
   height: 30px;
   font-family: 'Pretendard', sans-serif;
@@ -337,17 +356,6 @@ body::-webkit-scrollbar-thumb {
   background-color: #FF8000;
 }
 
-.search-result-text {
-  position: absolute;
-  top: 80px;
-  left: 138px;
-  font-family: 'BM JUA_TTF', sans-serif;
-  font-weight: regular;
-  font-size: 36px;
-  letter-spacing: -0.1em;
-  user-select: none;
-}
-
 /* Add a dropdown button */
 .ingre-list {
   position: absolute;
@@ -387,7 +395,7 @@ body::-webkit-scrollbar-thumb {
 .food-result-top-container,
 .food-result-bottom-container {
   position: absolute;
-  width: 900px;
+  width: 4000px; /* Double the width to accommodate both sets of items */
   height: 270px;
   display: flex;
   justify-content: space-between;
@@ -399,12 +407,44 @@ body::-webkit-scrollbar-thumb {
   top: 604px;
   left: 50%;
   transform: translateX(-50%);
+  animation: swipeLeft 30s linear infinite
 }
 
 .food-result-bottom-container {
   top: 914px;
   left: 50%;
   transform: translateX(-50%);
+  animation: swipeRight 30s linear infinite
+}
+
+@keyframes swipeLeft {
+  0% {
+    transform: translateX(-50%);
+  }
+  33.33% {
+    transform: translateX(-83.33%);
+  }
+  66.66% {
+    transform: translateX(-116.66%);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
+}
+
+@keyframes swipeRight {
+  0% {
+    transform: translateX(-150%);
+  }
+  33.33% {
+    transform: translateX(-116.66%);
+  }
+  66.66% {
+    transform: translateX(-83.33%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .fr {
@@ -414,6 +454,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #EFEFEF;
   cursor: pointer;
   margin-right: 70px;
+  transition: transform 1s linear; /* Smooth transition */
 }
 
 .food-result-top-container .fr:last-child,

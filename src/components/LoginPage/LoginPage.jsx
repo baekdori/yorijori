@@ -57,7 +57,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <TopBar />
+
       <div className="screen">
       
         <img className="logo-b" alt="Logo s" src="/static/img/logo-s.png" />

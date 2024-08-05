@@ -4,6 +4,8 @@ from transformers import BertTokenizer, BertForSequenceClassification
 import mysql.connector
 from mysql.connector import Error
 import torch.nn.functional as F
+import random
+
 
 # Flask 애플리케이션 생성
 app = Flask(__name__)
@@ -127,3 +129,25 @@ def get_comments():
 if __name__ == '__main__':
     # 애플리케이션을 실행
     app.run(host='localhost', port=5000, debug=False)
+
+# 이미지 파일 경로를 담고 있는 리스트
+images = [
+    'static/img/Chicken.png',
+    'static/img/Sweet potato.png',
+    'static/img/Onion.png',
+    'static/img/Cabbage.png',
+    'static/img/Garlic.png',
+    'static/img/Sugar.png',
+    'static/img/Perilla leaves.png',
+    'static/img/red chili paste.png',
+    'static/img/Beef.png',
+    'static/img/pork.png'
+]
+
+@app.route('/random-image', methods=['GET'])
+def get_random_image():
+    image = random.choice(images)  # 랜덤 이미지 선택
+    return jsonify({'imageUrl': image})
+
+if __name__ == '__main__':
+    app.run(debug=True)

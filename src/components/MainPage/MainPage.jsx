@@ -353,6 +353,26 @@ const MainPage = ({ setSelectedResult }) => {
     }
   }, [droppedItems, isVisualSearch]); // 의존성 배열에 드랍된 아이템과 비주얼 검색 모드 추가
 
+  const renderScrollingItems = () => {
+    const items = [1, 2, 3, 4, 5, 6];
+    const duplicatedItems = [...items, ...items];
+
+    return (!isKeywordSearch && !isVisualSearch && (
+      <>
+        <div className="food-result-top-container">
+          {duplicatedItems.map((item, index) => (
+            <div key={index} className="fr" onClick={handleClick}>{item}</div>
+          ))}
+        </div>
+        <div className="food-result-bottom-container">
+          {duplicatedItems.map((item, index) => (
+            <div key={index} className="fr" onClick={handleClick}>{item}</div>
+          ))}
+        </div>
+      </>)
+    );
+  };
+  
   return (
     <div className="main-page"> {/* 메인 페이지 컨테이너 */}
       <TopBar /> {/* 상단 바 렌더링 */}
@@ -432,20 +452,11 @@ const MainPage = ({ setSelectedResult }) => {
 
       {!isKeywordSearch && !isVisualSearch && (
         <>
-          <div className="recom-container"> {/* 추천 컨테이너 */}
+          <div className="recom-container">
             <div className="recom-text">{seUser}님이 좋아할 요리를 찾았어요!</div>
             <div className="recom-subtext">{seUser}님의 기록을 분석하여 찾은 결과입니다</div>
           </div>
-          <div className="food-result-top-container"> {/* 음식 결과 상단 컨테이너 */}
-            <div className="fr" onClick={handleClick}></div>
-            <div className="fr" onClick={handleClick}></div>
-            <div className="fr" onClick={handleClick}></div>
-          </div>
-          <div className="food-result-bottom-container"> {/* 음식 결과 하단 컨테이너 */}
-            <div className="fr" onClick={handleClick}></div>
-            <div className="fr" onClick={handleClick}></div>
-            <div className="fr" onClick={handleClick}></div>
-          </div>
+          {renderScrollingItems()}
         </>
       )}
 

@@ -8,7 +8,7 @@
 
 .bottom-nav {
     width: 100%; /* 화면 너비에 맞추기 위해 width를 100%로 설정 */
-    max-width: 800px; /* 최대 너비 설정 */
+    max-width: 600px; /* 최대 너비 설정 */
     height: 80px;
     background-color: rgba(0, 0, 0, 0.75); /* 반투명 배경색 */
     display: flex;

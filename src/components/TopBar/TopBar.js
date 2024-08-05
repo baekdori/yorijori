@@ -81,9 +81,6 @@ const TopBar = () => {
       ) : (
         <Link to="/login" className="top-bar-item-login">로그인</Link>
       )}
-      <a href="/search" className="top-bar-item">
-        <img className="icon" alt="Search" src="/static/img/search.png" />
-      </a>
       <a href="/menu" className="top-bar-item">
         <img className="icon" alt="Menu" src="/static/img/xnix-line-hamburger-4-1.png" />
       </a>

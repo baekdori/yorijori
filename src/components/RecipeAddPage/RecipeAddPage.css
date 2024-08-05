@@ -16,7 +16,7 @@ body {
   height: 100vh;
   overflow-y: scroll; /* 상하 스크롤을 허용 */
   overflow-x: hidden; /* 수평 스크롤바를 숨김 */
-  padding-top: 20px; /* body를 아래로 20px 내림 */
+  padding-top: 38px; /* body를 아래로 20px 내림 */
 }
 
 /* 웹킷 기반 브라우저에서 스크롤바 숨기기 */
