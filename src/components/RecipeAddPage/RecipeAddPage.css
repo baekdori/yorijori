@@ -35,8 +35,7 @@ body::-webkit-scrollbar-thumb {
 
 .recipe-add-page {
   position: relative;
-  width: 90%; /* 화면 너비의 90% */
-  max-width: 1200px; /* 최대 너비 */
+  width: 600px;
   margin: 20px auto; /* 상단바 위치 비우기 위해 margin 추가 */
   padding: 20px;
   box-sizing: border-box;
@@ -74,12 +73,14 @@ body::-webkit-scrollbar-thumb {
   font-weight: 500;
   font-size: 32px;
   letter-spacing: -0.05em;
-  color: #D6D6D6;
   background-color: transparent;
   border: none;
-  border-bottom: 2px solid #434343;
   outline: none;
-  text-align: center;
+  text-align: left;
+}
+
+.title-input::placeholder {
+  color: #f0f0f0; /* Placeholder text color */
 }
 
 .second-line {
@@ -96,7 +97,6 @@ body::-webkit-scrollbar-thumb {
   font-family: 'Pretendard', sans-serif;
   font-weight: 300;
   letter-spacing: -0.05em;
-  color: #D6D6D6;
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #434343;
@@ -104,6 +104,10 @@ body::-webkit-scrollbar-thumb {
   resize: vertical; /* 세로 크기 조절 가능 */
   margin-bottom: 20px;
   padding: 10px;
+}
+
+.recipe-input::placeholder {
+  color: #f0f0f0; /* Placeholder text color */
 }
 
 button {

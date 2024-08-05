@@ -1,6 +1,7 @@
 import React, { useState } from 'react'; // 상태관리를 위한 useState 추가
 import './RecipeAddPage.css';
 import BottomBar from '../BottomBar/BottomBar.js';
+import TopBar from '../TopBar/TopBar.js';
 
 function RecipeAddPage() {
     // 입력한 정보를 관리하기 위한 상태 저장공간
@@ -57,6 +58,7 @@ function RecipeAddPage() {
 
     return (
         <div className="recipe-add-page">
+            <TopBar />
             <h1 className="recipe-title">레시피 작성</h1>
             <div className="first-line"></div>
             <form onSubmit={recipeAdd}> {/* 저장정보를 제출 */}
