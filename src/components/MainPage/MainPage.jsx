@@ -374,9 +374,11 @@ const MainPage = ({ setSelectedResult }) => {
   };
   
   return (
+    
     <div className="main-page"> {/* 메인 페이지 컨테이너 */}
-      <TopBar /> {/* 상단 바 렌더링 */}
       <BottomBar /> {/* 하단 바 렌더링 */}
+    
+      <TopBar /> {/* 상단 바 렌더링 */}
       <div
         className="recipe-text"
         ref={recipeTextRef}

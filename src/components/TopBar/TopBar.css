@@ -12,8 +12,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  top: 38px;
+  position: relative;
+  bottom: 90px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;

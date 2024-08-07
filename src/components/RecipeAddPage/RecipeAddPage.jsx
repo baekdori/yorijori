@@ -11,10 +11,10 @@ function RecipeAddPage() {
     const [recipe, setRecipe] = useState(''); // 음식 레시피
     const [mood, setMood] = useState('');     // 음식 사용 식재료
     const [coverImage, setCoverImage] = useState('');   // 음식 대표 이미지
-    const [imageName, setImageName] = useState('');
+    const [coverImageName, setCoverImageName] = useState(''); // 대표 이미지 제목
     const [recipeImages, setRecipeImages] = useState([]);
 
-    const handleImageChange = (e) => {
+    const handleCoverImageChange = (e) => {
         const file = e.target.files[0];
         if (e.target.files.length > 1) {
             alert('한 개의 이미지만 첨부할 수 있습니다.');
@@ -31,10 +31,36 @@ function RecipeAddPage() {
         const reader = new FileReader();
         reader.onloadend = () => {
             setCoverImage(reader.result);
-            setImageName(file.name);
+            setCoverImageName(file.name);
         };
         reader.readAsDataURL(file);
         }
+    }
+
+    const handleRemoveCoverImage = () => {
+        setCoverImage('');
+        setCoverImageName('');
+    }
+
+    const handleMultiImageChange = (e) =>{
+        const files = Array.from(e.target.files);
+        const validImageTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/svg+xml'];
+        
+        const newImages = files.filter(file => validImageTypes.includes(file.type)).map(file => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            return new Promise(resolve => {
+                reader.onloadend = () => {
+                    resolve(reader.result);
+                };
+            });
+        });
+
+        Promise.all(newImages).then(images => {
+            setRecipeImages(prevImages => [...prevImages, ...images]);
+        });
+
+        e.target.value = ''; // 파일 선택 초기화
     }
 
     // 저장 정보를 비동기화 -> 새로고침 없이 적용되게 하는 코드
@@ -91,20 +117,22 @@ function RecipeAddPage() {
                     <input type="text" className="title-input" placeholder="제목 작성" />
                     <input type="text" className="recipe-comment-input" placeholder="음식에 대한 간단한 설명을 작성해주세요" />
                     <label htmlFor="firstImg" className="custom-file-upload">대표 이미지 선택</label>
-                    <input id="firstImg" type="file" accept="image/*" className="firstImg-input" onChange={handleImageChange} />
-                    <span className="image-name">{imageName}</span> {/* 이미지 파일 이름 표시 */}
+                    <input id="firstImg" type="file" accept="image/*" className="firstImg-input" onChange={handleCoverImageChange} />
+                    <span className="image-name">{coverImageName}</span> {/* 이미지 파일 이름 표시 */}
                 </div>
                 {coverImage && (
                     <div className="image-preview">
                         <img src={coverImage} className="preview-img" />
+                        <button type='button' className='remove-coverimg-btn' onClick={handleRemoveCoverImage}>X</button>
                     </div>
                 )}
                 <div className="second-line"></div>
                 <label htmlFor="secondImg" className="recipepic-upload">이미지 선택</label>
-                <input id="secondImg"type="file" accept = "image/*" className = "secondImg-input"/>
-                <div className="multiple-images-preview">
-                    {images.map((img, index) => (
-                        <img key={index} src={img} className="preview-img" />
+                <input id="secondImg"type="file" accept = "image/*" className = "secondImg-input" onChange={handleMultiImageChange}/>
+                <div className="multi-images-container">
+                    
+                    {recipeImages.map((img, index) => (
+                        <img key={index} src={img} className="multi-imgs-preview" />
                     ))}
                 </div>
                 <textarea className="recipe-input" placeholder="본문 내용을 입력하세요"></textarea>

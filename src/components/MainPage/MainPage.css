@@ -5,21 +5,6 @@
   font-style: normal;
 }
 
-.TopBar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-.BottomBar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-
 body {
   top : 20px;
   overflow-y: scroll; /* 상하 스크롤을 허용 */
@@ -42,6 +27,7 @@ body::-webkit-scrollbar-thumb {
   background: transparent; /* 스크롤바 thumb를 투명하게 설정 */
 }
 
+
 .main-page {
   position: relative; /* 중앙 정렬을 위해 상대 위치로 설정 */
   width: 600px;
@@ -52,7 +38,9 @@ body::-webkit-scrollbar-thumb {
   margin: 0 auto; /* 가운데 정렬 */
   padding-top: 80px; /* 상단 바 높이만큼 패딩 추가 */
   overflow-x : hidden;
+  padding-bottom : 230px;
 }
+
 .main-page::-webkit-scrollbar {
   width: 0; /* 스크롤바의 너비를 0으로 설정 */
   height: 0; /* 스크롤바의 높이를 0으로 설정 */
@@ -65,10 +53,13 @@ body::-webkit-scrollbar-thumb {
 .main-page::-webkit-scrollbar-thumb {
   background: transparent; /* 스크롤바 thumb를 투명하게 설정 */
 }
-
+.bottom-bar {
+  height: 80px; /* BottomBar 높이 설정 */
+  /* 기타 BottomBar 스타일 */
+}
 .recipe-text {
   position: absolute;
-  top: 124px;
+  top: 96px;
   align-items: center;
   font-size: 40px;
   color: #434343;
@@ -239,7 +230,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   justify-content: center;
   width: 660px;
-  height: 700px;
+  height: 800px;
   left: 330px;
   background-color: #EFEFEF;
   transform: translate(-50%, -50%);

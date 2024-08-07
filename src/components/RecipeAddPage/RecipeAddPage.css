@@ -17,6 +17,7 @@ body {
   overflow-y: scroll; /* 상하 스크롤을 허용 */
   overflow-x: hidden; /* 수평 스크롤바를 숨김 */
   padding-top: 38px; /* body를 아래로 20px 내림 */
+  padding-bottom : 230px;
 }
 
 /* 웹킷 기반 브라우저에서 스크롤바 숨기기 */
@@ -36,12 +37,13 @@ body::-webkit-scrollbar-thumb {
 .recipe-add-page {
   position: relative;
   width: 600px;
+  padding-top : 60px;
   margin: 20px auto; /* 상단바 위치 비우기 위해 margin 추가 */
-  padding: 20px;
   box-sizing: border-box;
 }
 
 .recipe-title {
+  position : relative;
   text-align: center;
   font-family: 'BMJUA', sans-serif;
   font-weight: normal;
@@ -49,13 +51,15 @@ body::-webkit-scrollbar-thumb {
   letter-spacing: -0.05em;
   color: #434343;
   margin-bottom: 20px;
+  bottom : 140px;
 }
 
 .first-line {
+  position :relative;
   width: 100%;
   height: 1px;
   background-color: #FF8000;
-  margin-bottom: 20px;
+  bottom : 120px;
 }
 
 .title-container {
@@ -78,7 +82,7 @@ body::-webkit-scrollbar-thumb {
 }
 .recipe-comment-input {
   width: 90%;
-  height: 24px;
+  height: fit-content;
   font-family: 'Pretendard', sans-serif;
   font-weight: 500;
   font-size: 24px;
@@ -132,6 +136,20 @@ body::-webkit-scrollbar-thumb {
   height: auto;
 }
 
+.recipe-add-page .multi-images-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom : 24px;
+  flex-direction: column; /* 이미지를 세로로 나열 */
+  max-width: 600px;
+  height: auto;
+}
+
+.recipe-add-page .multi-images-container .preview-img {
+  max-width: 600px;
+  height: auto;
+  margin-bottom : 16px;
+}
 .recipepic-upload {
   display: flex;
   position: relative;
@@ -162,7 +180,12 @@ body::-webkit-scrollbar-thumb {
 .recipe-comment-input::placeholder {
   color: #f0f0f0; /* Placeholder text color */
 }
-
+.remove-coverimg-btn{
+  position : relative;
+  display : flex;
+  color : black;
+  z-index : 1;
+}
 
 .second-line {
   width: 100%;
@@ -208,7 +231,7 @@ button {
 
 .cancel-btn-r, .submit-btn-r {
   position : relative;
-  top : 88px;
+
   width: 300px;
   height: 60px;
   font-family: 'BMJUA', sans-serif;
@@ -220,7 +243,7 @@ button {
   justify-content: center;
   user-select: none;
   z-index: 10; /* Ensures these buttons are on top of other elements */
-
+  bottom : -171px;
 }
 
 .cancel-btn-r {
