@@ -60,14 +60,11 @@ body::-webkit-scrollbar-thumb {
 
 .title-container {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+
 }
 
 .title-input {
   width: 90%;
-  max-width: 600px;
   height: 32px;
   font-family: 'Pretendard', sans-serif;
   font-weight: 500;
@@ -77,11 +74,95 @@ body::-webkit-scrollbar-thumb {
   border: none;
   outline: none;
   text-align: left;
+  margin-bottom : 24px;
+}
+.recipe-comment-input {
+  width: 90%;
+  height: 24px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.05em;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  text-align: left;
+  margin-bottom : 24px;
+}
+/* Custom file upload button */
+.custom-file-upload {
+  display: flex;
+  position: relative;
+  left : 30px;
+  width: 18%;
+  height: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: -0.05em;
+  background-color: #FF8000;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  cursor: pointer;
+  justify-content: center;
+  border-radius: 4px;
+  margin-bottom : 24px;
+  user-select: none;
+}
+.image-name {
+  text-align: right;
+  position : relative;
+  display: inline-block;
+  left: 180px;
+  bottom : 54px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  color: #434343;
 }
 
+.recipe-add-page .image-preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom : 24px;
+}
+
+.recipe-add-page .image-preview .preview-img {
+  max-width: 600px;
+  height: auto;
+}
+
+.recipepic-upload {
+  display: flex;
+  position: relative;
+  left : 30px;
+  width: 18%;
+  height: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: -0.05em;
+  background-color: #FF8000;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  cursor: pointer;
+  justify-content: center;
+  border-radius: 4px;
+  margin-bottom : 24px;
+
+}
+.firstImg-input, .secondImg-input {
+  display: none;
+}
 .title-input::placeholder {
   color: #f0f0f0; /* Placeholder text color */
 }
+
+.recipe-comment-input::placeholder {
+  color: #f0f0f0; /* Placeholder text color */
+}
+
 
 .second-line {
   width: 100%;
@@ -126,7 +207,9 @@ button {
 }
 
 .cancel-btn-r, .submit-btn-r {
-  width: 200px;
+  position : relative;
+  top : 88px;
+  width: 300px;
   height: 60px;
   font-family: 'BMJUA', sans-serif;
   font-weight: normal;
@@ -137,7 +220,7 @@ button {
   justify-content: center;
   user-select: none;
   z-index: 10; /* Ensures these buttons are on top of other elements */
-  margin: 10px;
+
 }
 
 .cancel-btn-r {

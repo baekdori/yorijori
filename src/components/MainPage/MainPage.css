@@ -341,19 +341,31 @@ body::-webkit-scrollbar-thumb {
 }
 
 .vs-cancel-btn {
+  position: absolute;
   top: 82px;
-  left: 470px;
+  left: 340px;
   width: 110px;
   height: 30px;
+  border-radius: 50px;
+  font-family: 'Pretendard', sans-serif;
   background-color: #D6D6D6;
+  cursor: pointer;
+  user-select: none;
+  border: none;
 }
 
 .vs-start-btn {
+  position: absolute;
+  border-radius: 50px;
   top: 82px;
-  left: 600px;
+  left: 480px;
   width: 60px;
   height: 30px;
+  font-family: 'Pretendard', sans-serif;
   background-color: #FF8000;
+  cursor: pointer;
+  user-select: none;
+  border: none;
 }
 
 /* Add a dropdown button */

@@ -10,7 +10,32 @@ function RecipeAddPage() {
     const [video, setVideo] = useState('');   // 음식 영상
     const [recipe, setRecipe] = useState(''); // 음식 레시피
     const [mood, setMood] = useState('');     // 음식 사용 식재료
-    const [image, setImage] = useState('');   // 음식 이미지
+    const [coverImage, setCoverImage] = useState('');   // 음식 대표 이미지
+    const [imageName, setImageName] = useState('');
+    const [recipeImages, setRecipeImages] = useState([]);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (e.target.files.length > 1) {
+            alert('한 개의 이미지만 첨부할 수 있습니다.');
+            e.target.value = ''; // 파일 선택 초기화
+            return;
+        }
+        if (file) {
+            const validImageTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/svg+xml'];
+            if (!validImageTypes.includes(file.type)){
+                e.target.value = ''; // 파일 선택 초기화
+                return;
+            }
+        
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setCoverImage(reader.result);
+            setImageName(file.name);
+        };
+        reader.readAsDataURL(file);
+        }
+    }
 
     // 저장 정보를 비동기화 -> 새로고침 없이 적용되게 하는 코드
     const recipeAdd = async (e) => {          // 저장 변수 이름 및 비동기 기능
@@ -23,7 +48,7 @@ function RecipeAddPage() {
             food_video: video,                // 음식 영상
             food_recipe: recipe,              // 음식 레시피
             food_mood: mood,                  // 음식 사용 식재료
-            ingre_img: image                  // 음식 이미지
+            ingre_img: coverImage                  // 음식 이미지
         };
 
         try {
@@ -46,7 +71,7 @@ function RecipeAddPage() {
                 setVideo('');
                 setRecipe('');
                 setMood('');
-                setImage('');
+                setCoverImage('');
             } else {
                 alert('레시피 등록에 실패했습니다.'); // 실패 시 알림
             }
@@ -61,11 +86,27 @@ function RecipeAddPage() {
             <TopBar />
             <h1 className="recipe-title">레시피 작성</h1>
             <div className="first-line"></div>
-            <form onSubmit={recipeAdd}> {/* 저장정보를 제출 */}
+            <form onSubmit={recipeAdd}> {/* 저장 정보를 제출 */}
                 <div className="title-container">
                     <input type="text" className="title-input" placeholder="제목 작성" />
+                    <input type="text" className="recipe-comment-input" placeholder="음식에 대한 간단한 설명을 작성해주세요" />
+                    <label htmlFor="firstImg" className="custom-file-upload">대표 이미지 선택</label>
+                    <input id="firstImg" type="file" accept="image/*" className="firstImg-input" onChange={handleImageChange} />
+                    <span className="image-name">{imageName}</span> {/* 이미지 파일 이름 표시 */}
                 </div>
+                {coverImage && (
+                    <div className="image-preview">
+                        <img src={coverImage} className="preview-img" />
+                    </div>
+                )}
                 <div className="second-line"></div>
+                <label htmlFor="secondImg" className="recipepic-upload">이미지 선택</label>
+                <input id="secondImg"type="file" accept = "image/*" className = "secondImg-input"/>
+                <div className="multiple-images-preview">
+                    {images.map((img, index) => (
+                        <img key={index} src={img} className="preview-img" />
+                    ))}
+                </div>
                 <textarea className="recipe-input" placeholder="본문 내용을 입력하세요"></textarea>
                 <div className="button-container">
                     <button type="button" className="cancel-btn-r">취소</button>
@@ -75,7 +116,6 @@ function RecipeAddPage() {
             <BottomBar />
         </div>
     );
-    
 }
 
 export default RecipeAddPage;
