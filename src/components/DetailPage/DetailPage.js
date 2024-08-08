@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import TopBar from '../TopBar/TopBar.js';
-import BottomBar from '../BottomBar/BottomBar.js';
+import BottomBar from '../BottomBar/BottomBar.jsx';
 import './DetailPage.css';
 
 const DetailPage = ({ result }) => {

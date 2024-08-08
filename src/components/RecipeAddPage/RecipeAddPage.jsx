@@ -1,6 +1,6 @@
 import React, { useState } from 'react'; // 상태관리를 위한 useState 추가
 import './RecipeAddPage.css';
-import BottomBar from '../BottomBar/BottomBar.js';
+import BottomBar from '../BottomBar/BottomBar.jsx';
 import TopBar from '../TopBar/TopBar.js';
 
 function RecipeAddPage() {

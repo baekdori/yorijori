@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'; // useNavigate 훅 임포트
 import axios from 'axios'; // HTTP 요청을 위해 axios 임포트
 import './MainPage.css'; // CSS 스타일 시트 임포트
 import TopBar from '../TopBar/TopBar.js'; // 상단 바 컴포넌트 임포트
-import BottomBar from '../BottomBar/BottomBar.js'; // 하단 바 컴포넌트 임포트
+import BottomBar from '../BottomBar/BottomBar.jsx'; // 하단 바 컴포넌트 임포트
 
 const MainPage = ({ setSelectedResult }) => {
   const [isKeywordSearch, setIsKeywordSearch] = useState(false); // 키워드 검색 모드 상태

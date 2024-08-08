@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './MyPage.css';
 import TopBar from '../TopBar/TopBar.js';
-import BottomBar from '../BottomBar/BottomBar.js';
+import BottomBar from '../BottomBar/BottomBar.jsx';
 // import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
 
 const MyPage = () => {
