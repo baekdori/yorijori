@@ -8,6 +8,7 @@ import MyPage from './components/MyPage/MyPage';
 import DetailPage from './components/DetailPage/DetailPage';
 import TopBar from './components/TopBar/TopBar';
 import RecipeAddPage from './components/RecipeAddPage/RecipeAddPage';
+import Like from './components/Like/Like';
 
 function App() {
   const [selectedResult, setSelectedResult] = useState(null);
@@ -22,6 +23,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/like" element={<Like />} />
           <Route path="/DetailPage" element={<DetailPage result={selectedResult}/>} />
           <Route path="/RecipeAddPage" element={<RecipeAddPage />} />
         </Routes>

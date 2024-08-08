@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // 상태관리를 위한 useState 추가
+import React, { useState, useRef, useEffect } from 'react'; // 상태관리를 위한 useState 추가
 import './RecipeAddPage.css';
 import BottomBar from '../BottomBar/BottomBar.jsx';
 import TopBar from '../TopBar/TopBar.js';
@@ -13,6 +13,8 @@ function RecipeAddPage() {
     const [coverImage, setCoverImage] = useState('');   // 음식 대표 이미지
     const [coverImageName, setCoverImageName] = useState(''); // 대표 이미지 제목
     const [recipeImages, setRecipeImages] = useState([]);
+
+    const recipeInputRef = useRef(null); // useRef로 textarea를 참조
 
     const handleCoverImageChange = (e) => {
         const file = e.target.files[0];
@@ -107,6 +109,18 @@ function RecipeAddPage() {
         }
     };
 
+    useEffect(() => {
+        const textarea = recipeInputRef.current;
+        if (textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
+        }
+    }, [recipe]);
+
+    const handleRecipeChange = (e) => {
+        setRecipe(e.target.value);
+    };
+
     return (
         <div className="recipe-add-page">
             <TopBar />
@@ -135,7 +149,14 @@ function RecipeAddPage() {
                         <img key={index} src={img} className="multi-imgs-preview" />
                     ))}
                 </div>
-                <textarea className="recipe-input" placeholder="본문 내용을 입력하세요"></textarea>
+                <textarea 
+                    ref={recipeInputRef}
+                    className="recipe-input" 
+                    placeholder="본문 내용을 입력하세요"
+                    value={recipe}
+                    onChange={handleRecipeChange}
+                    rows={1}
+                ></textarea>
                 <div className="button-container">
                     <button type="button" className="cancel-btn-r">취소</button>
                     <button type="submit" className="submit-btn-r">등록</button>
