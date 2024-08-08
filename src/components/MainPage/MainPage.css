@@ -180,31 +180,69 @@ body::-webkit-scrollbar-thumb {
 }
 
 .right-container {
-  width: 200px; /* 초기 너비 */
+  width: 320px; /* 초기 너비 */
   height: 200px;
-  left: 392px;
+  left: 340px;
   top: 183px;
   position: absolute;
-  display: flex;
+
   align-items: center;
-  justify-content: center;
+  
   transition: width 1s ease; /* 너비 애니메이션 */
   z-index: 4;
 }
 
+@keyframes moveAndDisappear {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  99% {
+    transform: translateX(100px);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.pizza{
+  position :relative;
+  right : 70px;
+  top : 46px;
+  margin-right : 40px;
+  animation: moveAndDisappear 2s infinite;
+}
+
+@keyframes changeColor {
+  from {
+    background-color: white; /* 애니메이션 시작 색상 */
+  }
+  to {
+    background-color: #FF8000; /* 애니메이션 종료 색상 */
+  }
+}
+
 .searching-plate {
+  position: relative;
   width: 135px;
   height: 135px;
-  top: 0px;
-  left: 100px;
+  top: 36px;
+  left: 80px;
   border-radius: 50%;
   border: 3px solid #434343;
+  transition: background-color 1s ease; /* 배경색 변화 애니메이션 */
+}
+
+.searching-plate.active {
+  background-color: #FF8000;
+  animation: changeColor 1s forwards;
 }
 
 .searching-plate-text {
   position: absolute;
-  bottom: -20px;
-  left: -26px;
+  bottom: -46px;
+  left: -30px;
   width: 100%;
   text-align: center;
   font-size: 28px;
@@ -223,6 +261,7 @@ body::-webkit-scrollbar-thumb {
   z-index: 5;
 }
 
+
 .food-pic {
   position: relative;
   display: flex;
@@ -234,7 +273,7 @@ body::-webkit-scrollbar-thumb {
   left: 330px;
   background-color: #EFEFEF;
   transform: translate(-50%, -50%);
-  z-index: 0;
+  z-index: -1;
 }
 
 .recom-container {
@@ -385,6 +424,7 @@ body::-webkit-scrollbar-thumb {
   letter-spacing: -0.05em;
   font-family: 'BM JUA_TTF', sans-serif;
   text-align: left;
+  user-select: none;
 }
 
 .recom-subtext {
@@ -393,6 +433,7 @@ body::-webkit-scrollbar-thumb {
   letter-spacing: -0.05em;
   text-align: left;
   font-family: 'Pretendard', sans-serif;
+  user-select: none;
 }
 
 .food-result-top-container,

@@ -16,6 +16,7 @@ const MainPage = ({ setSelectedResult }) => {
   const [droppedItems, setDroppedItems] = useState([]); // 비주얼 검색에서 드랍된 아이템 상태
   const [visualSearchResults, setVisualSearchResults] = useState([]); // 비주얼 검색 결과 상태
   const [isTransitioning, setIsTransitioning] = useState(false); // 전환 애니메이션 상태
+  
   const itemListContainerRef = useRef(null); // item-list-container를 참조할 수 있는 Ref
 
 
@@ -427,9 +428,12 @@ const MainPage = ({ setSelectedResult }) => {
       {!isKeywordSearch && (
         <>
           <div className="right-container" onClick={visualSearching} onDragOver={handleDragOver} onDrop={handleDrop}>
-            <div className="searching-plate">
+          <div className={`searching-plate ${isVisualSearch ? 'active' : ''}`}>
               {!isVisualSearch && (
+                <>
+                <img className='pizza' src='/static/img/pizza.png'></img>
                 <div className="searching-plate-text">비주얼 검색</div>
+                </>
               )}
             </div>
           </div>
@@ -448,7 +452,6 @@ const MainPage = ({ setSelectedResult }) => {
 
         </>
       )}
-
       <div className="food-pic"></div> {/* 음식 사진 컨테이너 */}
 
       {!isKeywordSearch && !isVisualSearch && (
@@ -463,7 +466,7 @@ const MainPage = ({ setSelectedResult }) => {
 
       {isKeywordSearch && ( /* 키워드 검색 모드일 때 렌더링 */
         <div className="recom-btn-container">
-          <div className="search-result-text">검색 결과</div>
+          <div className="search-result-text">검색 결과 보기</div>
           <button className="cancel-btn" onClick={handleCancelClick}>전체 취소</button>
           <button className="start-btn" onClick={handleStartClick}>시작</button>
         </div>

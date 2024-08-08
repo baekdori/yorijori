@@ -117,6 +117,7 @@ body {
 }
 
 .mypage-correction-btn, .mypage-submit-btn {
+  position : relative;
   width: 300px;
   height: 80px;
   font-family: 'BM JUA_TTF', sans-serif;
@@ -127,6 +128,7 @@ body {
   cursor: pointer;
   pointer-events: auto;
   margin-top: 105px;
+  bottom : 70px;
 }
 
 .mypage-correction-btn {

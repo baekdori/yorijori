@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const path = require('path'); 
 const cors = require("cors");
+const fs = require('fs');
 // const session = require('./session');
 const { sessionMiddleware, cookieParser } = require('./session');
 const port = 4000;  // 4000포트 오픈
@@ -24,6 +25,7 @@ app.use(cors({
 // app.use(session);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 
 // 회원가입 라우터(하은)

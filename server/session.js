@@ -14,7 +14,7 @@ module.exports = {
     resave: false,             // 세션을 강제로 저장할지 여부
     saveUninitialized: false,   // 초기화되지 않은 세션을 저장소에 저장할지 여부
     cookie: { 
-      maxAge: 1000 * 60 * 60, // 세션의 유효기간 설정 (로그인 유지시간 1시간)
+      maxAge: 4000 * 60 * 60, // 세션의 유효기간 설정 (로그인 유지시간 1시간)
       secure: false // 로컬 개발 환경에서는 https가 아니므로 false로 설정
     },
     store: new FileStore(fileStoreOptions) // 세션을 저장하기 위한 파일 스토어 세팅
@@ -24,5 +24,5 @@ module.exports = {
 
 console.log('세션 미들웨어 설정 완료');
 console.log('세션 저장소 : FileStore');
-console.log('세션 만료 시간 : 1시간');
+console.log('세션 만료 시간 : 4시간');
 console.log('쿠키 파서 설정 완료');
