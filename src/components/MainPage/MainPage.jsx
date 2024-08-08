@@ -354,7 +354,7 @@ const MainPage = ({ setSelectedResult }) => {
   }, [droppedItems, isVisualSearch]); // 의존성 배열에 드랍된 아이템과 비주얼 검색 모드 추가
 
   const renderScrollingItems = () => {
-    const items = [1, 2, 3, 4, 5, 6];
+    const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
     const duplicatedItems = [...items, ...items];
 
     return (!isKeywordSearch && !isVisualSearch && (
@@ -376,8 +376,7 @@ const MainPage = ({ setSelectedResult }) => {
   return (
     
     <div className="main-page"> {/* 메인 페이지 컨테이너 */}
-      <BottomBar /> {/* 하단 바 렌더링 */}
-    
+      <BottomBar /> {/* 하단 바 렌더링 */}  
       <TopBar /> {/* 상단 바 렌더링 */}
       <div
         className="recipe-text"

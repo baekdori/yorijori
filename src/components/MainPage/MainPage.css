@@ -38,7 +38,7 @@ body::-webkit-scrollbar-thumb {
   margin: 0 auto; /* 가운데 정렬 */
   padding-top: 80px; /* 상단 바 높이만큼 패딩 추가 */
   overflow-x : hidden;
-  padding-bottom : 230px;
+  padding-bottom : 250px;
 }
 
 .main-page::-webkit-scrollbar {
@@ -398,7 +398,7 @@ body::-webkit-scrollbar-thumb {
 .food-result-top-container,
 .food-result-bottom-container {
   position: absolute;
-  width: 4000px; /* Double the width to accommodate both sets of items */
+  min-width: calc(270px * 15 + 70px * 14); /* 15 items + 14 margins */
   height: 270px;
   display: flex;
   justify-content: space-between;
@@ -410,43 +410,31 @@ body::-webkit-scrollbar-thumb {
   top: 604px;
   left: 50%;
   transform: translateX(-50%);
-  animation: swipeLeft 30s linear infinite
+  animation: swipeLeft 60s linear infinite
 }
 
 .food-result-bottom-container {
   top: 914px;
   left: 50%;
   transform: translateX(-50%);
-  animation: swipeRight 30s linear infinite
+  animation: swipeRight 60s linear infinite
 }
 
 @keyframes swipeLeft {
   0% {
-    transform: translateX(-50%);
-  }
-  33.33% {
-    transform: translateX(-83.33%);
-  }
-  66.66% {
-    transform: translateX(-116.66%);
+    transform: translateX(0%);
   }
   100% {
-    transform: translateX(-150%);
+    transform: translateX(-100%);
   }
 }
 
 @keyframes swipeRight {
   0% {
-    transform: translateX(-150%);
-  }
-  33.33% {
-    transform: translateX(-116.66%);
-  }
-  66.66% {
-    transform: translateX(-83.33%);
+    transform: translateX(-100%);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(0%);
   }
 }
 

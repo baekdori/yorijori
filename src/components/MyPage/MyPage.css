@@ -19,22 +19,32 @@ body {
 }
 
 .mypage-container {
-  width: 800px;
-  margin: 100px auto 100px; /* 상단과 하단 바를 고려하여 마진 설정 */
-  padding: 20px;
+  position: relative;
+  width: 600px;
+  padding-top : 70px;
+  margin: 10px auto; /* 상단바 위치 비우기 위해 margin 추가 */
   box-sizing: border-box;
 }
 
 .mypage-title {
+  position : relative;
+  bottom : 62px;
   text-align: center;
   font-family: 'BM JUA_TTF', sans-serif;
   font-weight: regular;
   font-size: 40px;
-  letter-spacing: -5%;
+  letter-spacing: -0.05em;
   color: #434343;
 }
 
-.mypage-first-line, .mypage-second-line {
+.mypage-first-line {
+  position :relative;
+  width: 100%;
+  height: 1px;
+  background-color: #FF8000;
+  bottom : 23px;
+}
+.mypage-second-line {
   width: 100%;
   height: 1px;
   background-color: #FF8000;
@@ -44,8 +54,7 @@ body {
 .mypage-id-container {
   display: flex;
   align-items: center;
-  margin: 20px 0;
-  padding-top: 80px;
+  margin-bottom : 26px;
 }
 
 .mypage-picture-circle {
@@ -75,7 +84,8 @@ body {
   font-size: 28px;
   letter-spacing: -5%;
   color: #434343;
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom : 30px;
 }
 
 .mypage-input-prompt {
@@ -111,7 +121,7 @@ body {
   height: 80px;
   font-family: 'BM JUA_TTF', sans-serif;
   font-weight: regular;
-  font-size: 40px;
+  font-size: 20px;
   letter-spacing: -5%;
   border: none;
   cursor: pointer;
@@ -140,7 +150,7 @@ body {
   font-size: 18px;
   letter-spacing: -0.05em;
   display: block;
-  margin-top: 20px;
+  margin-top: 41px;
   text-align: center;
   line-height: 40px;
   user-select: none;
