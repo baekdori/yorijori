@@ -35,9 +35,18 @@
     text-decoration: none;
 }
 
+.nav-item:hover {
+    transform: scale(1.1); /* 크기 증가 */
+}
+
 .nav-item img {
     width: 40px;
     height: 40px;
+    transition: transform 0.3s ease; /* 애니메이션 추가 */
+}
+
+.nav-item:hover img {
+    transform: scale(1.2); /* 아이콘 크기 증가 */
 }
 
 .nav-item span {
@@ -45,5 +54,8 @@
     font-size: 12px;
     color: #fff;
     font-family: 'Pretendard-Regular';
-    
+}
+
+.nav-item:hover span {
+    color: #FF8000; /* 텍스트 색상 변경 */
 }

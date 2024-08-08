@@ -12,7 +12,7 @@ const BottomBar = () => {
         <img
           className="categ"
           alt="Category"
-          src={currentPath === '/category' ? '/static/img/whitePuzzle.png' : '/static/img/puzzle.png'}
+          src={currentPath === '/category' ? '/static/img/puzzle.png' : '/static/img/whitePuzzle.png'}
         />
         <span style={{ color: currentPath === '/category' ? '#FF8000' : '#FFF' }}>카테고리</span>
       </a>
@@ -20,15 +20,15 @@ const BottomBar = () => {
         <img
           className="post"
           alt="Post"
-          src={currentPath === '/RecipeAddPage' ? '/static/img/whiteMessage.png' : '/static/img/message.png'}
+          src={currentPath === '/RecipeAddPage' ? '/static/img/message.png' : '/static/img/whiteMessage.png'}
         />
-        <span style={{ color: currentPath === '/RecipeAddPage' ? '#FF8000' : '#FFF' }}>게시글작성</span>
+        <span style={{ color: currentPath === '/RecipeAddPage' ? '#FF8000' : '#FFF' }}>게시글 작성</span>
       </a>
       <a href="/" className="nav-item">
         <img
           className="home"
           alt="Home"
-          src={currentPath === '/' ? '/static/img/whiteHome.png' : '/static/img/home.png'}
+          src={currentPath === '/' ? '/static/img/home.png' : '/static/img/whiteHome.png'}
         />
         <span style={{ color: currentPath === '/' ? '#FF8000' : '#FFF' }}>홈</span>
       </a>
@@ -36,7 +36,7 @@ const BottomBar = () => {
         <img
           className="like"
           alt="Like"
-          src={currentPath === '/like' ? '/static/img/whiteHeart.png' : '/static/img/heart.png'}
+          src={currentPath === '/like' ? '/static/img/heart.png' : '/static/img/whiteHeart.png'}
         />
         <span style={{ color: currentPath === '/like' ? '#FF8000' : '#FFF' }}>좋아요</span>
       </a>
