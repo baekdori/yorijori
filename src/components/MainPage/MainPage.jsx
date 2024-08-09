@@ -16,7 +16,9 @@ const MainPage = ({ setSelectedResult }) => {
   const [droppedItems, setDroppedItems] = useState([]); // 비주얼 검색에서 드랍된 아이템 상태
   const [visualSearchResults, setVisualSearchResults] = useState([]); // 비주얼 검색 결과 상태
   const [isTransitioning, setIsTransitioning] = useState(false); // 전환 애니메이션 상태
-  
+  const [imageList, setImageList] = useState([]); // 이미지 목록 상태
+  const [currentImage, setCurrentImage] = useState(''); // 현재 표시할 이미지
+
   const itemListContainerRef = useRef(null); // item-list-container를 참조할 수 있는 Ref
 
 
@@ -373,6 +375,30 @@ const MainPage = ({ setSelectedResult }) => {
       </>)
     );
   };
+
+  // 이미지 목록을 서버에서 가져오는 함수
+  const fetchImages = async () => {
+    try {
+      const response = await axios.get('/images'); // Flask 서버의 이미지 목록 엔드포인트
+      setImageList(response.data); // 이미지 목록 상태 업데이트
+    } catch (error) {
+      console.error('Error fetching images:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchImages(); // 컴포넌트가 마운트될 때 이미지 목록 가져오기
+
+    // 20초마다 이미지를 변경하는 함수
+    const interval = setInterval(() => {
+      if (imageList.length > 0) {
+        const randomIndex = Math.floor(Math.random() * imageList.length);
+        setCurrentImage(imageList[randomIndex]); // 랜덤 이미지 선택
+      }
+    }, 10000);
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
+  }, [imageList]); // imageList가 업데이트될 때마다 실행
   
   return (
     
@@ -452,7 +478,14 @@ const MainPage = ({ setSelectedResult }) => {
 
         </>
       )}
-      <div className="food-pic"></div> {/* 음식 사진 컨테이너 */}
+       <div className="food-pic">
+       {currentImage && (
+  <img
+    src={`http://localhost:5000/images/${currentImage}`} // Flask 서버의 이미지 URL
+    alt="Food Pic"
+  />
+)}
+    </div> {/* 음식 사진 컨테이너 */}
 
       {!isKeywordSearch && !isVisualSearch && (
         <>

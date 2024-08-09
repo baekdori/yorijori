@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import torch
 from transformers import BertTokenizer, BertForSequenceClassification
 import mysql.connector
 from mysql.connector import Error
 import torch.nn.functional as F
 import random
+import os
 
 
 # Flask 애플리케이션 생성
@@ -148,6 +149,23 @@ images = [
 def get_random_image():
     image = random.choice(images)  # 랜덤 이미지 선택
     return jsonify({'imageUrl': image})
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+# food-pic에서 yorijori\public\static\img\foodpic에 저장된 사진 출력
+# 이미지가 저장된 디렉토리 경로
+IMAGE_FOLDER = os.path.join('yorijori', 'public', 'static', 'img', 'foodpic')
+
+@app.route('/images', methods=['GET'])
+def get_images():
+    # 이미지 파일 목록 가져오기
+    files = [f for f in os.listdir(IMAGE_FOLDER) if os.path.isfile(os.path.join(IMAGE_FOLDER, f))]
+    return jsonify(files)  # 파일 이름 목록을 JSON으로 반환
+
+@app.route('/images/<filename>', methods=['GET'])
+def get_image(filename):
+    return send_from_directory(IMAGE_FOLDER, filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
