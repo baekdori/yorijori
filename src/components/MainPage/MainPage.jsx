@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'; // React와 필요한 훅을 임포트
+import React, { useState, useRef, useEffect, Suspense } from 'react'; // React와 필요한 훅을 임포트
 import { useNavigate } from 'react-router-dom'; // useNavigate 훅 임포트
 import axios from 'axios'; // HTTP 요청을 위해 axios 임포트
 import './MainPage.css'; // CSS 스타일 시트 임포트
@@ -21,6 +21,8 @@ const MainPage = ({ setSelectedResult }) => {
 
   const itemListContainerRef = useRef(null); // item-list-container를 참조할 수 있는 Ref
 
+  const images = require.context('../../../public/static/img/foodpic', false, /\.(png|jpe?g|svg)$/);
+  const imageArray = images.keys().map(images);
 
   const recipeTextRef = useRef(null); // 레시피 텍스트를 참조할 수 있는 Ref
 
@@ -479,12 +481,16 @@ const MainPage = ({ setSelectedResult }) => {
         </>
       )}
        <div className="food-pic">
-       {currentImage && (
-  <img
-    src={`http://localhost:5000/images/${currentImage}`} // Flask 서버의 이미지 URL
-    alt="Food Pic"
-  />
-)}
+       {imageArray.map((imageSrc, index) => (
+        <Suspense fallback={<div>Loading...</div>} key={index}>
+          <img
+            src={imageSrc}
+            alt={`foodpic-${index}`}
+            loading="lazy"
+            style={{width : '100%', height : 'auto', opacity : '0.3'}}>
+          </img>
+        </Suspense>
+       ))}
     </div> {/* 음식 사진 컨테이너 */}
 
       {!isKeywordSearch && !isVisualSearch && (

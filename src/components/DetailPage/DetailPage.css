@@ -12,12 +12,22 @@
   font-style: normal;
 }
 
-body.DetailPage {
+
+body {
+  top : 20px;
+  overflow-y: scroll; /* 상하 스크롤을 허용 */
+  overflow-x: hidden; /* 수평 스크롤바를 숨김 */
+  font-family: 'BM JUA_TTF', sans-serif;
+  background-color: #fbfbfb;
+}
+.DetailPage {
   margin: 0;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  font-family: 'BMJUA', sans-serif;
-  padding-top: 80px; /* 상단바 높이만큼 패딩 추가 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  top : 20px;
+  padding-top: 80px; /* 상단 바 높이만큼 패딩 추가 */
 }
 
 body::-webkit-scrollbar {
