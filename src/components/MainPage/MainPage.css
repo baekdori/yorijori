@@ -216,7 +216,7 @@ body::-webkit-scrollbar-thumb {
 
 @keyframes changeColor {
   from {
-    background-color: white; /* 애니메이션 시작 색상 */
+    background-color: #434343; /* 애니메이션 시작 색상 */
   }
   to {
     background-color: #FF8000; /* 애니메이션 종료 색상 */
@@ -231,11 +231,11 @@ body::-webkit-scrollbar-thumb {
   left: 80px;
   border-radius: 50%;
   border: 3px solid #434343;
-  transition: background-color 1s ease; /* 배경색 변화 애니메이션 */
+  transition: border 1s ease; /* 배경색 변화 애니메이션 */
 }
 
 .searching-plate.active {
-  background-color: #FF8000;
+  border: 3px solid #FF8000;
   animation: changeColor 1s forwards;
 }
 
@@ -401,7 +401,7 @@ body::-webkit-scrollbar-thumb {
 .ingre-list {
   position: absolute;
   top: 82px;
-  left: 138px;
+  left: 78px;
   width: 110px;
   height: 30px;
   background-color: #FF8000;
