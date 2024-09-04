@@ -173,6 +173,8 @@ const DetailPage = ({ result }) => {
       }
 
       setIsBookmarked(!isBookmarked); // 북마크 상태를 토글
+
+      // 북마크 클릭 시 데이터를 localStorage
     } catch (error) {
       console.error('북마크 토글 오류:', error);
       alert('북마크 상태를 변경할 수 없습니다.');

@@ -8,8 +8,8 @@ const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
 const MyPage = lazy(() => import('./pages/MyPage/MyPage'));
 const DetailPage = lazy(() => import('./pages/DetailPage/DetailPage'));
 const RecipeAddPage = lazy(() => import('./pages/RecipeAddPage/RecipeAddPage'));
-const LikePage = lazy(() => import('./pages/LikePage/LikePage'));
-const CategoryPage = lazy(() => import('./pages/CategoryPage/CategoryPage'));
+const LikePage = lazy(() => import('./pages/FavoritePage/FavoritePage'));
+const FavoritePage = lazy(() => import('./pages/FavoritePage/FavoritePage'));
 
 function App() {
   const [selectedResult, setSelectedResult] = useState(null);
@@ -25,7 +25,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/like" element={<LikePage />} />
-            <Route path="/CategoryPage" element={<CategoryPage />} />
+            <Route path="/favorites" element={<FavoritePage />} />
             <Route path="/DetailPage" element={<DetailPage result={selectedResult} />} />
             <Route path="/RecipeAddPage" element={<RecipeAddPage />} />
           </Routes>
