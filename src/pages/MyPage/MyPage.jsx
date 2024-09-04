@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './MyPage.css';
-import TopBar from '../TopBar/TopBar.js';
-import BottomBar from '../BottomBar/BottomBar.jsx';
+import TopBar from '../../components/TopBar/TopBar';
+import BottomBar from '../../components/BottomBar/BottomBar';
+import { useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
 
 const MyPage = () => {
 
+  // useNavigate 훅
+  const navigate = useNavigate();
   // 사용자 데이터 상태와 수정가능여부 관리하는 상태를 정의
   const [userData, setUserData] = useState({
     user_id: '',
@@ -20,6 +23,13 @@ const MyPage = () => {
   // 컴포넌트가 처음 렌더링 될 때 사용자 정보 불러오기
   useEffect(() => {
     const myUser = sessionStorage.getItem('user'); // 유저 정보를 변수에 저장
+
+    if(!myUser){
+      alert("로그인하셔야 합니다");
+      navigate('/login');
+      return;
+    }
+
     console.log('프로필 정보 요청 시작', myUser);
 
     // front 에서 받아온 test라는 정보를 -> node로 보내서 얘 정보 가지고 오는거임 axios로 
@@ -31,7 +41,7 @@ const MyPage = () => {
       .catch(error => {  
         console.error('사용자 정보 불러오기 오류:', error);
       });
-  }, []);    // 빈 배열([])을 두 번째 인수로 전달하여 컴포넌트가 처음 렌더링될 때만 이 효과를 실행
+  }, [navigate]);    // 빈 배열([])을 두 번째 인수로 전달하여 컴포넌트가 처음 렌더링될 때만 이 효과를 실행
 
 
     // axios.get('http://localhost:4000/user/mypage/profile', { user :  })  // 백엔드 서버에서 사용자의 프로필 데이터 가져오는 요청

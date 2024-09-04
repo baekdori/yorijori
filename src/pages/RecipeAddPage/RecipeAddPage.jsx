@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'; // React에서 필요한 훅들을 가져옴 (상태 관리, 참조, 부수 효과 처리)
 import './RecipeAddPage.css'; // 스타일시트를 불러옴
-import BottomBar from '../BottomBar/BottomBar.jsx'; // 하단 바 컴포넌트를 불러옴
-import TopBar from '../TopBar/TopBar.js'; // 상단 바 컴포넌트를 불러옴
+import BottomBar from '../../components/BottomBar/BottomBar'; // 하단 바 컴포넌트를 불러옴
+import TopBar from '../../components/TopBar/TopBar'; // 상단 바 컴포넌트를 불러옴
 
 function RecipeAddPage() {
     // 입력한 정보를 관리하기 위한 상태 저장 공간

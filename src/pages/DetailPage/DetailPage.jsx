@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'; // React에서 useState와 useEffect 훅을 불러옴
 import { useParams } from 'react-router-dom'; // URL 매개변수를 가져오기 위해 useParams 훅을 불러옴
 import axios from 'axios'; // HTTP 요청을 보내기 위해 axios 라이브러리를 불러옴
-import TopBar from '../TopBar/TopBar.js'; // 상단 바 컴포넌트를 불러옴
-import BottomBar from '../BottomBar/BottomBar.jsx'; // 하단 바 컴포넌트를 불러옴
+import TopBar from '../../components/TopBar/TopBar'; // 상단 바 컴포넌트를 불러옴
+import BottomBar from '../../components/BottomBar/BottomBar'; // 하단 바 컴포넌트를 불러옴
 import './DetailPage.css'; // 해당 컴포넌트의 스타일링을 위한 CSS 파일을 불러옴
 
 // DetailPage 컴포넌트 정의, props로 result를 받음

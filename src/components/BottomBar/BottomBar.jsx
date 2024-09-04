@@ -8,11 +8,11 @@ const BottomBar = () => {
 
   return (
     <div className="bottom-nav">
-      <a href="/category" className="nav-item">
+      <a href="/CategoryPage" className="nav-item">
         <img
           className="categ"
           alt="Category"
-          src={currentPath === '/category' ? '/static/img/puzzle.png' : '/static/img/whitePuzzle.png'}
+          src={currentPath === '/CategoryPage' ? '/static/img/puzzle.png' : '/static/img/whitePuzzle.png'}
         />
         <span style={{ color: currentPath === '/category' ? '#FF8000' : '#FFF' }}>카테고리</span>
       </a>

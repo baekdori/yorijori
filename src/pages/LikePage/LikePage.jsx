@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './Like.css';
-import TopBar from '../TopBar/TopBar.js';
-import BottomBar from '../BottomBar/BottomBar.jsx';
+import './LikePage.css';
+import TopBar from '../../components/TopBar/TopBar';
+import BottomBar from '../../components/BottomBar/BottomBar';
 
 const Like = () => {
 

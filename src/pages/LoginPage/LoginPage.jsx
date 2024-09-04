@@ -2,7 +2,7 @@ import axios from 'axios'; // npm install axios 필요
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
-import TopBar from '../TopBar/TopBar.js';
+import TopBar from '../../components/TopBar/TopBar';
 
 
 const LoginPage = () => {

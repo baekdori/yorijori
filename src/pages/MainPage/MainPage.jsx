@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect, Suspense } from 'react'; // React�
 import { useNavigate } from 'react-router-dom'; // React Router에서 페이지 이동을 위한 useNavigate 훅 임포트
 import axios from 'axios'; // HTTP 요청을 위해 axios 라이브러리 임포트
 import './MainPage.css'; // 메인 페이지의 스타일링을 위한 CSS 파일 임포트
-import TopBar from '../TopBar/TopBar.js'; // 상단 바 컴포넌트를 임포트
-import BottomBar from '../BottomBar/BottomBar.jsx'; // 하단 바 컴포넌트를 임포트
+import TopBar from '../../components/TopBar/TopBar'; // 상단 바 컴포넌트를 임포트
+import BottomBar from '../../components/BottomBar/BottomBar'; // 하단 바 컴포넌트를 임포트
 
 // MainPage 컴포넌트 정의. setSelectedResult라는 함수를 props로 받음.
 const MainPage = ({ setSelectedResult }) => {

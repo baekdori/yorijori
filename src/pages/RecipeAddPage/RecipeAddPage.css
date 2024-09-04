@@ -197,7 +197,7 @@ body::-webkit-scrollbar-thumb {
 .recipe-input {
   width: 90%;
   max-width: 600px;
-  min-height: 185px;
+  min-height: 235px;
   font-family: 'Pretendard', sans-serif;
   font-weight: 300;
   letter-spacing: -0.05em;

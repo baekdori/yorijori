@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignupPage.css'; // 기존 CSS 파일 가져오기
 import axios from 'axios';
-import TopBar from '../TopBar/TopBar.js';
+import TopBar from '../../components/TopBar/TopBar';
 
 const SignupPage = () => {
   const navigate = useNavigate();
