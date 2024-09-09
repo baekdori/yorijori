@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import TopBar from '../../components/TopBar/TopBar';
+import BottomBar from '../../components/BottomBar/BottomBar';
 
 
 const LoginPage = () => {
@@ -56,10 +57,11 @@ const LoginPage = () => {
   };
 
   return (
+    
     <div>
 
-      <div className="screen">
-      
+      <div className="login_page_container">
+      <TopBar />
         <img className="logo-b" alt="Logo s" src="/static/img/logo-s.png" />
 
       
@@ -110,8 +112,9 @@ const LoginPage = () => {
         </div>
       </form>
 
-
+    <BottomBar />
     </div>
+
     </div>
   );
 };

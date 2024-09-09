@@ -1,8 +1,6 @@
 const conn = require("./db");
 
-
 const favorite = {
-    // 즐겨찾기 항목 추가 또는 업데이트
     addFavorite: (userId, foodIdx, callback) => {
         const sql = `
             INSERT INTO Favorites (food_idx, created_at, user_id)
@@ -15,7 +13,6 @@ const favorite = {
         });
     },
     
-    // 즐겨찾기 항목 삭제
     removeFavorite: (userId, foodIdx, callback) => {
         const sql = `
             DELETE FROM Favorites
@@ -27,17 +24,28 @@ const favorite = {
         });
     },
 
-      // 즐겨찾기 확인
-      checkFavorite: (userId, foodIdx, callback) => {
+    checkFavorite: (userId, foodIdx, callback) => {
         const sql = `
-            SELECT *
+            SELECT COUNT(*) as count
             FROM Favorites
             WHERE user_id = ? AND food_idx = ?
         `;
         conn.query(sql, [userId, foodIdx], (err, results) => {
             if (err) return callback(err);
-            // 결과의 첫 번째 행에서 count 값을 반환
             callback(null, results[0].count > 0);
+        });
+    },
+
+    getFavorites: (userId, callback) => {
+        const sql = `
+            SELECT f.food_idx, r.food_name, r.food_desc
+            FROM Favorites f
+            JOIN Recipes r ON f.food_idx = r.food_idx
+            WHERE f.user_id = ?
+        `;
+        conn.query(sql, [userId], (err, results) => {
+            if (err) return callback(err);
+            callback(null, results);
         });
     }
 };

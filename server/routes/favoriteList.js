@@ -44,5 +44,21 @@ router.get('/check', (req, res) => {
     });
 });
 
+// 즐겨찾기 목록 조회
+router.get('/', (req, res) => {
+  const { userId } = req.query;
+
+  if (!userId) {
+      return res.status(400).json({ message: 'userId는 필수입니다.' });
+  }
+
+  favorite.getFavorites(userId, (err, results) => {
+      if (err) {
+          console.error('즐겨찾기 목록 조회 오류:', err);
+          return res.status(500).json({ message: '서버 오류가 발생했습니다.' });
+      }
+      res.json(results);
+  });
+});
 
 module.exports = router;
