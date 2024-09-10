@@ -5,6 +5,9 @@ const favorite = require('../model/favorite'); // 이 모듈이 데이터베이�
 // 북마크 추가
 router.post('/add', async (req, res) => {
   const { userId, foodIdx } = req.body;
+  if(!userId || !foodIdx){
+    return res.status(400).json({message : '필수 데이터가 없습니다.'});
+  }
   try {
     await favorite.addFavorite(userId, foodIdx);
     res.json({ message: '즐겨찾기가 추가되었습니다.' });

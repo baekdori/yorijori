@@ -164,17 +164,17 @@ const DetailPage = ({ result }) => {
         : 'http://localhost:4000/favorites/add'; // 북마크가 되어 있지 않으면 추가 API 요청
 
       const response = await axios.post(url, {
-        user_id, // 유저 아이디
-        foodIdx // 음식 아이디
+        userId : user_id, // 유저 아이디
+        foodIdx : foodIdx // 음식 아이디
       });
 
       if (!response.data.success) { // 요청이 성공하지 않으면 오류 처리
         throw new Error(isBookmarked ? '북마크를 제거할 수 없습니다.' : '북마크를 추가할 수 없습니다.');
       }
 
+      // 상태 업데이트 : 북마크 추가/제거
       setIsBookmarked(!isBookmarked); // 북마크 상태를 토글
 
-      // 북마크 클릭 시 데이터를 localStorage
     } catch (error) {
       console.error('북마크 토글 오류:', error);
       alert('북마크 상태를 변경할 수 없습니다.');

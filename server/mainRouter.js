@@ -99,6 +99,8 @@ app.use('/random-food-idx', recommendRouter);
 // 즐겨찾기 라우터(지훈)
 const favoriteRouter = require('./routes/favoriteList');
 app.use('/favorites', favoriteRouter);
+console.log('즐겨찾기 라우터 연결 : ');
+
 
 
 // 서버 시작

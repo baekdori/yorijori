@@ -1,34 +1,35 @@
 @font-face {
-  font-family: 'Pretendard-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
+  font-family: 'Pretendard-Regular'; /* 'Pretendard-Regular'라는 폰트 이름을 정의 */
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff'); 
+  /* 'woff' 형식의 웹폰트를 외부에서 불러옴 */
+  font-weight: 400; /* 폰트 두께를 400으로 설정 (보통 굵기) */
+  font-style: normal; /* 폰트 스타일을 보통(normal)으로 설정 */
 }
 
 body.SignupPage {
-  display: flex;
-  flex-direction: column; /* 수직 정렬 */
-  align-items: center;
-  justify-content: flex-start; /* 시작 부분에서 정렬 */
-  height: 100vh;
-  margin: 0;
+  display: flex; /* Flexbox 레이아웃을 사용하여 자식 요소를 배치 */
+  flex-direction: column; /* 자식 요소를 수직 방향(컬럼)으로 배치 */
+  align-items: center; /* 자식 요소들을 수평으로 가운데 정렬 */
+  justify-content: flex-start; /* 자식 요소들을 수직으로 위쪽에서 시작하여 정렬 */
+  height: 100vh; /* 전체 뷰포트 높이만큼 요소의 높이를 설정 */
+  margin: 0; /* 페이지의 기본 여백을 없앰 */
   overflow-y: auto; /* 상하 스크롤을 허용 */
-  overflow-x: hidden; /* 수평 스크롤바를 숨김 */
-  font-family: 'BM JUA_TTF', sans-serif;
+  overflow-x: hidden; /* 좌우 스크롤을 숨김 */
+  font-family: 'BM JUA_TTF', sans-serif; /* 텍스트에 'BM JUA_TTF' 폰트를 적용하고, 이 폰트가 없으면 sans-serif를 사용 */
 }
 
 h1 {
-  color: #BDBDBD;
+  color: #BDBDBD; /* 텍스트 색상을 연한 회색(#BDBDBD)으로 설정 */
   font-size: 50px; /* 폰트 크기를 50px로 설정 */
-  padding-top: 50px;
+  padding-top: 50px; /* 상단에 50px의 여백을 추가 */
 }
 
 .star {
-  width: 25px; /* 너비를 25px로 설정 */
-  height: auto; /* 높이는 자동으로 설정 */
+  width: 25px; /* 이미지의 너비를 25px로 설정 */
+  height: auto; /* 이미지의 높이를 너비에 맞춰 자동 조정 */
 }
 
-/* 정보 입력칸 */
+/* 정보 입력 칸 스타일링 */
 .view,
 .view-2,
 .view-3,
@@ -38,71 +39,71 @@ h1 {
 .view-8,
 .view-9,
 .view-10 {
-  background-color: #ffffff;
-  border: 4px solid #ff8000;
-  border-radius: 20px;
-  height: 60px; /* 고정 높이 */
-  width: 80vw; /* 뷰포트 너비의 80% */
-  max-width: 550px; /* 최대 너비 */
-  display: flex;
-  align-items: center;
-  justify-content: center; /* 수평 가운데 정렬 */
-  padding: 0 15px; /* 좌우 패딩 */
-  box-sizing: border-box;
-  margin-bottom: 15px; /* 각 요소 사이의 간격 */
-  font-family: 'Pretendard-Regular';
+  background-color: #ffffff; /* 배경색을 흰색으로 설정 */
+  border: 4px solid #ff8000; /* 테두리를 4px 두께로 설정하고 주황색(#ff8000) 적용 */
+  border-radius: 20px; /* 모서리를 20px만큼 둥글게 만듦 */
+  height: 60px; /* 고정된 높이를 60px로 설정 */
+  width: 80vw; /* 화면 너비의 80%만큼 너비를 설정 */
+  max-width: 550px; /* 최대 너비는 550px로 제한 */
+  display: flex; /* Flexbox를 사용하여 자식 요소를 배치 */
+  align-items: center; /* 자식 요소를 수직 가운데 정렬 */
+  justify-content: center; /* 자식 요소를 수평 가운데 정렬 */
+  padding: 0 15px; /* 좌우 패딩을 15px로 설정하여 내부 여백을 추가 */
+  box-sizing: border-box; /* padding과 border를 포함한 요소의 전체 크기 계산 */
+  margin-bottom: 15px; /* 각 입력 칸 사이에 15px의 간격을 추가 */
+  font-family: 'Pretendard-Regular'; /* 텍스트에 'Pretendard-Regular' 폰트를 적용 */
 }
 
 .view-7 {
-  background-color: #ffffff;
-  height: 50px; /* 고정 높이 */
-  width: 80vw; /* 뷰포트 너비의 80% */
-  max-width: 550px; /* 최대 너비 */
-  display: flex;
-  align-items: center;
-  padding: 0 15px; /* 좌우 패딩 */
-  box-sizing: border-box;
-  margin-bottom: 15px; /* 각 요소 사이의 간격 */
-  font-family: 'Pretendard-Regular';
-  font-size: 25px;
+  background-color: #ffffff; /* 배경색을 흰색으로 설정 */
+  height: 50px; /* 높이를 50px로 설정 */
+  width: 80vw; /* 화면 너비의 80%만큼 너비를 설정 */
+  max-width: 550px; /* 최대 너비를 550px로 제한 */
+  display: flex; /* Flexbox를 사용하여 자식 요소를 배치 */
+  align-items: center; /* 자식 요소를 수직 가운데 정렬 */
+  padding: 0 15px; /* 좌우 패딩을 15px로 설정하여 내부 여백 추가 */
+  box-sizing: border-box; /* padding과 border를 포함한 요소의 전체 크기 계산 */
+  margin-bottom: 15px; /* 각 입력 칸 사이에 15px의 간격을 추가 */
+  font-family: 'Pretendard-Regular'; /* 텍스트에 'Pretendard-Regular' 폰트를 적용 */
+  font-size: 25px; /* 폰트 크기를 25px로 설정 */
 }
 
 .input-field {
-  border: none;
-  outline: none;
-  font-size: 20px; /* 고정 폰트 크기 */
-  width: 100%;
-  height: calc(100% - 30px); /* 위아래 패딩을 고려한 높이 조정 */
-  padding: 0 10px;
-  box-sizing: border-box;
+  border: none; /* 테두리를 없앰 */
+  outline: none; /* 클릭 시 외곽선 효과를 없앰 */
+  font-size: 20px; /* 폰트 크기를 20px로 설정 */
+  width: 100%; /* 입력 칸의 너비를 100%로 설정 */
+  height: calc(100% - 30px); /* 패딩을 제외한 높이를 설정 (전체 높이 - 30px) */
+  padding: 0 10px; /* 좌우 10px의 패딩을 추가 */
+  box-sizing: border-box; /* padding과 border를 포함한 요소의 전체 크기 계산 */
 }
 
 .gender-label {
-  padding-left: 10px; /* 왼쪽 패딩을 10px로 설정 */
+  padding-left: 10px; /* 왼쪽에 10px의 패딩을 추가 */
 }
 
 .group-1,
 .group-2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  display: flex; /* Flexbox 레이아웃을 사용 */
+  flex-direction: column; /* 자식 요소를 수직 방향으로 배치 */
+  align-items: center; /* 자식 요소를 수평 가운데 정렬 */
+  gap: 10px; /* 자식 요소들 사이에 10px의 간격을 추가 */
 }
 
 .view-9,
 .view-10 {
-  background-color: #BDBDBD;
-  border: none; /* 테두리 제거 */
-  box-shadow: none; /* 박스 쉐도우 제거 */
+  background-color: #BDBDBD; /* 배경색을 회색(#BDBDBD)으로 설정 */
+  border: none; /* 테두리를 없앰 */
+  box-shadow: none; /* 박스 쉐도우 효과를 없앰 */
   font-size: 30px; /* 폰트 크기를 30px로 설정 */
-  color: #ffffff; /* 폰트 색상을 흰색으로 설정 */
-  cursor: pointer;
-  font-family: 'BM JUA_TTF', sans-serif;
-  display: flex;
-  justify-content: center; /* 수평 가운데 정렬 */
-  align-items: center; /* 수직 가운데 정렬 */
+  color: #ffffff; /* 텍스트 색상을 흰색으로 설정 */
+  cursor: pointer; /* 마우스 커서가 포인터 모양으로 바뀌도록 설정 */
+  font-family: 'BM JUA_TTF', sans-serif; /* 'BM JUA_TTF' 폰트를 적용하고, 이 폰트가 없으면 sans-serif를 사용 */
+  display: flex; /* Flexbox를 사용하여 자식 요소를 배치 */
+  justify-content: center; /* 자식 요소를 수평 가운데 정렬 */
+  align-items: center; /* 자식 요소를 수직 가운데 정렬 */
 }
 
 .view-10 {
-  background-color: #ff8000;
+  background-color: #ff8000; /* 배경색을 주황색(#ff8000)으로 설정 */
 }
