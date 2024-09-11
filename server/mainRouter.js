@@ -6,7 +6,7 @@ const fs = require('fs');
 // const session = require('./session');
 const { sessionMiddleware, cookieParser } = require('./session');
 const port = 4000;  // 4000포트 오픈
-
+const favorite = require('./model/favorite')
 const app = express();
 
 // 미들웨어 설정
@@ -101,6 +101,45 @@ const favoriteRouter = require('./routes/favoriteList');
 app.use('/favorites', favoriteRouter);
 console.log('즐겨찾기 라우터 연결 : ');
 
+
+app.use(express.json()); // JSON 요청을 파싱
+
+// 북마크 토글 API
+app.post('/api/favorites/toggle', (req, res) => {
+    const { userId, foodIdx } = req.body;
+
+    if (!userId || !foodIdx) {
+        return res.status(400).send('Missing userId or foodIdx');
+    }
+
+    // 현재 북마크 여부 확인
+    favorite.checkFavorite(userId, foodIdx, (err, isFavorited) => {
+        if (err) {
+            console.error('북마크 확인 오류:', err);
+            return res.status(500).send('Server Error');
+        }
+
+        if (isFavorited) {
+            // 이미 북마크된 상태이면 북마크 해제
+            favorite.removeFavorite(userId, foodIdx, (err, result) => {
+                if (err) {
+                    console.error('북마크 해제 오류:', err);
+                    return res.status(500).send('Server Error');
+                }
+                res.send('Favorite removed');
+            });
+        } else {
+            // 북마크 추가
+            favorite.addFavorite(userId, foodIdx, (err, result) => {
+                if (err) {
+                    console.error('북마크 추가 오류:', err);
+                    return res.status(500).send('Server Error');
+                }
+                res.send('Favorite added');
+            });
+        }
+    });
+});
 
 
 // 서버 시작

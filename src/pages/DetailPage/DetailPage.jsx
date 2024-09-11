@@ -7,7 +7,7 @@ import './DetailPage.css'; // 해당 컴포넌트의 스타일링을 위한 CSS 
 
 // DetailPage 컴포넌트 정의, props로 result를 받음
 const DetailPage = ({ result }) => {
-  const { foodIdx } = useParams(); // URL에서 foodIdx 값을 가져옴
+  const { food_Idx } = useParams(); // URL에서 foodIdx 값을 가져옴
   const [newComment, setNewComment] = useState(''); // 새로운 댓글을 위한 상태 정의
   const [comments, setComments] = useState([]); // 댓글 목록을 관리하기 위한 상태 정의
   const [editingComment, setEditingComment] = useState(null); // 수정 중인 댓글을 추적하기 위한 상태 정의
@@ -58,7 +58,7 @@ const DetailPage = ({ result }) => {
     const fetchBookmarkStatus = async () => {
       try {
         const response = await axios.get('http://localhost:4000/favorites/status', {
-          params: { user_id, foodIdx } // user_id와 foodIdx를 쿼리 파라미터로 전달
+          params: { user_id, food_Idx } // user_id와 foodIdx를 쿼리 파라미터로 전달
         });
         setIsBookmarked(response.data.isBookmarked); // 북마크 상태를 설정
       } catch (error) {
@@ -81,7 +81,7 @@ const DetailPage = ({ result }) => {
     fetchBookmarkStatus(); // 북마크 상태를 가져오는 함수 실행
     fetchDetails(); // 상세 정보를 가져오는 함수 실행
     getcomts(); // 댓글 데이터를 가져오는 함수 실행
-  }, [user_id, foodIdx]); // 의존성 배열에 user_id와 foodIdx를 지정하여 해당 값이 변경될 때마다 useEffect 실행
+  }, [user_id, food_Idx]); // 의존성 배열에 user_id와 foodIdx를 지정하여 해당 값이 변경될 때마다 useEffect 실행
 
   // 댓글 삭제 함수
   const delcomts = async (comments_idx) => {
@@ -159,17 +159,16 @@ const DetailPage = ({ result }) => {
   // 북마크 토글 함수
   const toggleBookmark = async () => {
     try {
-      const url = isBookmarked
-        ? 'http://localhost:4000/favorites/remove' // 북마크가 되어 있으면 제거 API 요청
-        : 'http://localhost:4000/favorites/add'; // 북마크가 되어 있지 않으면 추가 API 요청
-
-      const response = await axios.post(url, {
-        userId : user_id, // 유저 아이디
-        foodIdx : foodIdx // 음식 아이디
-      });
-
-      if (!response.data.success) { // 요청이 성공하지 않으면 오류 처리
-        throw new Error(isBookmarked ? '북마크를 제거할 수 없습니다.' : '북마크를 추가할 수 없습니다.');
+      if (isBookmarked) {
+        await axios.post('http://localhost:4000/favorites/remove', {
+          user_id,
+          food_Idx
+        });
+      } else {
+        await axios.post('http://localhost:4000/favorites/add', {
+          user_id,
+          food_Idx
+        });
       }
 
       // 상태 업데이트 : 북마크 추가/제거

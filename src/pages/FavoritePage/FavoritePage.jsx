@@ -4,6 +4,7 @@ import './FavoritePage.css';
 import TopBar from '../../components/TopBar/TopBar';
 import BottomBar from '../../components/BottomBar/BottomBar';
 
+
 const FavoritePage = () => {
     const [favorites, setFavorites] = useState([]);
 
@@ -25,10 +26,7 @@ const FavoritePage = () => {
     return (
         <div className='like_page_container'>
             <TopBar />
-
-            <div className='like_page_title'>
-                좋아요 목록
-            </div>
+            <div className='like_page_title'>좋아요 목록</div>
             <div className='like_page_1st_line'></div>
             <div className='favorites-list'>
                 {favorites.map((favorite) => (
@@ -38,7 +36,6 @@ const FavoritePage = () => {
                     </div>
                 ))}
             </div>
-            
             <BottomBar />
         </div>
     );
