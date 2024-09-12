@@ -30,6 +30,8 @@ const DetailPage = ({ result }) => {
     console.log('DetailPage에서 받은 결과:', result); // result 값 확인
 
     const fdid = result.food_idx; // result에서 food_idx를 가져옴
+    console.log('food_idx : ',fdid);
+    
 
     // 1. 댓글 데이터를 가져오는 함수
     const getcomts = async () => {
@@ -56,20 +58,21 @@ const DetailPage = ({ result }) => {
 
     // 2. 북마크 상태를 가져오는 함수
     const fetchBookmarkStatus = async () => {
+      const fdid = result.food_idx; // result에서 food_idx를 가져옴
       try {
-        const response = await axios.get('http://localhost:4000/favorites/status', {
-          params: { user_id, food_Idx } // user_id와 foodIdx를 쿼리 파라미터로 전달
+        const response = await axios.get('http://localhost:4000/favorites/check', {
+          params: { user_Id : user_id, food_Idx: fdid } // user_id와 foodIdx를 쿼리 파라미터로 전달
         });
         setIsBookmarked(response.data.isBookmarked); // 북마크 상태를 설정
       } catch (error) {
-        console.error('Error fetching bookmark status:', error);
+        console.error('북마크 상태 확인 오류 : ', error);
       }
     };
 
     // 3. 상세 정보를 가져오는 함수
     const fetchDetails = async () => {
       try {
-        const response = await axios.get('/api/details'); // 상세 정보를 가져오는 API 요청
+        const response = await axios.get(`/api/details?foodIdx=${fdid}`); // 상세 정보를 가져오는 API 요청
         setTitle(response.data.title); // 가져온 제목을 상태로 설정
         setSubtitle(response.data.subtitle); // 부제목을 상태로 설정
         setDescription(response.data.description); // 상세 설명을 상태로 설정
@@ -158,16 +161,17 @@ const DetailPage = ({ result }) => {
 
   // 북마크 토글 함수
   const toggleBookmark = async () => {
+    const fdid = result.food_idx; // 반환된 결과에서 food_idx를 가져옴
     try {
       if (isBookmarked) {
         await axios.post('http://localhost:4000/favorites/remove', {
-          user_id,
-          food_Idx
+          user_Id : user_id,
+          food_Idx : fdid
         });
       } else {
         await axios.post('http://localhost:4000/favorites/add', {
-          user_id,
-          food_Idx
+          user_Id : user_id,
+          food_Idx : fdid
         });
       }
 
