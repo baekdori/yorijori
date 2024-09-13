@@ -16,9 +16,9 @@ const checkFavorite = (user_Id, food_Idx, callback = defaultCallback) => {
 };
 
 // 북마크 추가 함수
-const addFavorite = (user_Id, food_Idx, callback = defaultCallback) => {
-    const query = 'INSERT INTO Favorites (user_id, food_idx, created_at) VALUES (?, ?, NOW())';
-    db.query(query, [user_Id, food_Idx], (err, results) => {
+const addFavorite = (user_Id, food_Idx, foodName, callback = defaultCallback) => {
+    const query = 'INSERT INTO Favorites (user_id, food_idx, food_name, created_at) VALUES (?, ?, ?, NOW())';
+    db.query(query, [user_Id, food_Idx, foodName], (err, results) => {
         if (err) {
             return callback(err); // 콜백이 함수로 전달되었는지 확인
         }
@@ -35,8 +35,17 @@ const removeFavorite = (user_Id, food_Idx, callback = defaultCallback) => {
     });
 };
 
+// 특정 사용자의 즐겨찾기 목록 조회 함수
+const getFavoriteByUser = (user_Id, callback = defaultCallback) => {
+    const query = 'SELECT food_idx, food_name, created_at FROM Favorites WHERE user_id = ?';
+    db.query(query, [user_Id], (err, results) => {
+        if(err) return callback(err);
+        callback(null, results);
+    });
+};
 module.exports = {
     checkFavorite,
     addFavorite,
-    removeFavorite
+    removeFavorite,
+    getFavoriteByUser
 };

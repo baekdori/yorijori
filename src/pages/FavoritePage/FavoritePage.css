@@ -1,46 +1,69 @@
 @font-face {
-    font-family: 'BMJUA';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  body {
-    margin: 0;
-    font-family: 'BM JUA_TTF', sans-serif;
-    overflow-x: hidden;
-  }
+  font-family: 'BMJUA'; /* 'BMJUA'라는 이름의 폰트 패밀리를 정의 */
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff'); /* 'BMJUA' 폰트의 경로와 형식을 설정 */
+  font-weight: normal; /* 폰트의 기본 두께를 설정 */
+  font-style: normal; /* 폰트 스타일을 일반으로 설정 */
+}
 
-  .like_page_container {
-    position: relative;
-    width: 600px;
-    padding-top : 70px;
-    margin: 10px auto; /* 상단바 위치 비우기 위해 margin 추가 */
-    box-sizing: border-box;
-  }
+@font-face {
+  font-family: 'Pretendard-Regular'; /* 'Pretendard-Regular' 폰트 패밀리를 정의 */
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff'); /* 'Pretendard-Regular' 폰트의 경로와 형식을 설정 */
+  font-weight: 400; /* 폰트 두께를 400으로 설정 */
+  font-style: normal; /* 폰트 스타일을 일반으로 설정 */
+}
 
-  .like_page_title {
-    position : relative;
-    bottom : 62px;
-    text-align: center;
-    font-family: 'BM JUA_TTF', sans-serif;
-    font-weight: regular;
-    font-size: 40px;
-    letter-spacing: -0.05em;
-    color: #434343;
-  }
+body {
+  margin: 0; /* 페이지 전체의 기본 여백을 없앰 */
+  font-family: 'BM JUA_TTF', sans-serif; /* 기본 폰트를 'BM JUA_TTF'로 설정하고, 없을 경우 sans-serif 폰트를 사용 */
+  overflow-x: hidden; /* 페이지의 가로 스크롤을 숨김 */
+}
 
-  .like_page_1st_line {
-    position :relative;
-    width: 100%;
-    height: 1px;
-    background-color: #FF8000;
-    bottom : 23px;
-  }
+.like_page_container {
+  position: relative; /* 부모 요소에 상대적인 위치 지정 */
+  width: 600px; /* 컨테이너의 너비를 600px로 설정 */
+  padding-top : 70px; /* 상단에 70px의 패딩을 추가 */
+  margin: 10px auto; /* 컨테이너를 상하로 10px, 좌우로 중앙 정렬 */
+  box-sizing: border-box; /* 패딩과 테두리의 크기를 요소의 총 크기에 포함 */
+}
+
+.like_page_title {
+  position : relative; /* 부모 요소에 상대적인 위치 지정 */
+  bottom : 62px; /* 요소를 아래로 62px 이동 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+  font-family: 'BM JUA_TTF', sans-serif; /* 제목 폰트를 'BM JUA_TTF'로 설정 */
+  font-weight: regular; /* 폰트 두께를 일반으로 설정 */
+  font-size: 40px; /* 폰트 크기를 40px로 설정 */
+  letter-spacing: -0.05em; /* 글자 간격을 약간 좁게 설정 */
+  color: #434343; /* 글자 색상을 어두운 회색(#434343)으로 설정 */
+}
+.favorite-item{
+  position : relative;
+  display: flex; /* flexbox로 설정 */
+  height : 200px;
+  height: 150px;
+  margin-bottom : 70px;
+}
+.fav-food-idx, .fav-food-name, .fav-food-date{
+  flex-direction: column; /* 요소들을 세로로 정렬 */
+  z-index: 10;
+}
+.favorite-img{
+  height : auto;
+  width : 100%;
+  z-index: -10;
+}
+
+.like_page_1st_line {
+  position :relative; /* 부모 요소에 상대적인 위치 지정 */
+  width: 100%; /* 요소의 너비를 100%로 설정 */
+  height: 1px; /* 요소의 높이를 1px로 설정 */
+  background-color: #FF8000; /* 배경 색상을 주황색(#FF8000)으로 설정 */
+  bottom : 23px; /* 요소를 아래로 23px 이동 */
+}
+
+.like_page_2nd_line {
+  position :absolute; /* 부모 요소에 대한 절대적인 위치 지정 */
+  width: 100%; /* 요소의 너비를 100%로 설정 */
+  height: 1px; /* 요소의 높이를 1px로 설정 */
+  background-color: #FF8000; /* 배경 색상을 주황색(#FF8000)으로 설정 */
+}

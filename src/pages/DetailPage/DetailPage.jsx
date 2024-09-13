@@ -18,8 +18,10 @@ const DetailPage = ({ result }) => {
   const [subtitle, setSubtitle] = useState(''); // 상세 페이지 부제목을 관리하는 상태 정의
   const [description, setDescription] = useState(''); // 상세 설명을 위한 상태 정의
 
+  const foodName = result.food_name;
   const seUser = sessionStorage.getItem('user'); // 세션 스토리지에서 유저 아이디를 가져옴
-  console.log('디테일에서 확인한 세션아이디 저장값', seUser);
+  console.log('디테일에서 확인한 세션아이디 저장값', seUser, foodName);
+  
 
   const user_id = seUser; // 가져온 유저 아이디를 변수로 저장
 
@@ -30,7 +32,8 @@ const DetailPage = ({ result }) => {
     console.log('DetailPage에서 받은 결과:', result); // result 값 확인
 
     const fdid = result.food_idx; // result에서 food_idx를 가져옴
-    console.log('food_idx : ',fdid);
+    
+    console.log('food_idx : ',fdid,fdnm);
     
 
     // 1. 댓글 데이터를 가져오는 함수
@@ -162,16 +165,19 @@ const DetailPage = ({ result }) => {
   // 북마크 토글 함수
   const toggleBookmark = async () => {
     const fdid = result.food_idx; // 반환된 결과에서 food_idx를 가져옴
+    const foodName = result.food_name;     // 음식 이름
     try {
       if (isBookmarked) {
         await axios.post('http://localhost:4000/favorites/remove', {
           user_Id : user_id,
-          food_Idx : fdid
+          food_Idx : fdid,
+          food_name : foodName
         });
       } else {
         await axios.post('http://localhost:4000/favorites/add', {
           user_Id : user_id,
-          food_Idx : fdid
+          food_Idx : fdid,
+          food_name : foodName
         });
       }
 

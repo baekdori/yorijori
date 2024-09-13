@@ -121,6 +121,7 @@ function RecipeAddPage() {
     };
 
     return (
+        <div>
         <div className="recipe-add-page">
             <TopBar /> {/* 상단 바 컴포넌트 */}
             <h1 className="recipe-title">레시피 작성</h1>
@@ -161,6 +162,7 @@ function RecipeAddPage() {
                 </div>
             </form>
             <BottomBar /> {/* 하단 바 컴포넌트 */}
+        </div>
         </div>
     );
 }
