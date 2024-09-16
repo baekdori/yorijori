@@ -33,10 +33,10 @@ const FavoritePage = () => {
                         <div>
                         <h3 className='fav-food-idx'>음식 번호: {favorite.food_idx}</h3>
                         <p className='fav-food-name'>음식 이름: {favorite.food_name}</p>
-                        <span className='fav-food-date'>등록 일자: {new Date(favorite.created_at).toLocaleDateString()}</span>
-                        <img src = '/static/img/DakGalbi.jpg' className='favorite-img'></img>
+                        <span className='fav-food-date'>등록 일자: {new Date(favorite.created_at).toLocaleDateString()}</span>            
+                        <img src = '/static/img/DakGalbi.jpg' className='favorite-img' />
+                        
                         </div>
-                        <div className='like_page_2nd_line'></div>
                     </div>
                     
                 ))}

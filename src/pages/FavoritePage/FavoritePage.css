@@ -41,15 +41,21 @@ body {
   display: flex; /* flexbox로 설정 */
   height : 200px;
   height: 150px;
-  margin-bottom : 70px;
+  margin-bottom : 50px;
+  overflow: hidden;
 }
 .fav-food-idx, .fav-food-name, .fav-food-date{
-  flex-direction: column; /* 요소들을 세로로 정렬 */
-  z-index: 10;
+  top : 10px;
+  position : relative;
+  left : 20px;
+  z-index: 1;
 }
 .favorite-img{
+  position :relative; /* 부모 요소에 상대적인 위치 지정 */
+  align-items: center;
+  bottom : 200px;
   height : auto;
-  width : 100%;
+  width : auto;
   z-index: -10;
 }
 
@@ -59,11 +65,4 @@ body {
   height: 1px; /* 요소의 높이를 1px로 설정 */
   background-color: #FF8000; /* 배경 색상을 주황색(#FF8000)으로 설정 */
   bottom : 23px; /* 요소를 아래로 23px 이동 */
-}
-
-.like_page_2nd_line {
-  position :absolute; /* 부모 요소에 대한 절대적인 위치 지정 */
-  width: 100%; /* 요소의 너비를 100%로 설정 */
-  height: 1px; /* 요소의 높이를 1px로 설정 */
-  background-color: #FF8000; /* 배경 색상을 주황색(#FF8000)으로 설정 */
 }
