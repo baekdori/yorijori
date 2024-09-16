@@ -49,14 +49,35 @@ body {
   position : relative;
   left : 20px;
   z-index: 1;
+  color : black; /* 문자열 기본 색상 */
+  padding : 5px; /* 테두리를 위한 약간의 패딩 */
+  transition : color 0.3s ease, text-shadow 0.3s ease; /* 색상과 테두리 변경 애니메이션 */
 }
+
+.favorite-item:hover .fav-food-idx,
+.favorite-item:hover .fav-food-name,
+.favorite-item:hover .fav-food-date{
+  color : white;
+  text-shadow : /* 문자열 자체에 테두리를 추가하는 것처럼 효과를 주는 text-shadow */
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
 .favorite-img{
   position :relative; /* 부모 요소에 상대적인 위치 지정 */
   align-items: center;
   bottom : 200px;
   height : auto;
   width : auto;
-  z-index: -10;
+  z-index: -1;
+  opacity: 0.5; /* 기본 opacity 설정 */
+  transition: opacity 0.3s ease; /* opacity 변화에 애니메이션 추가 */
+}
+
+.favorite-item :hover .favorite-img{
+  opacity : 1;
 }
 
 .like_page_1st_line {
