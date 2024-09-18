@@ -148,34 +148,31 @@ const MainPage = ({ setSelectedResult }) => {
   };
 
   // 키워드 검색 결과를 렌더링하는 함수
-  const renderSearchResults = () => {
-    console.log('키워드 검색 결과요: ', searchResults); // 디버깅을 위해 검색 결과를 콘솔에 출력
-    const rows = [];
-    for (let i = 0; i < searchResults.length; i += 2) {
-      rows.push(searchResults.slice(i, i + 1)); // 검색 결과를 두 개씩 묶어서 행으로 만듦
-    }
-    return (
-      <div className="search-results-container">
-        {rows.length > 0 ? ( // 검색 결과가 있을 경우
-          rows.map((row, rowIndex) => (
-            <div key={rowIndex} className="search-results-row">
-              {row.map((result) => (
-                <div key={result.food_idx} className="result-square" onClick={() => handleResultClick(result)}>
-                  <div className="result-square-text">
-                    <h3>{result.food_name}</h3>
-                  </div>
-                </div>
-              ))}
+const renderSearchResults = () => {
+  console.log('키워드 검색 결과요: ', searchResults); // 디버깅을 위해 검색 결과를 콘솔에 출력
+   
+  return (
+    <div className="search-results-list">
+      {searchResults.length > 0 ? ( // 검색 결과가 있을 경우
+        searchResults.map((result) => (
+          <div className='search-results-container' >
+          <div key={result.food_idx} className="result-square" onClick={() => handleResultClick(result)}>         
+            <div className="result-square-text">
+            <img src='/static/img/DakGalbi.jpg' className='search-result-img' />
+              <h3>{result.food_name}</h3>
             </div>
-          ))
-        ) : (
-          <div className="result-square">
-            <div className="result-square-text">검색 결과가 없습니다.</div> {/* 검색 결과가 없을 때 표시 */}
           </div>
-        )}
-      </div>
-    );
-  };
+          </div>
+        ))
+      ) : (
+        <div className="result-square">
+          <div className="result-square-text">검색 결과가 없습니다.</div> {/* 검색 결과가 없을 때 표시 */}
+        </div>
+      )}
+    </div>
+  );
+};
+
 
   // 비주얼 검색 결과를 렌더링하는 함수
   const renderVisualSearchResults = () => {

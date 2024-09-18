@@ -132,7 +132,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .searching-input input {
-  height: 100px;
+  height: 80px;
   border: none;
   background-color: rgba(255, 255, 255, 0);
   padding: 0;
@@ -296,9 +296,12 @@ body::-webkit-scrollbar-thumb {
 }
 
 .search-result-box {
-  width: 270px; /* 너비 */
-  height: 270px; /* 높이 */
-  background-color: #434343; /* 배경 색상 */
+  position : relative;
+  display: flex; /* flexbox로 설정 */
+  height : 200px;
+  height: 150px;
+  margin-bottom : 50px;
+  overflow: hidden;
   border-radius: 50px; /* 모서리 반경 */
   display: flex;
   align-items: center;
@@ -493,33 +496,45 @@ body::-webkit-scrollbar-thumb {
   margin-right: 0;
 }
 
-.search-results-container {
-  display: grid;
-  position: absolute;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
-  grid-auto-rows: 270px; /* Fixed height for each row */
-  gap: 40px; /* 40px gap between columns and rows */
-  top: 610px;
-  left: 118px;
-  width: 580px; /* Adjust width as needed */
-  /* Height is not set; container will grow based on its content */
+.search-results-container, .vs-results-container {
+  bottom : 400px;
+  position: relative; /* 부모 요소에 상대적인 위치 지정 */
+  width: 600px; /* 컨테이너의 너비를 600px로 설정 */
+  padding-top : 30px; /* 상단에 70px의 패딩을 추가 */
+  margin: 10px auto; /* 컨테이너를 상하로 10px, 좌우로 중앙 정렬 */
+  box-sizing: border-box; /* 패딩과 테두리의 크기를 요소의 총 크기에 포함 */
+  border-radius: 20px;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.result-square, .vs-search-result-box {
+  position : relative;
+  display: flex; /* flexbox로 설정 */
+  width : 600px;
+  height: 150px;
+  margin-bottom : 50px;
+  overflow: hidden;
   background-color: transparent;
-  border: none;
-  z-index: 3;
 }
 
-.result-square {
-  flex: 1; /* Allow squares to take up available space evenly */
-  width: 270px;
-  height: 270px;
-  background-color: #D6D6D6;
-  border-radius: 50px;
-  position: absolute;
-  margin: 0 auto;
-  z-index: 3;
+.search-result-img, .vs-result-img{
+  position :absolute; /* 부모 요소에 상대적인 위치 지정 */
+  bottom : -300px;
+  height : auto;
+  left : 0px;
+  width : 600px;
+  opacity: 1; /* 기본 opacity 설정 */
+  z-index: -1;
+  transition: opacity 0.3s ease; /* opacity 변화에 애니메이션 추가 */
 }
 
-.result-square:hover {
+.search-results-container:hover, .vs-results-container:hover .search-result-img, .vs-result-img{
+  opacity : 1;
+}
+
+
+.result-square:hover , .vs-search-result-box:hover{
   background: linear-gradient(to top, 
     rgba(255, 128, 0, 1) 0%, 
     rgba(255, 128, 0, 0.6) 15%, 
@@ -528,10 +543,10 @@ body::-webkit-scrollbar-thumb {
   z-index: 3;
 }
 
-.result-square-text {
+.result-square-text, .vs-search-result-text {
   position: absolute;
   bottom: 10px;
-  width: 260px;
+  width: 100%;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'BM JUA_TTF', sans-serif;
@@ -545,7 +560,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .result-square-idx {
-  position: absolute;
+  position: relative;
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
@@ -675,64 +690,4 @@ body::-webkit-scrollbar-thumb {
 .vs-results-container.fade-in {
   opacity: 1;
   transition: opacity 0.5s ease-in;
-}
-
-.vs-results-container {
-  display: grid;
-  position: absolute;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
-  grid-auto-rows: 270px; /* Fixed height for each row */
-  gap: 40px; /* 40px gap between columns and rows */
-  top: 610px;
-  left: 118px;
-  width: 580px; /* Adjust width as needed */
-  /* Height is not set; container will grow based on its content */
-  background-color: transparent;
-  border: none;
-  z-index: 3;
-  padding-bottom: 100px;
-}
-
-.vs-results-row {
-  height: 270px;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.vs-search-result-box {
-  border-radius: 50px;
-  flex: 1; /* Allow squares to take up available space evenly */
-  width: 270px;
-  height: 270px;
-  background-color: #D6D6D6;
-  border-radius: 50px;
-  position: absolute;
-  margin: 0 auto;
-  z-index: 3;
-}
-
-.vs-search-result-box:hover {
-  background: linear-gradient(to top, 
-    rgba(255, 128, 0, 1) 0%, 
-    rgba(255, 128, 0, 0.6) 15%, 
-    rgba(255, 128, 0, 0) 30%);
-  transition: background 1s ease-in-out;
-  z-index: 3;
-}
-
-.vs-search-result-text {
-  position: absolute;
-  bottom: 10px;
-  width: 260px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'BM JUA_TTF', sans-serif;
-  font-weight: regular;
-  font-size: 28px;
-  letter-spacing: -0.05em;
-  color: #000000;
-  user-select: none;
-  text-align: center;
-  z-index: 3;
 }

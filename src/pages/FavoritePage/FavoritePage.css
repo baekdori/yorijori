@@ -39,7 +39,6 @@ body {
 .favorite-item{
   position : relative;
   display: flex; /* flexbox로 설정 */
-  height : 200px;
   height: 150px;
   margin-bottom : 50px;
   overflow: hidden;
