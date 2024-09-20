@@ -523,8 +523,8 @@ body::-webkit-scrollbar-thumb {
   bottom : -300px;
   height : auto;
   left : 0px;
-  width : 600px;
-  opacity: 1; /* 기본 opacity 설정 */
+  max-width : 800px;
+  opacity: 0.6; /* 기본 opacity 설정 */
   z-index: -1;
   transition: opacity 0.3s ease; /* opacity 변화에 애니메이션 추가 */
 }
@@ -553,10 +553,21 @@ body::-webkit-scrollbar-thumb {
   font-weight: regular;
   font-size: 28px;
   letter-spacing: -0.05em;
-  color: #000000;
+  color : black; /* 문자열 기본 색상 */
+  padding : 5px; /* 테두리를 위한 약간의 패딩 */
+  transition : color 0.3s ease, text-shadow 0.3s ease; /* 색상과 테두리 변경 애니메이션 */
   user-select: none;
   text-align: center;
   z-index: 3;
+}
+
+.search-results-container:hover .result-square-text, .vs-results-container:hover .vs-search-result-text{
+  color : white;
+  text-shadow : /* 문자열 자체에 테두리를 추가하는 것처럼 효과를 주는 text-shadow */
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .result-square-idx {

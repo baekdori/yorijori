@@ -158,7 +158,7 @@ const renderSearchResults = () => {
           <div className='search-results-container' >
           <div key={result.food_idx} className="result-square" onClick={() => handleResultClick(result)}>         
             <div className="result-square-text">
-            <img src='/static/img/DakGalbi.jpg' className='search-result-img' />
+            <img src={result.ingre_img} className='vs-result-img' alt='food-img'/>
               <h3>{result.food_name}</h3>
             </div>
           </div>
@@ -177,22 +177,17 @@ const renderSearchResults = () => {
   // 비주얼 검색 결과를 렌더링하는 함수
   const renderVisualSearchResults = () => {
     console.log('비주얼 검색 결과 : ', visualSearchResults); // 디버깅을 위해 비주얼 검색 결과를 콘솔에 출력
-    const rows = [];
-    for (let i = 0; i < visualSearchResults.length; i += 2) {
-      rows.push(visualSearchResults.slice(i, i + 1)); // 검색 결과를 두 개씩 묶어서 행으로 만듦
-    }
     return (
-      <div className="vs-results-container">
-        {rows.length > 0 ? ( // 검색 결과가 있을 경우
-          rows.map((row, rowIndex) => (
-            <div key={rowIndex} className="vs-results-row">
-              {row.map((result) => (
-                <div key={result.food_idx} className="vs-search-result-box" onClick={() => handleResultClick(result)}>
-                  <div className="vs-search-result-text">
-                    <h3>{result.food_name}</h3>
-                  </div>
-                </div>
-              ))}
+      <div className="vs-results-list">
+        {visualSearchResults.length > 0 ? ( // 검색 결과가 있을 경우
+          visualSearchResults.map((result) => (
+            <div className='vs-results-container' >
+            <div key={result.food_idx} className="vs-search-result-box" onClick={() => handleResultClick(result)}>         
+              <div className="vs-search-result-text">
+              <img src={result.ingre_img} className='vs-result-img' alt='food-img'/>
+                <h3>{result.food_name}</h3>
+              </div>
+            </div>
             </div>
           ))
         ) : (
