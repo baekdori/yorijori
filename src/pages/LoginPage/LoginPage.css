@@ -19,22 +19,22 @@ body {
 }
 
 .login_page_container {
-  position: relative;
-  width: 600px;
-  padding-top: 70px;
-  margin: 10px auto;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 자식 요소를 X축에서 중앙 정렬 */
+  position: relative; /* 부모 요소에 상대적인 위치 지정 */
+  width: 600px; /* 컨테이너의 너비를 600px로 설정 */
+  padding-top : 70px; /* 상단에 70px의 패딩을 추가 */
+  margin: 10px auto; /* 컨테이너를 상하로 10px, 좌우로 중앙 정렬 */
+  box-sizing: border-box; /* 패딩과 테두리의 크기를 요소의 총 크기에 포함 */
 }
 
-.logo-b {
-  width: 375px;
-  height: auto;
-
-  display: block; /* flex 대신 block으로 변경 */
-  margin: 0 auto; /* X축에서 중앙 정렬 */
+.login_page_title {
+  position : relative; /* 부모 요소에 상대적인 위치 지정 */
+  bottom : 62px; /* 요소를 아래로 62px 이동 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+  font-family: 'BM JUA_TTF', sans-serif; /* 제목 폰트를 'BM JUA_TTF'로 설정 */
+  font-weight: regular; /* 폰트 두께를 일반으로 설정 */
+  font-size: 40px; /* 폰트 크기를 40px로 설정 */
+  letter-spacing: -0.05em; /* 글자 간격을 약간 좁게 설정 */
+  color: #434343; /* 글자 색상을 어두운 회색(#434343)으로 설정 */
 }
 
 .login_page_title {
@@ -56,12 +56,13 @@ body {
 
 .group {
   width: 100%;
+  margin-top : 150px;
 }
 
 
 
 /* 입력필드 */
-.input-field-l {
+.input-field-id,.input-field-pw {
   width: 100%;
   padding: 10px 40px 10px 40px;
   border-radius: 30px;
@@ -70,7 +71,7 @@ body {
   border: 2px solid transparent; /* 기본 테두리 제거 */
 }
 
-.input-field-l:focus {
+.input-field-id:focus, .input-field-pw:focus {
   border: 2px solid transparent; /* 포커스 시 테두리 제거 */
   outline: none; /* 포커스 시 브라우저 기본 테두리 제거 */
 }
@@ -109,23 +110,66 @@ margin: 0 5px; /* 구분자 사이의 여백을 설정 */
 
 
 /* 입력칸 주황테두리 css */
-.view-l, .view-2-l {
-  background-color: #ffffff;
-  border: 2px solid #ff8000;
+.id-input, .pw-input {
+  background-color: transparent;
+  border: 2px solid #f0f0f0;
   border-radius: 20px;
   height: 60px; /* 고정 높이 */
   width: 70vw; /* 뷰포트 너비의 80% */
-  max-width: 550px; /* 최대 너비 */
+  max-width: 600px; /* 최대 너비 */
   display: flex;
   align-items: center;
-  padding: 0 15px; /* 좌우 패딩 */
+  padding: 0 30px; /* 좌우 패딩 */
   box-sizing: border-box;
   margin-bottom: 15px; /* 각 요소 사이의 간격 */
   font-family: 'Pretendard-Regular';
+  transition: border-color 0.3s ease; /* 색상 변경 시 부드러운 전환 */
 }
+
+.id-input.focused, .pw-input.focused {
+  border-color: #ff8000; /* 포커스 시 색상 변경 */
+}
+
 
 .loginuser, .lock {
   width: 50px; /* 너비를 100px로 설정 */
   height: auto; /* 높이는 자동으로 설정 */
   padding-left: 20px;
+}
+
+.signin-btn, .login-submit-btn {
+  position : relative;
+  left : 0px;
+  width: 600px;
+  top : 22px;
+  height: 80px;
+  background-color:  #f0f0f0;
+  border-color: transparent;
+  font-family: 'BMJUA', sans-serif;
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition : background-color 0.3s ease;
+}
+
+.signin-btn:hover, .login-submit-btn:hover{
+  background-color: #ff8000;
+}
+
+.login-submit-btn{
+  margin-bottom:30px;
+}
+.login-signin-buttons-assembly{
+  margin-top: 116px;
+}
+
+/* 로그인 버튼 초기 상태 비활성화용 */
+.pw-input, .options, .login-submit-btn {
+  opacity : 0; /* 초기 투명도 */
+  pointer-events: none; /* 클릭 불가 */
+  transition : opacity 0.3s ease; /* 부드러운 전환 */
 }

@@ -13,6 +13,11 @@ const LoginPage = () => {
     password: ''
   });
 
+  const [idInputFocused, setIdInputFocused] = useState(false); // id-input 칸 색상 변경 상태
+  const [pwInputFocused, setPwInputFocused] = useState(false); // pw-input 칸 색상 변경 상태  
+  const [idHasText, setIdHasText] = useState(false); // 문자열이 입력된 상태
+  const [pwHasText, setPwHasText] = useState(false); // 문자열이 입력된 상태 
+
   // 입력 값 변경을 처리하는 함수
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +26,12 @@ const LoginPage = () => {
       ...formData,
       [name]: value
     });
+     // input 칸에 문자열이 있는지 확인하여 상태 설정
+    if (name === 'user_id'){
+      setIdHasText(value.length > 0); // user_id에 문자열이 있으면 true, 없으면 false
+    } else if (name === 'user_pw'){
+      setPwHasText(value.length > 0); // user_pw에 문자열이 있으면 true, 없으면 false
+    }
   };
 
   // 로그인 처리 함수 (API 호출)
@@ -62,12 +73,11 @@ const LoginPage = () => {
 
       <div className="login_page_container">
       <TopBar />
-        <img className="logo-b" alt="Logo s" src="/static/img/logo-s.png" />
-
+      <div className='login_page_title'>로그인</div>
       
       <form>
         <div className="group">
-          <div className="view-l">
+          <div className={`id-input ${idInputFocused || idHasText ? 'focused' : ''}`} >
           <img className="loginuser" alt="loginuser" src="/static/img/loginuser.png" />
             <input
               type="text"
@@ -76,12 +86,15 @@ const LoginPage = () => {
               placeholder="아이디 입력"
               value={formData.user_id}
               onChange={handleChange}
+              onFocus={() => setIdInputFocused(true)} // input 클릭 시 테두리 색상 전환
+              onBlur={() => setIdInputFocused(false)} // 클릭 해제 시 테두리 색상 전환
               required
-              className="input-field-l"
+              className="input-field-id"
             />
           </div>
 
-          <div className="view-2-l">
+          <div className={`pw-input ${pwInputFocused || pwHasText ? 'focused' : ''}`}
+               style={{opacity : idHasText ? 1 : 0, pointerEvents : idHasText ? 'auto' : 'none'}}>
           <img className="lock" alt="lock" src="/static/img/lock.png" />
             <input
               type="password"
@@ -90,12 +103,15 @@ const LoginPage = () => {
               placeholder="비밀번호 입력"
               value={formData.user_pw}
               onChange={handleChange}
+              onFocus={() => setPwInputFocused(true)}
+              onBlur={() => setPwInputFocused(false)}
               required
-              className="input-field-l"
+              className="input-field-pw"
             />
           </div>
 
-          <div className="options">
+          <div className="options"
+               style={{opacity : pwHasText ? 1 : 0, pointerEvents : pwHasText ? 'auto' : 'none'}}>
             <label>
               <input type="checkbox" name="remember" />
               아이디 저장
@@ -106,9 +122,11 @@ const LoginPage = () => {
             <a href="/find-password" className="link">비밀번호 찾기</a>
             </div>
           </div>
-           
-          <button type="submit" onClick={handleLogin} className="view-10">로그인</button>
-          <button type="button" onClick={handleSignup} className="view-9">회원가입</button>
+          <div className='login-signin-buttons-assembly'>
+          <button type="submit" onClick={handleLogin} className="login-submit-btn"
+                  style={{opacity : pwHasText ? 1 : 0, pointerEvents : pwHasText ? 'auto' : 'none'}}>로그인</button>
+          <button type="button" onClick={handleSignup} className="signin-btn">회원가입</button>
+          </div>
         </div>
       </form>
 
