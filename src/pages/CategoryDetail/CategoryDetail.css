@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'BM JUA_TTF', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .ctg_detail_container {
+    position: relative;
+    width: 600px;
+    padding-top : 70px;
+    margin: 10px auto; /* 상단바 위치 비우기 위해 margin 추가 */
+    box-sizing: border-box;
+  }
+
+  .ctg_detail_title {
+    position : relative;
+    bottom : 62px;
+    text-align: center;
+    font-family: 'BM JUA_TTF', sans-serif;
+    font-weight: regular;
+    font-size: 40px;
+    letter-spacing: -0.05em;
+    color: #434343;
+  }
+
+  .ctg_detail_1st_line {
+    position :relative;
+    width: 100%;
+    height: 1px;
+    background-color: #FF8000;
+    bottom : 23px;
+  }

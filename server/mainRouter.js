@@ -99,12 +99,16 @@ app.use('/random-food-idx', recommendRouter);
 // 즐겨찾기 라우터(지훈)
 const favoriteRouter = require('./routes/favoriteList');
 app.use('/favorites', favoriteRouter);
-console.log('즐겨찾기 라우터 연결 : ');
+console.log('즐겨찾기 라우터 연결 : /favorite');
 
+// 카테고리 라우터(종호)
+const categoryRouter = require('./routes/category');  // category.js 파일에서 정의한 카테고리 라우터를 불러옴
+app.use('/category', categoryRouter);  // '/category' 경로로 들어오는 요청을 categoryRouter로 처리
+console.log('카테고리 라우터 연결 : /routes/category');  // 콘솔에 라우터가 연결되었다고 출력
 
 app.use(express.json()); // JSON 요청을 파싱
 
-// 북마크 토글 API
+// 북마크 토글 API(종호)
 app.post('/api/favorites/toggle', (req, res) => {
     const { userId, foodIdx } = req.body;
 
@@ -142,11 +146,11 @@ app.post('/api/favorites/toggle', (req, res) => {
 });
 
 
-// 서버 시작
+// 서버 시작(종호)
 app.listen(port, () => {
   console.log(`백앤드 서버 시작 포트: http://localhost:${port}`);// 실행하는 포트를 확인시켜줌
 });
 
-// 레시피 작성 페이지의 로그인 확인
+// 레시피 작성 페이지의 로그인 확인(종호)
 const SessionCheckRouter = require('./routes/SessionCheckRouter');
 app.use('/user', SessionCheckRouter);
