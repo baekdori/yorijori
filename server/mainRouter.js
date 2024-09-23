@@ -146,3 +146,7 @@ app.post('/api/favorites/toggle', (req, res) => {
 app.listen(port, () => {
   console.log(`백앤드 서버 시작 포트: http://localhost:${port}`);// 실행하는 포트를 확인시켜줌
 });
+
+// 레시피 작성 페이지의 로그인 확인
+const SessionCheckRouter = require('./routes/SessionCheckRouter');
+app.use('/user', SessionCheckRouter);

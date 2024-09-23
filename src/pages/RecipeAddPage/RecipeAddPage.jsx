@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'; // React에서 필�
 import './RecipeAddPage.css'; // 스타일시트를 불러옴
 import BottomBar from '../../components/BottomBar/BottomBar'; // 하단 바 컴포넌트를 불러옴
 import TopBar from '../../components/TopBar/TopBar'; // 상단 바 컴포넌트를 불러옴
+import { useNavigate } from 'react-router-dom';
 
 function RecipeAddPage() {
     // 입력한 정보를 관리하기 위한 상태 저장 공간
@@ -14,6 +15,34 @@ function RecipeAddPage() {
     const [coverImageName, setCoverImageName] = useState(''); // 대표 이미지 파일명을 저장하는 상태 변수
     const [recipeImages, setRecipeImages] = useState([]); // 여러 레시피 이미지를 저장하는 상태 변수
 
+    const navigate = useNavigate(); // 리다이렉트를 위한 navigate 생성
+    // 로그인 여부 확인
+    const [isLogin, setIsLogin] = useState(false);
+
+    useEffect(() => {
+        const checkLogin = async () => {
+            try{
+                const response = await fetch('http://localhost:4000/user/check-session', {
+                    method : 'GET',
+                    credentials : 'include' // 세션 정보가 포함된 요청을 보냄
+                });
+                if (response.ok){
+                    const data = await response.json();
+                    if (data.isLogin){
+                        setIsLogin(true);
+                    }else{
+                        alert('로그인 후 사용 가능합니다.');
+                        navigate('/login'); // 로그인 페이지로 리다이렉트
+                    }
+                }else{
+                    throw new Error('Failed to check login status');
+                }
+            }catch (error){
+                console.log('Error checking login status', error);
+            }
+        };
+        checkLogin();
+    }, [navigate]);
     const recipeInputRef = useRef(null); // useRef로 textarea 요소를 참조하여 직접 DOM 조작에 사용
 
     const handleCoverImageChange = (e) => { // 대표 이미지가 변경되었을 때 실행되는 함수

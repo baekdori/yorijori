@@ -489,7 +489,7 @@ const renderSearchResults = () => {
             src={imageSrc}
             alt={`foodpic-${index}`}
             loading="lazy"
-            style={{width : '100%', height : 'auto', opacity : '0.3'}}>
+            style={{width : '100%', height : 'auto', opacity : '0.05'}}>
           </img>
         </Suspense>
        ))}
