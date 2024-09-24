@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';  // React와 훅(hook) 불�
 import './CategoryPage.css';  // 스타일링 파일 불러오기
 import TopBar from '../../components/TopBar/TopBar';  // 상단 바 컴포넌트
 import BottomBar from '../../components/BottomBar/BottomBar';  // 하단 바 컴포넌트
+import { useNavigate } from 'react-router-dom';
 
 const CategoryPage = () => {
     const [categories, setCategories] = useState([]);  // 카테고리 데이터를 저장할 상태 변수
+    const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate
 
     // 카테고리 목록을 API에서 가져오는 함수 (비동기 함수)
     const fetchCategories = async () => {
@@ -24,6 +26,10 @@ const CategoryPage = () => {
     useEffect(() => {
         fetchCategories();  // 카테고리 데이터를 불러오는 함수를 호출
     }, []);
+
+    const handleCategoryClick = (categoryId) => {
+        navigate(`/category/${categoryId}`); // 클릭한 카테고리의 ID를 URL에 포함
+    }
     
     return (
         <div className='ctg_page_container'>
@@ -35,7 +41,8 @@ const CategoryPage = () => {
             <div className='ctg_list'>
                 {categories.length > 0 ? (  // 카테고리 데이터가 있을 경우에만 렌더링
                     categories.map((category) => (
-                        <div key={category.id} className='ctg_item'>
+                        <div key={category.id} className='ctg_item'
+                             onClick={() => handleCategoryClick(category.id)}>
                             {category.name}  {/* 카테고리 이름 출력 */}
                         </div>
                     ))

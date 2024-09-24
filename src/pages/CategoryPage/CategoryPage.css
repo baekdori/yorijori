@@ -37,6 +37,14 @@
     color: #434343;
   }
 
+  .ctg-item{
+    position : relative;
+    display: flex; /* flexbox로 설정 */
+    height: 150px;
+    margin-bottom : 50px;
+    overflow: hidden;
+  }
+
   .ctg_page_1st_line {
     position :relative;
     width: 100%;
