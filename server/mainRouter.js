@@ -7,7 +7,9 @@ const fs = require('fs');
 const { sessionMiddleware, cookieParser } = require('./session');
 const port = 4000;  // 4000포트 오픈
 const favorite = require('./model/favorite')
+const favtodetail = require('./routes/favtodetail')
 const app = express();
+
 
 // 미들웨어 설정
 app.use(express.urlencoded({ extended: true })); 
@@ -105,6 +107,11 @@ console.log('즐겨찾기 라우터 연결 : /favorite');
 const categoryRouter = require('./routes/category');  // category.js 파일에서 정의한 카테고리 라우터를 불러옴
 app.use('/category', categoryRouter);  // '/category' 경로로 들어오는 요청을 categoryRouter로 처리
 console.log('카테고리 라우터 연결 : /routes/category');  // 콘솔에 라우터가 연결되었다고 출력
+
+// 즐겨찾기에 저장된 레시피 인덱스로 바로 레시피 조회 라우터(종호)
+const favtodetailRouter = require('./routes/findByFoodIdx');
+app.use('/foods/find', favtodetailRouter);
+console.log('즐겨찾기에 저장된 레시피 인덱스로 바로 레시피 조회 라우터 연결 : /foods/find')
 
 app.use(express.json()); // JSON 요청을 파싱
 

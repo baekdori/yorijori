@@ -58,6 +58,17 @@ const foods = {
         const query = `SELECT * FROM Foods WHERE ${conditions}`;
 
         conn.query(query, values, callback);
+    },
+    // 6. 인덱스로 조회 API(즐겨찾기에서 바로 레시피 조회용)
+    findFoodByIdx: (food_idx, callback) => {
+        const sql = `SELECT * FROM Foods WHERE food_idx = ?`;
+        conn.query(sql, [food_idx], (err, results) => {
+            if (err) {
+                console.error('데이터 검색 중 오류 발생:', err);
+                return callback(err, null);
+            }
+            callback(null, results);
+        });
     }
     
 };
