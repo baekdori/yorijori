@@ -30,7 +30,7 @@ function App() {
             <Route path="/CategoryPage" element={<CategoryPage />} />
             <Route path="/category/:categoryId" element={<CategoryDetail />} />
             <Route path="/favorites" element={<FavoritePage />} />
-            <Route path="/DetailPage" element={<DetailPage result={selectedResult} />} />
+            <Route path="/DetailPage/:food_idx" element={<DetailPage result={selectedResult} />} />
             <Route path="/RecipeAddPage" element={<RecipeAddPage />} />
           </Routes>
         </Suspense>

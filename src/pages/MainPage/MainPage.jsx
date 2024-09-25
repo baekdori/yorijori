@@ -202,7 +202,7 @@ const renderSearchResults = () => {
   // 검색 결과 클릭 시 처리 함수
   const handleResultClick = (result) => {
     setSelectedResult(result); // 클릭된 결과를 상태로 저장
-    navigate('/DetailPage'); // 상세 페이지로 이동
+    navigate(`/DetailPage/${result.food_idx}`); // 상세 페이지로 이동
   };
 
   // 키워드 검색 모드로 전환하는 함수
