@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -33,7 +34,7 @@ function App() {
             <Route path="/CategoryPage" element={<CategoryPage />} />
             <Route path="/category/:categoryId" element={<CategoryDetail setCateTodetailResult={setCateTodetailResult} />} />
             <Route path="/favorites" element={<FavoritePage setFavtodetailResult={setFavtodetailResult} />} />
-            <Route path="/DetailPage/:food_idx" element={<DetailPage result={[selectedResult || favtodetailResult || cateTodetailResult ]} />} />
+            <Route path="/DetailPage/:food_idx" element={<DetailPage result={selectedResult} />} />
             <Route path="/RecipeAddPage" element={<RecipeAddPage />} />
           </Routes>
         </Suspense>

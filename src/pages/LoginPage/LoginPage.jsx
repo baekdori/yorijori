@@ -111,7 +111,7 @@ const LoginPage = () => {
           </div>
 
           <div className="options"
-               style={{opacity : pwHasText ? 1 : 0, pointerEvents : pwHasText ? 'auto' : 'none'}}>
+               >
             <label>
               <input type="checkbox" name="remember" />
               아이디 저장

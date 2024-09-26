@@ -53,15 +53,15 @@
 }
 
 .top-bar-item-login {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   margin-right: 20px;
   margin-left : 50px;
-  border-radius: 20px;
+  border-radius: 25px;
   background-color: #434343;
   color: #ffffff;
   font-family: 'Pretendard-Regular', sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: -0.6px;
   display: flex;
   justify-content: center;

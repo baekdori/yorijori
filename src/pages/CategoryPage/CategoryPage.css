@@ -19,30 +19,63 @@
   }
 
   .ctg_page_container {
-    position: relative;
-    width: 600px;
-    padding-top : 70px;
-    margin: 10px auto; /* 상단바 위치 비우기 위해 margin 추가 */
-    box-sizing: border-box;
+    position: relative; /* 부모 요소에 상대적인 위치 지정 */
+  width: 600px; /* 컨테이너의 너비를 600px로 설정 */
+  padding-top : 70px; /* 상단에 70px의 패딩을 추가 */
+  margin: 10px auto; /* 컨테이너를 상하로 10px, 좌우로 중앙 정렬 */
+  box-sizing: border-box; /* 패딩과 테두리의 크기를 요소의 총 크기에 포함 */
   }
 
   .ctg_page_title {
-    position : relative;
-    bottom : 62px;
-    text-align: center;
-    font-family: 'BM JUA_TTF', sans-serif;
-    font-weight: regular;
-    font-size: 40px;
-    letter-spacing: -0.05em;
-    color: #434343;
+    position : relative; /* 부모 요소에 상대적인 위치 지정 */
+    bottom : 62px; /* 요소를 아래로 62px 이동 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    font-family: 'BM JUA_TTF', sans-serif; /* 제목 폰트를 'BM JUA_TTF'로 설정 */
+    font-weight: regular; /* 폰트 두께를 일반으로 설정 */
+    font-size: 40px; /* 폰트 크기를 40px로 설정 */
+    letter-spacing: -0.05em; /* 글자 간격을 약간 좁게 설정 */
+    color: #434343; /* 글자 색상을 어두운 회색(#434343)으로 설정 */
   }
 
   .ctg-item{
     position : relative;
-    display: flex; /* flexbox로 설정 */
-    height: 150px;
-    margin-bottom : 50px;
-    overflow: hidden;
+  display: flex; /* flexbox로 설정 */
+  height: 150px;
+  margin-bottom : 50px;
+  overflow: hidden;
+  }
+
+  .ctg-food-name{
+    width : auto;
+    top :30px;
+    position : relative;
+    right :300px;
+    z-index: 1;
+    color : black; /* 문자열 기본 색상 */
+    padding : 5px; /* 테두리를 위한 약간의 패딩 */
+    transition : color 0.3s ease, text-shadow 0.3s ease; /* 색상과 테두리 변경 애니메이션 */
+  }
+  .ctg-item:hover .ctg-food-name{
+    color : white;
+    text-shadow : /* 문자열 자체에 테두리를 추가하는 것처럼 효과를 주는 text-shadow */
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+
+  .ctg-img{
+    position :relative; /* 부모 요소에 상대적인 위치 지정 */
+    align-items: center;
+    height : 600px;
+    width : 600px;
+    z-index: -1;
+    opacity: 0.5; /* 기본 opacity 설정 */
+    transition: opacity 0.3s ease; /* opacity 변화에 애니메이션 추가 */
+  }
+
+  .ctg-item :hover .ctg-img{
+    opacity : 1;
   }
 
   .ctg_page_1st_line {

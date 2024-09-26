@@ -21,9 +21,9 @@ const foods = {
 
 
      // 2. 게시글 보기 API
-     postsee: (fIdx, callback) => {
+     postsee: (food_idx, callback) => {
         const sql = `SELECT * FROM Foods WHERE food_idx = ?`;
-        conn.query(sql, [fIdx], (err, results) => {
+        conn.query(sql, [food_idx], (err, results) => {
             if (err) {
                 console.error('데이터 검색 중 오류 발생:', err);
                 return callback(err, null);

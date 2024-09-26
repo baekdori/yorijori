@@ -37,17 +37,6 @@ body {
   color: #434343; /* 글자 색상을 어두운 회색(#434343)으로 설정 */
 }
 
-.login_page_title {
-  position : relative;
-  bottom : 62px;
-  text-align: center;
-  font-family: 'BM JUA_TTF', sans-serif;
-  font-weight: regular;
-  font-size: 40px;
-  letter-spacing: -0.05em;
-  color: #434343;
-}
-
 .screen {
   margin-bottom: 20px;
 }
@@ -85,6 +74,7 @@ justify-content: space-between; /* 요소들을 좌우 끝으로 배치 */
 align-items: center;
 width: 100%; /* 부모 요소의 전체 너비를 차지하도록 설정 */
 padding-bottom: 20px;
+opacity: 1;
 }
 
 .options .remember {
@@ -167,9 +157,15 @@ margin: 0 5px; /* 구분자 사이의 여백을 설정 */
   margin-top: 116px;
 }
 
-/* 로그인 버튼 초기 상태 비활성화용 */
-.pw-input, .options, .login-submit-btn {
+.pw-input{
   opacity : 0; /* 초기 투명도 */
   pointer-events: none; /* 클릭 불가 */
-  transition : opacity 0.3s ease; /* 부드러운 전환 */
+  transition : opacity 1s ease; /* 부드러운 전환 */
+}
+
+/* 로그인 버튼 초기 상태 비활성화용 */
+.login-submit-btn {
+  opacity : 0; /* 초기 투명도 */
+  pointer-events: none; /* 클릭 불가 */
+  transition : opacity 5s ease; /* 부드러운 전환 */
 }

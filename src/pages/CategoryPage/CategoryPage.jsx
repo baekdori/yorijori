@@ -42,9 +42,10 @@ const CategoryPage = () => {
             <div className='ctg_list'>
                 {categories.length > 0 ? (  // 카테고리 데이터가 있을 경우에만 렌더링
                     categories.map((category) => (
-                        <div key={category.id} className='ctg_item'
+                        <div key={category.id} className='ctg-item'
                              onClick={() => handleCategoryClick(category.id)}>
-                            {category.name}  {/* 카테고리 이름 출력 */}
+                            <img src='/static/img/DakGalbi.jpg' alt={category.food_name} className="ctg-img" />
+                            <p className='ctg-food-name'>{category.name}</p>  {/* 카테고리 이름 출력 */}
                         </div>
                     ))
             ) : (

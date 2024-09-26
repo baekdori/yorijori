@@ -8,7 +8,7 @@ import './DetailPage.css'; // 해당 컴포넌트의 스타일링을 위한 CSS 
 
 // DetailPage 컴포넌트 정의, props로 result를 받음
 const DetailPage = ({ result }) => {
-  const { food_Idx } = useParams(); // URL에서 foodIdx 값을 가져옴
+  const { food_idx } = useParams(); // URL에서 foodIdx 값을 가져옴
   const location = useLocation();
   const [newComment, setNewComment] = useState(''); // 새로운 댓글을 위한 상태 정의
   const [comments, setComments] = useState([]); // 댓글 목록을 관리하기 위한 상태 정의
@@ -33,7 +33,7 @@ const DetailPage = ({ result }) => {
   useEffect(() => { // 컴포넌트가 렌더링될 때와 foodIdx, user_id가 변경될 때 실행
     console.log('DetailPage에서 받은 결과:', result); // result 값 확인
 
-    const fdid = result.food_idx; // result에서 food_idx를 가져옴
+    const fdid = food_idx; // result에서 food_idx를 가져옴
     
     console.log('food_idx : ',fdid,fdnm);
     
@@ -66,7 +66,7 @@ const DetailPage = ({ result }) => {
       const fdid = result.food_idx; // result에서 food_idx를 가져옴
       try {
         const response = await axios.get('http://localhost:4000/favorites/check', {
-          params: { user_Id : user_id, food_Idx: fdid } // user_id와 foodIdx를 쿼리 파라미터로 전달
+          params: { user_Id : user_id, food_idx: fdid } // user_id와 foodIdx를 쿼리 파라미터로 전달
         });
         setIsBookmarked(response.data.isBookmarked); // 북마크 상태를 설정
       } catch (error) {
@@ -74,13 +74,17 @@ const DetailPage = ({ result }) => {
       }
     };
 
-    // 3. 상세 정보를 가져오는 함수
-    const fetchDetails = async () => {
+     // 3. 상세 정보를 가져오는 함수
+     const fetchDetails = async () => {
+      if (!fdid) { // fdid가 undefined이면 실행하지 않음
+        console.error('food_idx is undefined');
+        return;
+      }
       try {
-        const response = await axios.get(`/api/details?foodIdx=${fdid}`); // 상세 정보를 가져오는 API 요청
-        setTitle(response.data.title); // 가져온 제목을 상태로 설정
-        setSubtitle(response.data.subtitle); // 부제목을 상태로 설정
-        setDescription(response.data.description); // 상세 설명을 상태로 설정
+        const response = await axios.get(`/api/details?foodIdx=${fdid}`);
+        setTitle(response.data.title);
+        setSubtitle(response.data.subtitle);
+        setDescription(response.data.description);
       } catch (error) {
         console.error('Error fetching details:', error);
       }
@@ -89,22 +93,19 @@ const DetailPage = ({ result }) => {
     fetchBookmarkStatus(); // 북마크 상태를 가져오는 함수 실행
     fetchDetails(); // 상세 정보를 가져오는 함수 실행
     getcomts(); // 댓글 데이터를 가져오는 함수 실행
-
-
-    
-  }, [user_id, food_Idx]); // 의존성 배열에 user_id와 foodIdx를 지정하여 해당 값이 변경될 때마다 useEffect 실행
+  }, [user_id, food_idx]); // 의존성 배열에 user_id와 foodIdx를 지정하여 해당 값이 변경될 때마다 useEffect 실행
   
-  // FavoritePage에서 받은 데이터 출력
-  useEffect(() => {
-    if (location.state && location.state.foodDetails) {
-      console.log('FavoritePage에서 전달받은 데이터:', location.state.foodDetails);
-      // 여기서 데이터를 처리하여 원하는 대로 상태를 설정하거나 출력할 수 있습니다.
-      const foodDetails = location.state.foodDetails;
-      setTitle(foodDetails.food_name);
-      setSubtitle(foodDetails.food_mood); // 필요한 데이터를 상태로 설정
-      setDescription(foodDetails.food_desc); // 또는 다른 필드에 맞게 설정
-    }
-  }, [location.state]);
+  // // FavoritePage에서 받은 데이터 출력
+  // useEffect(() => {
+  //   if (location.state && location.state.foodDetails) {
+  //     console.log('FavoritePage에서 전달받은 데이터:', location.state.foodDetails);
+  //     // 여기서 데이터를 처리하여 원하는 대로 상태를 설정하거나 출력할 수 있습니다.
+  //     const foodDetails = location.state.foodDetails;
+  //     setTitle(foodDetails.food_name);
+  //     setSubtitle(foodDetails.food_mood); // 필요한 데이터를 상태로 설정
+  //     setDescription(foodDetails.food_desc); // 또는 다른 필드에 맞게 설정
+  //   }
+  // }, [location.state]);
 
   // 댓글 삭제 함수
   const delcomts = async (comments_idx) => {
@@ -187,13 +188,13 @@ const DetailPage = ({ result }) => {
       if (isBookmarked) {
         await axios.post('http://localhost:4000/favorites/remove', {
           user_Id : user_id,
-          food_Idx : fdid,
+          food_idx : fdid,
           food_name : foodName
         });
       } else {
         await axios.post('http://localhost:4000/favorites/add', {
           user_Id : user_id,
-          food_Idx : fdid,
+          food_idx : fdid,
           food_name : foodName
         });
       }
