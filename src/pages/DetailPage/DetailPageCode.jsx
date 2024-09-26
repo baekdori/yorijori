@@ -1,5 +1,5 @@
 // import React, { useState, useEffect } from 'react'; // React에서 useState와 useEffect 훅을 불러옴
-// import { useLocation, useParams } from 'react-router-dom'; // URL 매개변수를 가져오기 위해 useParams 훅을 불러옴
+// import { useParams } from 'react-router-dom'; // URL 매개변수를 가져오기 위해 useParams 훅을 불러옴
 // import axios from 'axios'; // HTTP 요청을 보내기 위해 axios 라이브러리를 불러옴
 // import TopBar from '../../components/TopBar/TopBar'; // 상단 바 컴포넌트를 불러옴
 // import BottomBar from '../../components/BottomBar/BottomBar'; // 하단 바 컴포넌트를 불러옴
@@ -8,12 +8,9 @@
 // // DetailPage 컴포넌트 정의, props로 result를 받음
 // const DetailPage = ({ result }) => {
 //   const { food_Idx } = useParams(); // URL에서 foodIdx 값을 가져옴
-//   const location = useLocation(); // useLocation 후크를 사용해서 location 가져옴
-//   const [foodDetails, setFoodDetails] = useState(location.state?.foodDetails || {}); // 전달된 foodDetails 가져오기
-
 //   const [newComment, setNewComment] = useState(''); // 새로운 댓글을 위한 상태 정의
 //   const [comments, setComments] = useState([]); // 댓글 목록을 관리하기 위한 상태 정의
-//   const [editingComment, setEditingComment] = useState(null); // 수정 중인 댓글을 추적하기 위한 상태 정의a
+//   const [editingComment, setEditingComment] = useState(null); // 수정 중인 댓글을 추적하기 위한 상태 정의
 //   const [editingText, setEditingText] = useState(''); // 수정할 댓글의 내용을 관리하는 상태 정의
 //   const [imageLoaded, setImageLoaded] = useState(false); // 이미지 로딩 상태를 관리하는 상태 정의
 //   const [isBookmarked, setIsBookmarked] = useState(false); // 북마크 상태를 관리하는 상태 정의
@@ -21,7 +18,6 @@
 //   const [subtitle, setSubtitle] = useState(''); // 상세 페이지 부제목을 관리하는 상태 정의
 //   const [description, setDescription] = useState(''); // 상세 설명을 위한 상태 정의
 
-  
 //   const foodName = result.food_name;
 //   const seUser = sessionStorage.getItem('user'); // 세션 스토리지에서 유저 아이디를 가져옴
 //   console.log('디테일에서 확인한 세션아이디 저장값', seUser, foodName);
@@ -38,6 +34,7 @@
 //     const fdid = result.food_idx; // result에서 food_idx를 가져옴
     
 //     console.log('food_idx : ',fdid,fdnm);
+    
 
 //     // 1. 댓글 데이터를 가져오는 함수
 //     const getcomts = async () => {
@@ -77,35 +74,21 @@
 
 //     // 3. 상세 정보를 가져오는 함수
 //     const fetchDetails = async () => {
-//       if (foodDetails) {
-//         try{
-//           const favtodetail = await axios.get(`http://localhost:4000/favtodetail/${food_Idx}`);
-//           const { title, subtitle, description } = favtodetail;
-//           setTitle(title);
-//           setSubtitle(subtitle);
-//           setDescription(description);
-//         }catch (error) {
-//           console.error('Error fetching details:', error);
-//         }       
-//       } else {
-//         try {
-//           const response = await axios.get(`/api/details?foodIdx=${food_Idx}`);
-//           setTitle(response.data.title);
-//           setSubtitle(response.data.subtitle);
-//           setDescription(response.data.description);
-//         } catch (error) {
-//           console.error('Error fetching details:', error);
-//         }
+//       try {
+//         const response = await axios.get(`/api/details?foodIdx=${fdid}`); // 상세 정보를 가져오는 API 요청
+//         setTitle(response.data.title); // 가져온 제목을 상태로 설정
+//         setSubtitle(response.data.subtitle); // 부제목을 상태로 설정
+//         setDescription(response.data.description); // 상세 설명을 상태로 설정
+//       } catch (error) {
+//         console.error('Error fetching details:', error);
 //       }
 //     };
-    
+
 //     fetchBookmarkStatus(); // 북마크 상태를 가져오는 함수 실행
 //     fetchDetails(); // 상세 정보를 가져오는 함수 실행
 //     getcomts(); // 댓글 데이터를 가져오는 함수 실행
-    
-//   }, [user_id, foodDetails, food_Idx]); // 의존성 배열에 user_id와 foodIdx를 지정하여 해당 값이 변경될 때마다 useEffect 실행
+//   }, [user_id, food_Idx]); // 의존성 배열에 user_id와 foodIdx를 지정하여 해당 값이 변경될 때마다 useEffect 실행
 
-  
 //   // 댓글 삭제 함수
 //   const delcomts = async (comments_idx) => {
 //     try {

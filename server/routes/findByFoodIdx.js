@@ -1,24 +1,27 @@
+// findByFoodIdx.js
 const express = require('express');
 const router = express.Router();
-const foods = require('../model/foods'); // foods.js에서 함수 불러오기
+const db = require('../model/db'); // DB 연결 설정
 
-// 음식 인덱스로 조회하는 API
-router.get('/foods/find', (req, res) => {
-    const food_idx = req.query.food_idx; // 클라이언트에서 전달된 food_idx 받기
+// food_idx로 Foods 테이블에서 데이터 조회
+router.get('/', async (req, res) => {
+    const food_idx = req.query.food_idx; // 쿼리에서 food_idx를 가져옴
     if (!food_idx) {
-        return res.status(400).send('food_idx가 필요합니다.');
+        return res.status(400).json({ message: 'food_idx is required' }); // food_idx가 없을 경우
     }
-    
-    // foods 모델에서 해당 인덱스를 가진 음식을 조회
-    foods.findFoodByIdx(food_idx, (err, results) => {
-        if (err) {
-            return res.status(500).send('서버 오류');
+
+    try {
+        const query = 'SELECT * FROM Foods WHERE food_idx = ?'; // SQL 쿼리 작성
+        const [results] = await db.execute(query, [food_idx]); // DB 쿼리 실행
+        if (results.length > 0) {
+            res.json(results); // 데이터가 존재하면 반환
+        } else {
+            res.status(404).json({ message: 'Food not found' }); // 데이터가 없으면 404 반환
         }
-        if (results.length === 0) {
-            return res.status(404).send('해당 음식이 없습니다.');
-        }
-        res.status(200).json(results[0]); // 결과를 클라이언트에 반환
-    });
+    } catch (error) {
+        console.error('Database error:', error); // 오류 로그 출력
+        res.status(500).json({ message: 'Internal Server Error' }); // 서버 오류 처리
+    }
 });
 
 module.exports = router;

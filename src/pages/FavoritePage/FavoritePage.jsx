@@ -1,3 +1,4 @@
+// FavoritePage.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './FavoritePage.css';
@@ -5,9 +6,8 @@ import TopBar from '../../components/TopBar/TopBar';
 import BottomBar from '../../components/BottomBar/BottomBar';
 import { useNavigate } from 'react-router-dom';
 
-const FavoritePage = () => {
+const FavoritePage = ({ setFavtodetailResult }) => { // props로 setFavtodetailResult 받기
     const [favorites, setFavorites] = useState([]);
-    const [foodData, setFoodData] = useState(null); // 음식 데이터를 저장할 상태
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,14 +29,15 @@ const FavoritePage = () => {
     const handleFavoriteClick = async (food_idx) => {
         try {
             // food_idx를 사용하여 Foods 테이블에서 데이터 조회
-            const response = await axios.get('http://localhost:4000/foods/find', {
-                params: { food_idx }
+            const fIdx = food_idx;
+            const response = await axios.get('http://localhost:4000/foods/search', {
+                params: { q : fIdx }
             });
 
             // 조회된 데이터를 상태로 저장
             if (response.data && response.data.length > 0) {
-                setFoodData(response.data[0]); // 조회된 데이터 저장
-                navigate(`/DetailPage/${foodData.food_idx}`, {state : { foodDetails : foodData}}); // DetailPage로 이동
+                setFavtodetailResult(response.data[0]); // 조회된 데이터 저장
+                navigate(`/DetailPage/${food_idx}`, { state: { foodDetails: response.data[0] } }); // DetailPage로 이동
             }
         } catch (error) {
             console.error('음식 데이터 조회 오류:', error);
@@ -55,7 +56,7 @@ const FavoritePage = () => {
                         <div>
                             <h3 className='fav-food-idx'>음식 번호: {favorite.food_idx}</h3>
                             <p className='fav-food-name'>음식 이름: {favorite.food_name}</p>
-                            <span className='fav-food-date'>등록 일자: {new Date(favorite.created_at).toLocaleDateString()}</span>            
+                            <span className='fav-food-date'>등록 일자: {new Date(favorite.created_at).toLocaleDateString()}</span>
                             <img src='/static/img/DakGalbi.jpg' className='favorite-img' alt={favorite.food_name} />
                         </div>
                     </div>

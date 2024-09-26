@@ -1,3 +1,4 @@
+// foods.js
 const conn = require("./db"); // 데이터베이스 연결 모듈을 불러옴
 
 // 게시글 관련 모델 설정
@@ -20,9 +21,9 @@ const foods = {
 
 
      // 2. 게시글 보기 API
-     postsee: (food_idx, callback) => {
+     postsee: (fIdx, callback) => {
         const sql = `SELECT * FROM Foods WHERE food_idx = ?`;
-        conn.query(sql, [food_idx], (err, results) => {
+        conn.query(sql, [fIdx], (err, results) => {
             if (err) {
                 console.error('데이터 검색 중 오류 발생:', err);
                 return callback(err, null);
@@ -59,17 +60,7 @@ const foods = {
 
         conn.query(query, values, callback);
     },
-    // 6. 인덱스로 조회 API(즐겨찾기에서 바로 레시피 조회용)
-    findFoodByIdx: (food_idx, callback) => {
-        const sql = `SELECT * FROM Foods WHERE food_idx = ?`;
-        conn.query(sql, [food_idx], (err, results) => {
-            if (err) {
-                console.error('데이터 검색 중 오류 발생:', err);
-                return callback(err, null);
-            }
-            callback(null, results);
-        });
-    }
+   
     
 };
 

@@ -1,3 +1,4 @@
+// CategoryPage.jsx
 import React, { useEffect, useState } from 'react';  // React와 훅(hook) 불러오기
 import './CategoryPage.css';  // 스타일링 파일 불러오기
 import TopBar from '../../components/TopBar/TopBar';  // 상단 바 컴포넌트

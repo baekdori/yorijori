@@ -1,3 +1,4 @@
+// DetailPage.jsx
 import React, { useState, useEffect } from 'react'; // React에서 useState와 useEffect 훅을 불러옴
 import { useLocation, useParams } from 'react-router-dom'; // URL 매개변수를 가져오기 위해 useParams 훅을 불러옴
 import axios from 'axios'; // HTTP 요청을 보내기 위해 axios 라이브러리를 불러옴
@@ -9,10 +10,6 @@ import './DetailPage.css'; // 해당 컴포넌트의 스타일링을 위한 CSS 
 const DetailPage = ({ result }) => {
   const { food_Idx } = useParams(); // URL에서 foodIdx 값을 가져옴
   const location = useLocation();
-  const {foodDetails}= location.state || {}; // 음식 정보를 저장할 상태
-
-  
-
   const [newComment, setNewComment] = useState(''); // 새로운 댓글을 위한 상태 정의
   const [comments, setComments] = useState([]); // 댓글 목록을 관리하기 위한 상태 정의
   const [editingComment, setEditingComment] = useState(null); // 수정 중인 댓글을 추적하기 위한 상태 정의
@@ -89,14 +86,25 @@ const DetailPage = ({ result }) => {
       }
     };
 
-
     fetchBookmarkStatus(); // 북마크 상태를 가져오는 함수 실행
     fetchDetails(); // 상세 정보를 가져오는 함수 실행
     getcomts(); // 댓글 데이터를 가져오는 함수 실행
 
-  }, [user_id, food_Idx]); // 의존성 배열에 user_id와 foodIdx를 지정하여 해당 값이 변경될 때마다 useEffect 실행
 
+    
+  }, [user_id, food_Idx]); // 의존성 배열에 user_id와 foodIdx를 지정하여 해당 값이 변경될 때마다 useEffect 실행
   
+  // FavoritePage에서 받은 데이터 출력
+  useEffect(() => {
+    if (location.state && location.state.foodDetails) {
+      console.log('FavoritePage에서 전달받은 데이터:', location.state.foodDetails);
+      // 여기서 데이터를 처리하여 원하는 대로 상태를 설정하거나 출력할 수 있습니다.
+      const foodDetails = location.state.foodDetails;
+      setTitle(foodDetails.food_name);
+      setSubtitle(foodDetails.food_mood); // 필요한 데이터를 상태로 설정
+      setDescription(foodDetails.food_desc); // 또는 다른 필드에 맞게 설정
+    }
+  }, [location.state]);
 
   // 댓글 삭제 함수
   const delcomts = async (comments_idx) => {
@@ -208,9 +216,6 @@ const DetailPage = ({ result }) => {
 
   console.log('댓글정보:', comments); // 현재 댓글 정보 출력
 
-  if (!foodDetails) {
-    return <div>로딩 중...</div>;
-}
   return ( // 컴포넌트의 JSX 반환
     <div className="DetailPage">
       <TopBar /> {/* 상단 바 컴포넌트 */}
@@ -223,10 +228,8 @@ const DetailPage = ({ result }) => {
           />
           <div className="title-group">
             <div className="title-section">
-              <h2>
-                {!foodDetails ? fdnm : foodDetails.food_name}
-                </h2> {/* 음식 이름 */}
-              <p>{!foodDetails ? fdds : foodDetails.food_desc}</p> {/* 음식 설명 */}
+              <h2>{fdnm}</h2> {/* 음식 이름 */}
+              <p>{fdds}</p> {/* 음식 설명 */}
             </div>
           </div>
         </div>

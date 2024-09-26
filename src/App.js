@@ -15,7 +15,10 @@ const CategoryDetail = lazy(() => import('./pages/CategoryDetail/CategoryDetail'
 
 function App() {
   const [selectedResult, setSelectedResult] = useState(null);
-  console.log('app.js로 가져온 상세보기 결과', selectedResult);
+  const [favtodetailResult, setFavtodetailResult] = useState(null);
+  const [cateTodetailResult, setCateTodetailResult] = useState(null);
+
+  console.log('app.js로 가져온 상세보기 결과', selectedResult, favtodetailResult, cateTodetailResult);
 
   return (
     <Router>
@@ -28,9 +31,9 @@ function App() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/like" element={<LikePage />} />
             <Route path="/CategoryPage" element={<CategoryPage />} />
-            <Route path="/category/:categoryId" element={<CategoryDetail />} />
-            <Route path="/favorites" element={<FavoritePage />} />
-            <Route path="/DetailPage/:food_idx" element={<DetailPage result={selectedResult} />} />
+            <Route path="/category/:categoryId" element={<CategoryDetail setCateTodetailResult={setCateTodetailResult} />} />
+            <Route path="/favorites" element={<FavoritePage setFavtodetailResult={setFavtodetailResult} />} />
+            <Route path="/DetailPage/:food_idx" element={<DetailPage result={[selectedResult || favtodetailResult || cateTodetailResult ]} />} />
             <Route path="/RecipeAddPage" element={<RecipeAddPage />} />
           </Routes>
         </Suspense>
