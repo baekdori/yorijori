@@ -38,7 +38,8 @@ const CategoryDetail = (setCateTodetailResult) => {
             // 조회된 데이터를 상태로 저장
             if (response.data && response.data.length > 0) {
                 setCateTodetailResult(response.data[0]); // 조회된 데이터 저장
-                navigate(`/DetailPage/${food_idx}`, { state: { foodDetails: response.data[0] } }); // DetailPage로 이동
+                console.log("Navigating to DetailPage with food_idx:", food_idx); // navigate 실행 전 로그 추가
+                navigate(`/DetailPage/${response.data[0].fIdx}`, { state: { foodDetails: response.data[0] } }); // DetailPage로 이동
             }
         } catch (error) {
             console.error('음식 데이터 조회 오류:', error);

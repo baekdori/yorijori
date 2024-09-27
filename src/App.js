@@ -21,6 +21,19 @@ function App() {
 
   console.log('app.js로 가져온 상세보기 결과', selectedResult, favtodetailResult, cateTodetailResult);
 
+   // DetailPage에 전달할 result 결정
+   const getDetailResult = () => {
+    if (selectedResult) {
+      return selectedResult;
+    }
+    if (favtodetailResult) {
+      return favtodetailResult;
+    }
+    if (cateTodetailResult) {
+      return cateTodetailResult;
+    }
+  };
+
   return (
     <Router>
       <div className="App">
@@ -34,7 +47,7 @@ function App() {
             <Route path="/CategoryPage" element={<CategoryPage />} />
             <Route path="/category/:categoryId" element={<CategoryDetail setCateTodetailResult={setCateTodetailResult} />} />
             <Route path="/favorites" element={<FavoritePage setFavtodetailResult={setFavtodetailResult} />} />
-            <Route path="/DetailPage/:food_idx" element={<DetailPage result={selectedResult} />} />
+            <Route path="/DetailPage/:food_idx" element={<DetailPage result={getDetailResult()} />} />
             <Route path="/RecipeAddPage" element={<RecipeAddPage />} />
           </Routes>
         </Suspense>

@@ -83,7 +83,7 @@
     position :relative; /* 부모 요소에 상대적인 위치 지정 */
     align-items: center;
     height : 600px;
-    width : 600px;
+    width : auto;
     z-index: -1;
     opacity: 0.5; /* 기본 opacity 설정 */
     transition: opacity 0.3s ease; /* opacity 변화에 애니메이션 추가 */
