@@ -1,11 +1,7 @@
-const express = require('express');  // Express 모듈을 가져옴
+// MypageRouter.js
+const express = require('express');  // Express 모듈을 가져옴 (라우팅 및 서버 구축을 위해 사용)
 const router = express.Router();  // 라우터 객체를 생성하여 API 경로 설정에 사용
 const user = require('../model/user');  // 사용자 관련 DB 작업을 처리하는 모델 파일을 불러옴
-
-const app = express();  // Express 애플리케이션 객체 생성
-const { sessionMiddleware, cookieParser } = require('../session');  // 세션과 쿠키를 처리하는 미들웨어 불러옴
-app.use(cookieParser);  // 쿠키 파서 미들웨어 사용 (쿠키 데이터를 파싱하여 req.cookies에 저장)
-app.use(sessionMiddleware);  // 세션 미들웨어 사용 (세션 데이터를 req.session에 저장)
 
 // 인증 미들웨어 정의
 const authMiddleware = (req, res, next) => {
@@ -24,58 +20,55 @@ const authMiddleware = (req, res, next) => {
 };
 
 // 프로필 정보 조회 라우터 (로그인된 사용자만 접근 가능)
-router.get('/profile', authMiddleware, (req, res) => {  // '/profile' 경로에 GET 요청 시 실행됨, authMiddleware 적용
+router.post('/profile', authMiddleware, (req, res) => {
     const userId = req.session.user.user_id;  // 세션에서 user_id를 가져옴
     console.log('프로필 정보 요청:', userId);  // 프로필 정보를 요청한 user_id를 로그로 출력
 
     // DB에서 userId에 해당하는 사용자 정보를 조회
-    user.getById(userId, (error, results) => {  // user 모델의 getById 메서드로 사용자 정보 조회
-        if (error) {  // DB 조회 중 에러가 발생한 경우
-            console.error('프로필 정보 가져오기 오류:', error);  // 에러 내용을 로그로 출력
-            return res.status(500).json({ message: '프로필 정보를 가져오는 중 오류가 발생했습니다.' });  // 500 상태와 에러 메시지를 반환
+    user.getById(userId, (error, results) => {
+        if (error) {
+            console.error('프로필 정보 가져오기 오류:', error);  // DB 조회 중 에러가 발생하면 로그 출력
+            return res.status(500).json({ message: '프로필 정보를 가져오는 중 오류가 발생했습니다.' });  // 500 상태 코드와 메시지 반환
         }
-        if (results.length === 0) {  // 조회 결과가 없는 경우 (해당 user_id에 해당하는 사용자가 없는 경우)
-            console.log('사용자 정보를 찾을 수 없음:', userId);  // 사용자 정보를 찾을 수 없음을 로그로 출력
-            return res.status(404).json({ message: '사용자 정보를 찾을 수 없습니다.' });  // 404 상태와 메시지를 반환
+        if (results.length === 0) {  // 사용자가 존재하지 않을 경우
+            return res.status(404).json({ message: '사용자 정보를 찾을 수 없습니다.' });  // 404 상태 코드와 메시지 반환
         }
-        console.log('프로필 정보 가져오기 성공:', results[0]);  // 프로필 정보 조회 성공 로그 출력
         res.json(results[0]);  // 조회된 사용자 정보를 JSON 형식으로 응답
     });
 });
 
 // 회원 정보 수정 라우터 (로그인된 사용자만 접근 가능)
-router.put('/edit', authMiddleware, (req, res) => {  // '/edit' 경로에 PUT 요청 시 실행됨, authMiddleware 적용
-    const { user_id, user_nick, user_phone, user_email } = req.body;  // 클라이언트에서 전달된 수정할 사용자 정보를 req.body에서 추출
-    const updateInfo = { user_nick, user_phone, user_email };  // 수정할 사용자 정보를 updateInfo 객체에 저장
+router.put('/edit', authMiddleware, (req, res) => {
+    const { user_id, user_nick, user_phone, user_email } = req.body;  // 수정할 사용자 정보를 req.body에서 추출
+    const updateInfo = { user_nick, user_phone, user_email };  // 수정할 사용자 정보 객체로 구성
 
-    console.log('회원정보 수정 요청 데이터:', req.body);  // 수정 요청 데이터를 로그로 출력
-    console.log('업데이트 요청 데이터:', updateInfo);  // 업데이트할 데이터를 로그로 출력
+    console.log('회원정보 수정 요청 데이터:', req.body);  // 회원 정보 수정 요청 로그 출력
+    console.log('업데이트 요청 데이터:', updateInfo);  // 업데이트할 데이터 로그 출력
 
     // DB에서 user_id에 해당하는 사용자 정보를 updateInfo로 업데이트
-    user.update(user_id, updateInfo, (err, results) => {  // user 모델의 update 메서드로 사용자 정보 업데이트
-        if (err) {  // 업데이트 중 에러가 발생한 경우
-            return res.status(500).json({ message: '회원 정보 수정 중 오류가 발생했습니다.' });  // 500 상태와 에러 메시지를 반환
+    user.update(user_id, updateInfo, (err, results) => {
+        if (err) {  // 업데이트 중 오류가 발생한 경우
+            return res.status(500).json({ message: '회원 정보 수정 중 오류가 발생했습니다.' });  // 500 상태 코드와 메시지 반환
         }
-        res.json({ message: '회원 정보가 성공적으로 수정되었습니다!' });  // 성공적으로 수정되면 성공 메시지를 반환
+        res.json({ message: '회원 정보가 성공적으로 수정되었습니다!' });  // 수정 성공 시 성공 메시지 반환
     });
 });
 
 // 회원 탈퇴 라우터 (로그인된 사용자만 접근 가능)
-router.delete('/delete', authMiddleware, async (req, res) => {  // '/delete' 경로에 DELETE 요청 시 실행됨, authMiddleware 적용
-    const userId = req.body.user;  // 클라이언트에서 전달된 탈퇴할 사용자 ID를 req.body에서 추출
-    console.log('회원 탈퇴 요청:', userId);  // 회원 탈퇴 요청 데이터를 로그로 출력
+router.delete('/delete', authMiddleware, (req, res) => {
+    const userId = req.body.user;  // 요청 본문에서 userId를 가져옴
+    console.log('회원 탈퇴 요청:', userId);  // 탈퇴 요청한 userId를 로그로 출력
 
     // DB에서 userId에 해당하는 사용자를 삭제
-    user.delete(userId, (err, results) => {  // user 모델의 delete 메서드로 사용자 삭제
-        if (err) {  // 삭제 중 에러가 발생한 경우
-            return res.status(500).json({ message: '회원 탈퇴 중 오류가 발생했습니다.' });  // 500 상태와 에러 메시지를 반환
+    user.delete(userId, (err, results) => {
+        if (err) {  // 삭제 중 오류가 발생한 경우
+            return res.status(500).json({ message: '회원 탈퇴 중 오류가 발생했습니다.' });  // 500 상태 코드와 메시지 반환
         }
-        res.json({ message: '회원 탈퇴가 성공적으로 완료되었습니다.' });  // 성공적으로 삭제되면 성공 메시지를 반환
+        res.json({ message: '회원 탈퇴가 성공적으로 완료되었습니다.' });  // 탈퇴 성공 시 성공 메시지 반환
     });
 });
 
-module.exports = router;  // 이 모듈을 외부에서 사용할 수 있도록 내보냄
-
+module.exports = router;  // 라우터를 모듈로 내보냄
 
 // authmiddleware 적용 전 : 인증 확인이 없다:
 

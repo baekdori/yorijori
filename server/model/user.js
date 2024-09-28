@@ -1,5 +1,5 @@
+// user.js
 const conn = require("./db");
-
 
 // 사용자 정보 조회 및 저장을 위한 객체
 const user = {

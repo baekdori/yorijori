@@ -1,3 +1,4 @@
+// comts.js
 const conn = require("./db");
 
 const comts = {
@@ -68,14 +69,14 @@ const comts = {
                         if (err) return callback(err);
     
                         rowsToReturn = allRows.sort(() => 0.5 - Math.random()).slice(0, 6);
-                        return callback(null, { foods: rowsToReturn });
+                        return callback(null, rowsToReturn);
                     });
                     return;
                 }
     
-                return callback(null, { foods: rowsToReturn });
+                return callback(null, rowsToReturn);
             });
         }
-};
+    };
 
 module.exports = comts;

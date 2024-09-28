@@ -20,6 +20,7 @@ const MainPage = ({ setSelectedResult }) => {
   const [isTransitioning, setIsTransitioning] = useState(false); // 전환 애니메이션 상태 관리
   const [imageList, setImageList] = useState([]); // 이미지 목록 저장
   const [currentImage, setCurrentImage] = useState(''); // 현재 표시 중인 이미지 저장
+  const [recommendations, setRecommendations] = useState([]); // 추천 레시피 상태 추가
 
   const itemListContainerRef = useRef(null); // item-list-container를 참조하기 위한 Ref 생성
 
@@ -57,13 +58,14 @@ const MainPage = ({ setSelectedResult }) => {
   }, [itemListContainerRef.current]);
 
   // 서버에서 추천 레시피를 가져오는 함수
-  const logRecommendedRecipes = async () => {
+  const fetchRecommendedRecipes = async () => {
     if (!seUser) return; // 유저가 로그인하지 않았다면 함수 종료
 
     try {
       const response = await axios.get('http://localhost:4000/random-food-idx', {
         params: { userId: seUser } // 서버에 유저 아이디를 전달
       });
+      setRecommendations(response.data);
       console.log('추천 레시피:', response.data); // 서버에서 받아온 추천 레시피 데이터를 콘솔에 출력
     } catch (error) {
       console.error('추천 레시피 가져오기 오류:', error); // 오류 발생 시 콘솔에 출력
@@ -72,7 +74,7 @@ const MainPage = ({ setSelectedResult }) => {
 
   // 컴포넌트가 마운트될 때 추천 레시피를 로깅
   useEffect(() => {
-    logRecommendedRecipes(); // 추천 레시피 로깅 함수 호출
+    fetchRecommendedRecipes(); // 추천 레시피 로깅 함수 호출
   }, [seUser]);
 
   // 키워드 검색 결과를 서버에서 가져오는 함수
@@ -360,22 +362,33 @@ const renderSearchResults = () => {
 
   // 스크롤링 아이템을 렌더링하는 함수
   const renderScrollingItems = () => {
-    const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-    const duplicatedItems = [...items, ...items]; // 아이템을 두 번 반복하여 스크롤링 리스트 생성
-
-    return (!isKeywordSearch && !isVisualSearch && (
-      <>
+    return (
+      <div className="scrolling-container">
         <div className="food-result-top-container">
-          {duplicatedItems.map((item, index) => (
-            <div key={index} className="fr" onClick={handleClick}>{item}</div>
-          ))}
+          {recommendations.length > 0 ? (
+            recommendations.map((item, index) => (
+              <div key={index} className="food-item" onClick={() => handleResultClick(item)}>
+                <img src={item.food_image} alt={item.food_name} className="food-item-img" />
+                <p>{item.food_name}</p>
+              </div>
+            ))
+          ) : (
+            <div className="no-data">추천할 레시피가 없습니다.</div>
+          )}
         </div>
         <div className="food-result-bottom-container">
-          {duplicatedItems.map((item, index) => (
-            <div key={index} className="fr" onClick={handleClick}>{item}</div>
-          ))}
+          {recommendations.length > 0 ? (
+            recommendations.map((item, index) => (
+              <div key={index} className="food-item" onClick={() => handleResultClick(item)}>
+                <img src={item.food_image} alt={item.food_name} className="food-item-img" />
+                <p>{item.food_name}</p>
+              </div>
+            ))
+          ) : (
+            <div className="no-data">추천할 레시피가 없습니다.</div>
+          )}
         </div>
-      </>)
+      </div>
     );
   };
 

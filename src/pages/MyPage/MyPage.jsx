@@ -5,7 +5,6 @@ import './MyPage.css';
 import TopBar from '../../components/TopBar/TopBar';
 import BottomBar from '../../components/BottomBar/BottomBar';
 import { useNavigate } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
 
 const MyPage = () => {
 
@@ -23,37 +22,22 @@ const MyPage = () => {
 
   // 컴포넌트가 처음 렌더링 될 때 사용자 정보 불러오기
   useEffect(() => {
-    const myUser = sessionStorage.getItem('user'); // 유저 정보를 변수에 저장
-
-    if(!myUser){
-      alert("로그인하셔야 합니다");
+    const storedUser = sessionStorage.getItem('user');
+    if (!storedUser) {
+      alert("로그인 하셔야 합니다.");
       navigate('/login');
       return;
     }
 
-    console.log('프로필 정보 요청 시작', myUser);
-
-    // front 에서 받아온 test라는 정보를 -> node로 보내서 얘 정보 가지고 오는거임 axios로 
-    axios.post('http://localhost:4000/user/mypage/profile', { user: myUser })
+    const myUser = JSON.parse(storedUser);
+    axios.post('http://localhost:4000/user/mypage/profile', { user_id: myUser.user_id }, { withCredentials: true })
       .then(response => {
         setUserData(response.data);
-        console.log('사용자 정보 불러오기 성공:', response.data);
       })
-      .catch(error => {  
-        console.error('사용자 정보 불러오기 오류:', error);
+      .catch(error => {
+        console.error('사용자 정보 불러오기 오류:', error.response);
       });
-  }, [navigate]);    // 빈 배열([])을 두 번째 인수로 전달하여 컴포넌트가 처음 렌더링될 때만 이 효과를 실행
-
-
-    // axios.get('http://localhost:4000/user/mypage/profile', { user :  })  // 백엔드 서버에서 사용자의 프로필 데이터 가져오는 요청
-    //   .then(response => {
-    //     setUserData(response.data);
-    //     console.log('사용자 정보 불러오기 성공:', response.data);
-    //   })
-    //   .catch(error => {  
-    //     console.error('사용자 정보 불러오기 오류:', error);
-    //   });
-
+  }, [navigate]);
 
 
   // 입력값 변경
@@ -72,26 +56,19 @@ const MyPage = () => {
   // 확인 버튼 클릭 (회원 정보 수정)
   const handleSubmitClick = async () => {
     try {
-      const myUser = sessionStorage.getItem('user'); // 세션에서 유저 정보를 다시 가져옴
-      const updatedUserData = { ...userData, user_id: myUser }; // user_id 포함
-      console.log('회원정보 수정 요청 데이터:',  updatedUserData);
-      // 백엔드 서버(4000)로 POST 요청보내서 수정된 사용자 데이터 전송
-      const response = await axios.put("http://localhost:4000/user/mypage/edit", updatedUserData, { withCredentials: true });
-      console.log('서버 응답 데이터:', response.data);
+      const response = await axios.put("http://localhost:4000/user/mypage/edit", userData, { withCredentials: true });
       if (response.status === 200) {
-          setIsEditing(false);  // 서버로부터 성공 응답 받으면, 수정모드를 비활성화
-          alert('회원정보가 성공적으로 수정되었습니다.');
-          console.log('회원정보 수정 응답:', response.data);
+        setIsEditing(false);
+        alert('회원정보가 성공적으로 수정되었습니다.');
       } else {
-          alert('회원정보 수정 실패');
-          console.error('회원정보 수정 실패:', response);
+        alert('회원정보 수정 실패');
       }
     } catch (error) {
-        console.error('회원정보 수정 중 오류 발생:', error);
-        alert('회원정보 수정 도중 오류 발생');
+      console.error('회원정보 수정 중 오류 발생:', error);
+      alert('회원정보 수정 도중 오류 발생');
     }
   };
-
+  
   // 회원 탈퇴 버튼 클릭
   const handleDeleteClick = async () => {
     const myUser = sessionStorage.getItem('user'); // 세션에서 유저 정보를 다시 가져옴

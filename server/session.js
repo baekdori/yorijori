@@ -1,25 +1,24 @@
+// session.js
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-const cookieParser = require('cookie-parser');
 const path = require('path');
 
 const fileStoreOptions = {
   path: path.join(__dirname, 'sessions'), // 세션 파일을 저장할 디렉토리 경로!!!!!!!!
-  ttl: 3600 // 세션 파일의 유효기간 (초 단위로 설정, 여기서는 1시간)
+  ttl: 14400 // 세션 파일의 유효기간 (초 단위로 설정, 여기서는 1시간)
 };
 
 module.exports = {
   sessionMiddleware: session({
-    secret: 'Hexacore6!!', // 세션을 암호화하는 데 사용할 키
-    resave: false,             // 세션을 강제로 저장할지 여부
-    saveUninitialized: false,   // 초기화되지 않은 세션을 저장소에 저장할지 여부
-    cookie: { 
-      maxAge: 4000 * 60 * 60, // 세션의 유효기간 설정 (로그인 유지시간 1시간)
-      secure: false // 로컬 개발 환경에서는 https가 아니므로 false로 설정
+    secret: 'Hexacore6!!',
+    resave: false,
+    saveUninitialized: false, // 초기화되지 않은 세션을 저장 안 함
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000,  // 24시간 유지 (또는 원하는 시간으로 설정)
+      secure: false // 개발 환경에서는 secure 설정 해제
     },
-    store: new FileStore(fileStoreOptions) // 세션을 저장하기 위한 파일 스토어 세팅
-  }),
-  cookieParser: cookieParser()
+    store: new FileStore(fileStoreOptions)
+  })
 };
 
 console.log('세션 미들웨어 설정 완료');

@@ -1,13 +1,8 @@
+// LoginRouter.js
 const express = require('express');  // Express 모듈을 가져옴
 const router = express.Router();  // 라우터 객체 생성하여 경로 처리에 사용
 const user = require('../model/user');  // 사용자 관련 데이터베이스 작업을 처리하는 모델 불러옴
 const bcrypt = require('bcrypt');   // bcrypt 모듈을 가져옴 (비밀번호 해싱 및 비교를 위해 사용)
-// bcrypt : 비밀번호를 안전하게 해싱하고 저장하는데 사용되는 라이브러리
-// 비밀번호 해싱(Hashing) : 사용자가 입력한 비밀번호를 해시 값으로 변환하여 DB에 저장
-const app = express();  // Express 애플리케이션 객체 생성
-const { sessionMiddleware, cookieParser } = require('../session');  // 세션 및 쿠키를 처리하는 미들웨어 불러옴
-app.use(cookieParser);  // 쿠키 파서 미들웨어 사용 (쿠키 데이터를 파싱하여 req.cookies에 저장)
-app.use(sessionMiddleware);  // 세션 미들웨어 사용 (세션 데이터를 req.session에 저장)
 
 // 로그인 요청을 처리하고 사용자 인증
 router.post('/', async (req, res) => {  // '/' 경로에 POST 요청이 들어오면 로그인 요청 처리
@@ -22,7 +17,7 @@ router.post('/', async (req, res) => {  // '/' 경로에 POST 요청이 들어�
         if (!foundUser) {  // 사용자가 존재하지 않는 경우
             console.log('사용자를 찾을 수 없습니다:', user_id);  // 사용자 없음 로그 출력
             return res.status(400).json({ message: '사용자를 찾을 수 없습니다.' });  // 400 상태 코드와 메시지 반환
-        } 
+        }
 
         // 비밀번호 확인
         const isMatch = await bcrypt.compare(user_pw, foundUser.user_pw); // 입력된 비밀번호와 DB에 저장된 해시된 비밀번호 비교
@@ -38,6 +33,7 @@ router.post('/', async (req, res) => {  // '/' 경로에 POST 요청이 들어�
             user_nick: foundUser.user_nick,  // user_nick 저장
             user_email: foundUser.user_email  // user_email 저장
         };
+        console.log('세션 저장된 유저 정보:', req.session.user);
 
         // 세션 저장 완료 후 응답
         req.session.save(err => {  // 세션 저장 후 콜백 함수 실행
@@ -54,6 +50,7 @@ router.post('/', async (req, res) => {  // '/' 경로에 POST 요청이 들어�
 });
 
 module.exports = router;  // 이 모듈을 외부에서 사용할 수 있도록 내보냄
+
 
 
 // req.session.save() 비동기 처리

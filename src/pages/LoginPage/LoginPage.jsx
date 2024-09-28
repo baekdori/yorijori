@@ -40,16 +40,14 @@ const LoginPage = () => {
     e.preventDefault(); // 폼 제출의 기본 동작인 페이지 리로드 방지
     console.log('로그인 시도:', formData);
     try {
-      const response = await axios.post("http://localhost:4000/user/login", formData);  // axios를 사용하여 백엔드 서버로 POST 요청 보냄
+      const response = await axios.post("http://localhost:4000/user/login", formData, { withCredentials: true });  // axios를 사용하여 백엔드 서버로 POST 요청 보냄
       console.log('서버에서 응답한 값', response.data); // 서버 응답 출력
-      // 서버에서 응답 받은 값의 user 키에 값이 존재하면? 로그인 된거임 / 없으면? 로그인 안된거임 
+      // 서버에서 응답 받은 값의 user 키에 값이 존재하면 로그인 성공 / 없으면 로그인 실패
 
       if (response.status === 200) {
         alert('로그인 성공');
 
-        // 브라우저 내 세션 저장하는 방법 : sessionStorage(키,값)
-        sessionStorage.setItem('user', response.data.user)
-
+        sessionStorage.setItem('user', JSON.stringify(response.data.user)); // 세션에 유저 정보를 JSON으로 저장
 
         // navigate('/'); /// 로그인 성공 시 메인 페이지로 이동
         window.location.href="/" // 새로고침을 하면서 이동 -> 새로고침을 하는 이유? 로그인으로 인해 값이 변경되었으므로 페이지 업데이트가 필요함. 
