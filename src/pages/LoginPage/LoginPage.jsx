@@ -1,6 +1,6 @@
 // LoginPage.jsx
-import axios from 'axios'; // npm install axios 필요
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import TopBar from '../../components/TopBar/TopBar';
@@ -19,53 +19,49 @@ const LoginPage = () => {
   const [idHasText, setIdHasText] = useState(false); // 문자열이 입력된 상태
   const [pwHasText, setPwHasText] = useState(false); // 문자열이 입력된 상태 
 
-  // 입력 값 변경을 처리하는 함수
-  const handleChange = (e) => {
+  // 입력 값 변경을 처리하는 함수 (useCallback 적용)
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    console.log(`입력 값 변경 - ${name}: ${value}`); // 입력 값 변경 출력
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value
-    });
+    }));
      // input 칸에 문자열이 있는지 확인하여 상태 설정
     if (name === 'user_id'){
       setIdHasText(value.length > 0); // user_id에 문자열이 있으면 true, 없으면 false
     } else if (name === 'user_pw'){
       setPwHasText(value.length > 0); // user_pw에 문자열이 있으면 true, 없으면 false
     }
-  };
+  }, []);
 
-  // 로그인 처리 함수 (API 호출)
-  const handleLogin = async (e) => {
+  // 로그인 처리 함수 (API 호출) (useCallback 적용)
+  const handleLogin = useCallback(async (e) => {
     e.preventDefault(); // 폼 제출의 기본 동작인 페이지 리로드 방지
     console.log('로그인 시도:', formData);
     try {
       const response = await axios.post("http://localhost:4000/user/login", formData, { withCredentials: true });  // axios를 사용하여 백엔드 서버로 POST 요청 보냄
       console.log('서버에서 응답한 값', response.data); // 서버 응답 출력
-      // 서버에서 응답 받은 값의 user 키에 값이 존재하면 로그인 성공 / 없으면 로그인 실패
 
       if (response.status === 200) {
         alert('로그인 성공');
 
         sessionStorage.setItem('user', JSON.stringify(response.data.user)); // 세션에 유저 정보를 JSON으로 저장
 
-        // navigate('/'); /// 로그인 성공 시 메인 페이지로 이동
-        window.location.href="/" // 새로고침을 하면서 이동 -> 새로고침을 하는 이유? 로그인으로 인해 값이 변경되었으므로 페이지 업데이트가 필요함. 
+        window.location.href="/" // 새로고침을 하면서 이동
 
       } else {
         alert('로그인 실패');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('로그인 도중 오류 발생');   // 네트워크 오류 등의 예외상황을 catch 블록에서 처리하여 오류메세지 표시
+      alert('로그인 도중 오류 발생');
     }
-  };
+  }, [formData]);
 
   // 회원가입 페이지로 이동하는 함수
-  const handleSignup = () => {
+  const handleSignup = useCallback(() => {
     navigate('/signup');
-  };
-
+  }, [navigate]);
   return (
     
     <div>

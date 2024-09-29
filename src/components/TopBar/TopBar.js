@@ -1,3 +1,4 @@
+// TopBar.js
 import React, { useState, useEffect } from 'react'; // React와 useState, useEffect 훅을 가져옴
 import './TopBar.css'; // CSS 파일을 가져와 스타일 적용
 import { Link, useNavigate } from 'react-router-dom'; // Link와 페이지 이동을 위한 useNavigate 훅을 가져옴
