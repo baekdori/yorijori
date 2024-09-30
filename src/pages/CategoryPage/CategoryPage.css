@@ -38,18 +38,22 @@
   }
 
   .ctg-item{
-    position : relative;
-  display: flex; /* flexbox로 설정 */
-  height: 150px;
-  margin-bottom : 50px;
-  overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column; /* 아이템들을 세로로 배치 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    height: 150px;
+    width: 600px;
+    margin-bottom: 50px;
+    overflow: hidden;
+    text-align: center; /* 텍스트도 가운데 정렬 */
   }
 
   .ctg-food-name{
-    width : auto;
-    top :30px;
-    position : relative;
-    right :300px;
+    position: relative;
+    z-index: 1;
+    bottom : 300px;
     z-index: 1;
     color : black; /* 문자열 기본 색상 */
     padding : 5px; /* 테두리를 위한 약간의 패딩 */
@@ -68,7 +72,7 @@
     position :relative; /* 부모 요소에 상대적인 위치 지정 */
     align-items: center;
     height : 600px;
-    width : 600px;
+    width : auto;
     z-index: -1;
     opacity: 0.5; /* 기본 opacity 설정 */
     transition: opacity 0.3s ease; /* opacity 변화에 애니메이션 추가 */

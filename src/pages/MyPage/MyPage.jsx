@@ -1,5 +1,5 @@
 // MyPage.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import './MyPage.css';
 import TopBar from '../../components/TopBar/TopBar';
@@ -8,9 +8,8 @@ import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
 
-  // useNavigate 훅
   const navigate = useNavigate();
-  // 사용자 데이터 상태와 수정가능여부 관리하는 상태를 정의
+  
   const [userData, setUserData] = useState({
     user_id: '',
     user_name: '',
@@ -20,8 +19,8 @@ const MyPage = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
 
-  // 컴포넌트가 처음 렌더링 될 때 사용자 정보 불러오기
-  useEffect(() => {
+  // 사용자 정보를 불러오는 함수에 useCallback 적용
+  const fetchUserData = useCallback(() => {
     const storedUser = sessionStorage.getItem('user');
     if (!storedUser) {
       alert("로그인 하셔야 합니다.");
@@ -39,22 +38,22 @@ const MyPage = () => {
       });
   }, [navigate]);
 
+  useEffect(() => {
+    fetchUserData(); // useCallback으로 묶인 fetchUserData 호출
+  }, [fetchUserData]);
 
-  // 입력값 변경
-  const handleInputChange = (e) => {
+  const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });  // 입력된 값에 따라 userData 상태를 업데이트
+    setUserData(prevData => ({ ...prevData, [name]: value }));
     console.log(`입력값 변경 - ${name}: ${value}`);
-  };
+  }, []);
 
-  // 수정 버튼 클릭
-  const handleCorrectionClick = () => {
-    setIsEditing(true);   // 수정모드 활성화
+  const handleCorrectionClick = useCallback(() => {
+    setIsEditing(true);
     console.log('수정 모드 활성화');
-  };
+  }, []);
 
-  // 확인 버튼 클릭 (회원 정보 수정)
-  const handleSubmitClick = async () => {
+  const handleSubmitClick = useCallback(async () => {
     try {
       const response = await axios.put("http://localhost:4000/user/mypage/edit", userData, { withCredentials: true });
       if (response.status === 200) {
@@ -67,33 +66,31 @@ const MyPage = () => {
       console.error('회원정보 수정 중 오류 발생:', error);
       alert('회원정보 수정 도중 오류 발생');
     }
-  };
-  
-  // 회원 탈퇴 버튼 클릭
-  const handleDeleteClick = async () => {
-    const myUser = sessionStorage.getItem('user'); // 세션에서 유저 정보를 다시 가져옴
+  }, [userData]);
+
+  const handleDeleteClick = useCallback(async () => {
+    const myUser = sessionStorage.getItem('user');
     const confirmDelete = window.confirm('정말로 회원 탈퇴를 하시겠습니까?');
     if (!confirmDelete) return;
 
     try {
-      // 백엔드 서버(4000)로 요청 보내서 사용자 데이터 삭제
       console.log('회원 탈퇴 요청 전송:', myUser);
-      const response = await axios.delete(`http://localhost:4000/user/mypage/delete`, { data: { user: myUser }, withCredentials: true });
+      const response = await axios.delete(`http://localhost:4000/user/mypage/delete`, 
+        { data: { user: myUser }, withCredentials: true });
       console.log('서버 응답 데이터:', response.data);
       if (response.status === 200) {
         alert('회원 탈퇴가 성공적으로 완료되었습니다.');
-        console.log('회원 탈퇴 응답:', response.data);
-        sessionStorage.clear(); // 세션에서 모든 항목 삭제
-        window.location.href = "/login"  // 탈퇴 후 로그인 페이지로 이동
+        sessionStorage.clear();
+        window.location.href = "/login";
       } else {
         alert('회원 탈퇴 실패');
         console.error('회원 탈퇴 실패:', response);
       }
     } catch (error) {
-      console.error('회원 탈퇴 중 오류 발생~~~~~~~:', error);
+      console.error('회원 탈퇴 중 오류 발생:', error);
       alert('회원 탈퇴 도중 오류 발생');
     }
-  };
+  }, []);
 
   return (
     <div className="mypage-container">
@@ -104,7 +101,7 @@ const MyPage = () => {
 
       <div className="mypage-id-container">
         <div className="mypage-picture-circle">
-        <img src="/static/img/animal_hamster.png" alt="프로필 이미지" className="mypage-picture" />
+          <img src="/static/img/animal_hamster.png" alt="프로필 이미지" className="mypage-picture" />
         </div>
         <div className="mypage-id-info">
           <div className="mypage-id">ID</div>
