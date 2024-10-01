@@ -180,6 +180,24 @@ const DetailPage = ({ result }) => {
     }
   };
 
+  // 좋아요/싫어요 기능
+const handleLike = async (comment_id) => {
+  try {
+      await axios.post('/api/reactions/like', { comment_id, user_id });
+      // 좋아요 취소할 때는 별도의 함수로 호출
+  } catch (error) {
+      console.error(error.response.data.message);
+  }
+};
+
+const handleDislike = async (comment_id) => {
+  try {
+      await axios.post('/api/reactions/dislike', { comment_id, user_id });
+  } catch (error) {
+      console.error(error.response.data.message);
+  }
+};
+
   // 북마크 토글 함수
   const toggleBookmark = async () => {
     const fdid = result.food_idx; // 반환된 결과에서 food_idx를 가져옴
@@ -292,6 +310,20 @@ const DetailPage = ({ result }) => {
                     </div>
                   ) : (
                     <div className="comment-actions">
+                      <button
+                  className={`like-button ${comment.like_status ? 'active' : ''}`}
+                  onClick={() => handleLike(comment.id)}
+                  disabled={comment.like_status}
+                >
+                  👍 {comment.like_count}
+                </button>
+                <button
+                  className={`dislike-button ${comment.dislike_status ? 'active' : ''}`}
+                  onClick={() => handleDislike(comment.id)}
+                  disabled={comment.dislike_status}
+                >
+                  👎 {comment.dislike_count}
+                </button>
                       <button onClick={() => {
                         setEditingComment(comment.id);
                         setEditingText('');

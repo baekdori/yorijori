@@ -97,6 +97,11 @@ const cmRouter = require('./routes/cmRouter');
 app.use('/comts/comtsmodify', cmRouter);  // '/comts/comtsmodify' 경로에서 댓글 수정 처리
 console.log('댓글 수정 라우터 연결: /comts/comtsmodify');
 
+// 댓글 좋아요/싫어요 라우터 (종호)
+const crRouter = require('./routes/crRouter');
+app.use('/reactions', crRouter);  // '/reactions' 경로에서 댓글 좋아요/싫어요 처리
+console.log('댓글 좋아요/싫어요 라우터 연결: /reactions');
+
 // 추천 라우터(지훈)
 const recommendRouter = require('./routes/recommend'); 
 app.use('/random-food-idx', recommendRouter);  // '/random-food-idx' 경로에서 음식 추천 처리

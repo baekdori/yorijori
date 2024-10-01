@@ -1,11 +1,9 @@
+// SignupRouter.js
 const express = require('express');
 const router = express.Router();
 const user = require('../model/user');  // 사용자 모델 불러오기
-
 const bcrypt = require('bcrypt');  // npm install bcrypt 설치 필요
 const saltRounds = 10; // 비밀번호 해싱을 위한 솔트 라운드 수 (해싱 알고리즘의 복잡성 결정)
-
-
 
 // 회원가입 요청을 처리하고 사용자 정보를 DB에 저장
 router.post('/', async (req, res) => {

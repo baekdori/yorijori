@@ -76,6 +76,38 @@ const comts = {
     
                 return callback(null, rowsToReturn);
             });
+        },
+
+        // 6. 좋아요 상태 확인
+        checkReaction: (comment_id, user_id, callback) => {
+            const sql = `SELECT like_status, dislike_status FROM Reactions WHERE comment_id = ? AND user_id = ?`;
+            conn.query(sql, [comment_id, user_id], callback);
+        },
+
+        // 7. 좋아요 추가
+        likeComment: (comment_id, user_id, callback) => {
+            const sql = `INSERT INTO Reactions (comment_id, user_id, like_status, dislike_status) VALUES (?, ?, 1, 0)
+                        ON DUPLICATE KEY UPDATE like_status = 1, dislike_status = 0`;
+            conn.query(sql, [comment_id, user_id], callback);
+        },
+
+        // 8. 싫어요 추가
+        dislikeComment: (comment_id, user_id, callback) => {
+            const sql = `INSERT INTO Reactions (comment_id, user_id, like_status, dislike_status) VALUES (?, ?, 0, 1)
+                        ON DUPLICATE KEY UPDATE dislike_status = 1, like_status = 0`;
+            conn.query(sql, [comment_id, user_id], callback);
+        },
+
+        // 9. 좋아요 취소
+        cancelLike: (comment_id, user_id, callback) => {
+            const sql = `UPDATE Reactions SET like_status = 0 WHERE comment_id = ? AND user_id = ?`;
+            conn.query(sql, [comment_id, user_id], callback);
+        },
+
+        // 10. 싫어요 취소
+        cancelDislike: (comment_id, user_id, callback) => {
+            const sql = `UPDATE Reactions SET dislike_status = 0 WHERE comment_id = ? AND user_id = ?`;
+            conn.query(sql, [comment_id, user_id], callback);
         }
     };
 
