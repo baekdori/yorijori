@@ -2,6 +2,7 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
+import VoronoiPage from './pages/VoronoiPage/VoronoiPage';
 
 const MainPage = lazy(() => import('./pages/MainPage/MainPage'));
 const SignupPage = lazy(() => import('./pages/SignupPage/SignupPage'));
@@ -49,6 +50,7 @@ function App() {
             <Route path="/favorites" element={<FavoritePage setFavtodetailResult={setFavtodetailResult} />} />
             <Route path="/DetailPage/:food_idx" element={<DetailPage result={getDetailResult()} />} />
             <Route path="/RecipeAddPage" element={<RecipeAddPage />} />
+            <Route path="/voronoi" element={<VoronoiPage/>} />
           </Routes>
         </Suspense>
       </div>

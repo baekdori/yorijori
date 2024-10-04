@@ -92,6 +92,10 @@ const MyPage = () => {
     }
   }, []);
 
+  const handleClickEasterEgg = () => {
+    navigate('/voronoi');
+  }
+
   return (
     <div className="mypage-container">
       <TopBar />
@@ -145,10 +149,11 @@ const MyPage = () => {
         readOnly={!isEditing}
         style={{ userSelect: isEditing ? 'auto' : 'none' }}
       />
-
+     <button className='easter-egg' onClick={handleClickEasterEgg}>이스터에그</button>
       <button className="mypage-delete-account-btn" onClick={handleDeleteClick}>
         회원 탈퇴
       </button>
+ 
 
       <BottomBar />
 
